@@ -1,2 +1,1 @@
-ccid: shunyu2
-github username: Namaarie
+ccid: shunyu2, github username: Namaarie
