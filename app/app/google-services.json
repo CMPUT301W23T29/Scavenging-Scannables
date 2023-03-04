@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "102133561713",
+    "project_id": "scavenging-scannables",
+    "storage_bucket": "scavenging-scannables.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:102133561713:android:b570e679ce18e46f1aded0",
+        "android_client_info": {
+          "package_name": "com.example.scavengingscannables"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "102133561713-86f5oc3ri3bppv6tu3g2voh4njprhq1d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCkkOZjuTMb-zUYCR7dHZs8F34ByMWO2C8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "102133561713-86f5oc3ri3bppv6tu3g2voh4njprhq1d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
