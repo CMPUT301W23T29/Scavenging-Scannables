@@ -1,15 +1,18 @@
 package com.example.scavengingscannables.ui.notifications;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.scavengingscannables.QrCode;
 import com.example.scavengingscannables.R;
+
+import java.util.ArrayList;
 
 public class QrCodesActivity extends AppCompatActivity {
     Button backButton;
@@ -24,6 +27,21 @@ public class QrCodesActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+
+        ArrayList<QrCode> arrayList = new ArrayList<QrCode>();
+        arrayList.add(new QrCode(R.drawable.ic_home_black_24dp, "pp","1","1"));
+        arrayList.add(new QrCode(R.drawable.ic_home_black_24dp, "cc", "Two","1"));
+        arrayList.add(new QrCode(R.drawable.ic_home_black_24dp, "3", "Three","1"));
+        arrayList.add(new QrCode(R.drawable.ic_home_black_24dp, "4", "Four","1"));
+
+        QrCustomerArrayAdapter QrAdapter = new QrCustomerArrayAdapter(this, arrayList);
+
+        ListView qrCodesListView = findViewById(R.id.qrcode_list);
+
+        qrCodesListView.setAdapter(QrAdapter);
+
+
 
 
 
