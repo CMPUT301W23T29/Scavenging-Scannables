@@ -5,20 +5,88 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.notifications.NotificationsFragment">
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="The sum of scores: "
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/sum_of_scores"
+            android:layout_width="150dp"
+            android:layout_height="30dp"
+            android:text="0"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginLeft="-326dp"
+            android:layout_marginTop="30dp"
+            android:text="The total number of QR codes: "
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/total_number_QR"
+            android:layout_width="70dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="30dp"
+            android:text="0"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+        <TextView
+            android:layout_width="205dp"
+            android:layout_height="30dp"
+            android:text="The highest scoring QR codes"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:layout_width="205dp"
+            android:layout_height="30dp"
+            android:text="The lowest scoring QR codes"
+            android:textColor="@color/black" />
+
+        <ImageView
+            android:layout_width="205dp"
+            android:layout_height="270dp"
+            android:layout_marginLeft="-410dp"
+            android:layout_marginTop="30dp" />
+
+        <ImageView
+            android:layout_width="205dp"
+            android:layout_height="270dp"
+            android:layout_marginTop="30dp" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/text_notifications"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:textAlignment="center"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
     <Button
         android:id="@+id/ViewQrCodes"
