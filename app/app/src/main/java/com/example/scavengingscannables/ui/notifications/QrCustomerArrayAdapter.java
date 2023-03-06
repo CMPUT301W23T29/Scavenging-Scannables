@@ -37,6 +37,7 @@ public class QrCustomerArrayAdapter extends ArrayAdapter<QrCode>{
 
         if (currentItemView == null) {
             currentItemView = LayoutInflater.from(getContext()).inflate(R.layout.qrcode, parent, false);
+
         }
         QrCode qrcode = qrCodes.get(position);
 
@@ -47,6 +48,26 @@ public class QrCustomerArrayAdapter extends ArrayAdapter<QrCode>{
 
         TextView name = currentItemView.findViewById(R.id.codeName);
         name.setText(qrcode.getQrName());
+
+        TextView score = currentItemView.findViewById(R.id.codeScore);
+        score.setText(qrcode.getScore());
+
+        TextView comment = currentItemView.findViewById(R.id.comment);
+        TextView others = currentItemView.findViewById(R.id.others);
+
+        comment.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                System.out.println("Comment Clicked");
+                //TODO
+            }
+        });
+
+        others.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                System.out.println("others Clicked");
+                //TODO
+            }
+        });
 
         // then return the recyclable view
         return currentItemView;

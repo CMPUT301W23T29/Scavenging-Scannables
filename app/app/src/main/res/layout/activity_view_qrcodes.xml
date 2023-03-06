@@ -22,10 +22,10 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/button_add"
+            android:id="@+id/button_delete"
             android:layout_width="180dp"
             android:layout_height="wrap_content"
-            android:text="Delete Qrcode" />
+            android:text="Delete" />
 
         <Button
             android:id="@+id/button_back"
