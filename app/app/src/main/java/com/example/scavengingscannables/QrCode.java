@@ -28,6 +28,8 @@ public class QrCode {
         location = qrLocation;
     }
 
+    public QrCode(){}
+
     public int getQrId() {
         return qrId;
     }
@@ -45,4 +47,15 @@ public class QrCode {
         return location;
     }
 
+    public String getNameText() {
+        return nameText;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public String getOthers() {
+        return others;
+    }
 }

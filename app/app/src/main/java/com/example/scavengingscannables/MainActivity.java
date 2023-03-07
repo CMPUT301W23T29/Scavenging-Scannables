@@ -1,6 +1,8 @@
 package com.example.scavengingscannables;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
