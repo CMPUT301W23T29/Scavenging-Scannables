@@ -4,4 +4,5 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">MyProfile</string>
     <string name="title_view_codes">View Qr Codes</string>
+    <string name="title_sign_up">Welcome to Scavenging Scannables</string>
 </resources>
