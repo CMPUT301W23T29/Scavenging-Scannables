@@ -7,6 +7,14 @@ android {
     namespace 'com.example.scavengingscannables'
     compileSdk 33
 
+    task wrapper(type: Wrapper){
+        gradleVersion = '7.2'
+    }
+
+    task prepareKotlinBuildScriptModel {
+
+    }
+
     defaultConfig {
         applicationId "com.example.scavengingscannables"
         minSdk 24
@@ -36,6 +44,16 @@ android {
             useJUnitPlatform()
         }
     }
+
+    allprojects {
+
+        repositories {
+
+            maven { url 'https://jitpack.io' }
+        }
+    }
+
+
 }
 
 dependencies {
@@ -55,3 +73,4 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore'
     implementation 'com.google.code.gson:gson:2.10.1'
 }
+
