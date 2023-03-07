@@ -18,6 +18,8 @@ public class QrCode {
         others = Others;
     }
 
+    public QrCode(){}
+
     public int getQrId() {
         return qrId;
     }
@@ -28,4 +30,15 @@ public class QrCode {
         return "Name: "+nameText;
     }
 
+    public String getNameText() {
+        return nameText;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public String getOthers() {
+        return others;
+    }
 }
