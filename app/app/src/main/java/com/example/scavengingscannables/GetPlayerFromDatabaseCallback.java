@@ -1,5 +1,5 @@
 package com.example.scavengingscannables;
 
-public interface ReturnPlayerFromDatabase {
+public interface GetPlayerFromDatabaseCallback {
     void returnPlayer(Player player);
 }

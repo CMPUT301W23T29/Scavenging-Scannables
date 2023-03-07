@@ -4,8 +4,11 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.gson.Gson;
@@ -15,12 +18,16 @@ public class FirestoreDatabaseController{
     private FirebaseFirestore db = FirebaseFirestore.getInstance();;
     private String QrCodeCollectionName = "QRCodes";
     private String PlayersCollectionName = "Players";
-    static private boolean userExists;
 
-    // DOES NOT CURRENTLY WORK
-    public QrCode GetQRCodeByID(Integer id){
-        QrCode qrCode = new QrCode();
-        return qrCode;
+    public void GetQRCodeByID(Integer id, GetQRCodeFromDatabaseCallback callback){
+        String idString = String.valueOf(id);
+        db.collection(QrCodeCollectionName).document(idString).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                QrCode qrCode = documentSnapshot.toObject(QrCode.class);
+                callback.returnQRCode(qrCode);
+            }
+        });
     }
 
     public void SaveQRCodeByID(QrCode qrcode){
@@ -43,21 +50,18 @@ public class FirestoreDatabaseController{
           });
     }
 
-    // DOES NOT CURRENTLY WORK
-    public void GetPlayerByUsername(String username, ReturnPlayerFromDatabase callback){
-        Log.d("LOG", username);
-        db.collection(QrCodeCollectionName).document(username).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+    public void GetPlayerByUsername(String username, GetPlayerFromDatabaseCallback callback){
+        db.collection(PlayersCollectionName).document(username).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                Log.d("LOG", documentSnapshot.getData().toString());
                 Player player = documentSnapshot.toObject(Player.class);
-                Log.d("LOG", String.valueOf(player));
                 callback.returnPlayer(player);
             }
         });
     }
 
-    public void SavePlayerByUsername(Player player){
+    // need to figure out a way to prevent duplicate logins?
+    public void SavePlayerByUsername(Player player) {
         String playerUsername = player.getUsername();
 
         db.collection(PlayersCollectionName)
@@ -66,20 +70,15 @@ public class FirestoreDatabaseController{
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
-                        Log.d("LOG", "successfully saved " + playerUsername);
+                        Log.d("LOG", "successfully saved" + playerUsername);
                     }
+
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.d("LOG", "coudl not save " + playerUsername);
+                        Log.d("LOG", "could not save" + playerUsername);
                     }
                 });
-    }
-
-    // DOES NOT CURRENTLY WORK
-    // REQUIRES GetPlayerByUsername TO PROPERLY WORK
-    public boolean CheckIfAccountExistsByUsername(String username){
-        return false;
     }
 }
