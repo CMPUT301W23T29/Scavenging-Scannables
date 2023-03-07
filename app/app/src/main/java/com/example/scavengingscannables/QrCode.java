@@ -51,11 +51,7 @@ public class QrCode {
         return nameText;
     }
 
-    public String getComment() {
-        return comment;
-    }
+    //public String getComment() {return comment;}
 
-    public String getOthers() {
-        return others;
-    }
+    //public String getOthers() {return others;}
 }
