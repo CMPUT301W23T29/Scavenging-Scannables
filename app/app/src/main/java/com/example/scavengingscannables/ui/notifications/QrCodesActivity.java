@@ -35,6 +35,10 @@ public class QrCodesActivity extends AppCompatActivity {
     Button backButton;
     Button deleteButton;
     Boolean deleteState;
+
+
+    //public void AddQrCode(QrCode qrCode) {}
+
     HashMap<String,String> testComments=new HashMap<String,String>();
     ArrayList<String> testOwnedBy = new ArrayList<String>();
     ArrayList<Double> testLocation = new ArrayList<Double>();
@@ -79,23 +83,41 @@ public class QrCodesActivity extends AppCompatActivity {
 
 
 
-
-        //collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
-            //@Override
-            //public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable
-           // FirebaseFirestoreException error) {
-                //arrayList.clear();
-                //for(QueryDocumentSnapshot doc: queryDocumentSnapshots)
-               // {
-                    //Log.d(TAG, String.valueOf(doc.getData().get(" Name")));
-                    //Integer imageId = doc.getId().
-                   // String city = doc.getId();
-                   // String province = (String) doc.getData().get("Province Name");
-                   // arrayList.add(new QrCode(imageId,)); // Adding the cities and provinces from FireStore
-                //}
-                //QrAdapter.notifyDataSetChanged();
+        //for (QrCode qrCode : arrayList){
+            //final String qrName = qrCode.getQrName();
+            //final String qrScore = qrCode.getScore();
+            //final HashMap<String,String> qrComments = qrCode.getComments();
+            //final ArrayList<Double> qrLocation= qrCode.getLocation();
+            //final ArrayList<String> qrOwnedBy = qrCode.getOwnedBy();
+            //final Integer qrId = qrCode.getQrId();
+           // HashMap<String,> data = new HashMap<>();
+           // if (qrName.length() > 0) {
+                //data.put("Province Name", qrName);
+                //data.put("Province Name", qrScore);
+                //data.put("Province Name", qrOwnedBy);
+                //data.put("Province Name", qrId);
+                //data.put("Province Name", qrComments);
+                //data.put("Province Name", qrLocation);
+                //collectionReference
+                        //.document(qrName)
+                        //.set(data)
+                       // .addOnSuccessListener(new OnSuccessListener<Void>() {
+                           // @Override
+                           // public void onSuccess(Void aVoid) {
+                                // These are a method which gets executed when the task is succeeded
+                               // Log.d(TAG, "Data has been added successfully!");
+                            //}
+                        //})
+                        //.addOnFailureListener(new OnFailureListener() {
+                            //@Override
+                            //public void onFailure(@NonNull Exception e) {
+                                // These are a method which gets executed if there’s any problem
+                                //Log.d(TAG, "Data could not be added!" + e.toString());
+                           // }
+                        //});
            // }
-       // });
+
+
 
         deleteButton = findViewById(R.id.button_delete);
         deleteButton.setOnClickListener(new View.OnClickListener() {
