@@ -47,14 +47,16 @@ public class QrCustomerArrayAdapter extends ArrayAdapter<QrCode>{
 
 
         TextView name = currentItemView.findViewById(R.id.codeName);
-        name.setText(qrcode.getQrName());
+        name.setText("Name: "+qrcode.getQrName());
 
         TextView score = currentItemView.findViewById(R.id.codeScore);
-        score.setText(qrcode.getScore());
+        score.setText("Score: "+qrcode.getScore());
 
         TextView comment = currentItemView.findViewById(R.id.comment);
         TextView others = currentItemView.findViewById(R.id.others);
 
+
+        //Click comment to see comment of others
         comment.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 System.out.println("Comment Clicked");
@@ -62,6 +64,7 @@ public class QrCustomerArrayAdapter extends ArrayAdapter<QrCode>{
             }
         });
 
+        //Click others to see who also add this qrcode
         others.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 System.out.println("others Clicked");

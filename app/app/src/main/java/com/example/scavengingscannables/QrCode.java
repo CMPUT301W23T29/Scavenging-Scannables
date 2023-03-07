@@ -32,10 +32,10 @@ public class QrCode {
         return qrId;
     }
     public String getScore() {
-        return "Score: "+score;
+        return score;
     }
     public String getQrName() {
-        return "Name: "+nameText;
+        return nameText;
     }
 
     public HashMap<String,String> getComments(){return comments;}
