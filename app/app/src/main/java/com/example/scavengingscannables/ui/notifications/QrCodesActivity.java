@@ -35,6 +35,9 @@ public class QrCodesActivity extends AppCompatActivity {
     Button backButton;
     Button deleteButton;
     Boolean deleteState;
+    HashMap<String,String> testComments=new HashMap<String,String>();
+    ArrayList<String> testOwnedBy = new ArrayList<String>();
+    ArrayList<Double> testLocation = new ArrayList<Double>();
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -53,12 +56,19 @@ public class QrCodesActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         final CollectionReference collectionReference = db.collection("QrCodes");
 
+        testComments.put("user1","good");
+        testComments.put("user2","oh");
+        testOwnedBy.add("user2");
+        testOwnedBy.add("user1");
+        testLocation.add(222.22);
+        testLocation.add(111.22);
+
 
         ArrayList<QrCode> arrayList = new ArrayList<QrCode>();
-        arrayList.add(new QrCode(R.drawable.ic_home_black_24dp, "pp","1","1","1"));
-        arrayList.add(new QrCode(R.drawable.ic_home_black_24dp, "cc", "1","Two","1"));
-        arrayList.add(new QrCode(R.drawable.ic_home_black_24dp, "3","1", "Three","1"));
-        arrayList.add(new QrCode(R.drawable.ic_home_black_24dp, "4","1", "Four","1"));
+        arrayList.add(new QrCode(R.drawable.ic_home_black_24dp, "pp","1",testComments,testOwnedBy,testLocation));
+        arrayList.add(new QrCode(R.drawable.ic_home_black_24dp, "cc", "1",testComments,testOwnedBy,testLocation));
+        arrayList.add(new QrCode(R.drawable.ic_home_black_24dp, "3","1", testComments,testOwnedBy,testLocation));
+        arrayList.add(new QrCode(R.drawable.ic_home_black_24dp, "4","1", testComments,testOwnedBy,testLocation));
 
         QrCustomerArrayAdapter QrAdapter = new QrCustomerArrayAdapter(this, arrayList);
 
