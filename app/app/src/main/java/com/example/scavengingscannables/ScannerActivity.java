@@ -34,7 +34,6 @@ public class ScannerActivity extends AppCompatActivity {
         });
         scannerView.setOnClickListener(new View.OnClickListener() {
             @Override
-//            Toast.makeText(this, "hello", Toast.LENGTH_SHORT).show();
             public void onClick(View view) {
                 mCodeScanner.startPreview();
             }
