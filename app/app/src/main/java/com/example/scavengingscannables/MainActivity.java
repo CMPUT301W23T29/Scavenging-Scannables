@@ -51,18 +51,13 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
-
         FloatingActionButton fab = findViewById(R.id.fab);
 
-//        fab.setOnClickListener(v -> {
-//            new ScannerFragment();
-//            Intent intent = new Intent(this, ScannerActivity.class);
-//            startActivity(intent);
-//        });
-
+        // Attach QR scanner activity to FloatingActionButton
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Check for camera permission. If it has been granted, show confirmation. If not, request permission for it
                 if (ContextCompat.checkSelfPermission(MainActivity.this,
                         Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                     Toast.makeText(MainActivity.this, "You have already granted this permission!",
@@ -74,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    // Function to request camera permission from user
         private void requestCameraPermission() {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
                 new AlertDialog.Builder(this)
@@ -97,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+        // This is more of the camera permissions code. We'll make this comment more descriptive later.
         @Override
         public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
             if (requestCode == CAMERA_PERMISSION_CODE) {
