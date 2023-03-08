@@ -18,7 +18,7 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 
 import javax.annotation.Nullable;
 
-class Scans extends Fragment {
+class ScannerFragment extends Fragment {
     private CodeScanner mCodeScanner;
 
     @Nullable
