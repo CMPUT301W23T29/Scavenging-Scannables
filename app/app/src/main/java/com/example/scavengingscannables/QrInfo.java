@@ -18,7 +18,6 @@ public class QrInfo {
         }
         else {
             visualization.concat("2ndOptionB\n");
-
         }
         if (hashOfQRID << 4 == 0) {
             visualization.concat("3rdOptionA\n");
@@ -31,21 +30,18 @@ public class QrInfo {
         }
         else {
             visualization.concat("4ndOptionB\n");
-
         }
         if (hashOfQRID << 2 == 0) {
             visualization.concat("5thOptionA\n");
         }
         else {
             visualization.concat("5thOptionB\n");
-
         }
         if (hashOfQRID << 1 == 0) {
             visualization.concat("6thOptionA\n");
         }
         else {
             visualization.concat("6thOptionB\n");
-
         }
         return visualization;
     }
