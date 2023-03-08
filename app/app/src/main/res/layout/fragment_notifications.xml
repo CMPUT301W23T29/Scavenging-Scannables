@@ -47,7 +47,7 @@
                 android:id="@+id/total_score"
                 android:layout_width="205dp"
                 android:layout_height="100dp"
-                android:text="00000"
+                android:text="0"
                 android:textColor="@color/black"
                 android:textSize="60dp"
                 android:gravity="center"/>
@@ -69,7 +69,7 @@
                 android:id="@+id/highest_score"
                 android:layout_width="205dp"
                 android:layout_height="100dp"
-                android:text="00000"
+                android:text="0"
                 android:textColor="@color/black"
                 android:textSize="60dp"
                 android:gravity="center"/>
@@ -93,7 +93,7 @@
                 android:id="@+id/codes_scanned"
                 android:layout_width="205dp"
                 android:layout_height="100dp"
-                android:text="00000"
+                android:text="0"
                 android:textColor="@color/black"
                 android:textSize="60dp"
                 android:gravity="center"/>
@@ -116,7 +116,7 @@
                 android:id="@+id/lowest_score"
                 android:layout_width="205dp"
                 android:layout_height="100dp"
-                android:text="00000"
+                android:text="0"
                 android:textColor="@color/black"
                 android:textSize="60dp"
                 android:gravity="center"/>
