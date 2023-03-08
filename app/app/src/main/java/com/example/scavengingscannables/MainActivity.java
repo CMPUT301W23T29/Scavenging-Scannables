@@ -13,6 +13,8 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.scavengingscannables.databinding.ActivityMainBinding;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
@@ -23,6 +25,26 @@ public class MainActivity extends AppCompatActivity {
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+
+        // tests getting data from database
+        FirestoreDatabaseController dbc = new FirestoreDatabaseController();
+        dbc.GetPlayerByUsername("test", new FirestoreDatabaseCallback() {
+            @Override
+            public <T> void OnDataCallback(T data) {
+                Player p = (Player)data;
+                Log.d("LOG", p.getEmail());
+            }
+        });
+
+        // tests getting all usernames
+        dbc.GetAllUsernames(new FirestoreDatabaseCallback() {
+            @Override
+            public <T> void OnDataCallback(T data) {
+                ArrayList<String> usernames = (ArrayList<String>) data;
+                Log.d("LOG", String.valueOf(usernames));
+            }
+        });
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
