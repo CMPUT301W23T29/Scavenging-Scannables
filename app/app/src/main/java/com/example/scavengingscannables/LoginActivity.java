@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -64,18 +65,31 @@ public class LoginActivity extends AppCompatActivity {
                 FirestoreDatabaseController dbc = new FirestoreDatabaseController();
                 // checks if inputs are valid
                 if (!username.matches("") && !firstName.matches("") && !lastName.matches("") && !email.matches("") && phoneNumber != -1L){
-                    // create new user and save to database
-                    Player newPlayer = new Player(username, firstName, lastName, phoneNumber, email);
-                    dbc.SavePlayerByUsername(newPlayer);
+                    // only allows creating if username does not exist in databse
+                    Long finalPhoneNumber = phoneNumber;
+                    dbc.CheckUsernameExists(username, new FirestoreDatabaseCallback() {
+                        @Override
+                        public void OnDocumentExists() {
+                            Toast.makeText(LoginActivity.this, username + " already exists!", Toast.LENGTH_SHORT).show();
+                        }
 
-                    SharedPreferences.Editor editor = sharedPref.edit();
-                    editor.putBoolean("hasAccount", true);
-                    editor.putString("username", username);
-                    editor.apply();
+                        @Override
+                        public void OnDocumentDoesNotExist() {
+                            // create new user and save to database
+                            Player newPlayer = new Player(username, firstName, lastName, finalPhoneNumber, email);
+                            dbc.SavePlayerByUsername(newPlayer);
 
-                    // swap to main activity (home page)
-                    Intent newIntent = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(newIntent);
+                            SharedPreferences.Editor editor = sharedPref.edit();
+                            editor.putBoolean("hasAccount", true);
+                            editor.putString("username", username);
+                            editor.apply();
+
+                            Toast.makeText(LoginActivity.this, "Welcome to Scavenging Scannables, " + username + "!", Toast.LENGTH_SHORT).show();
+                            // swap to main activity (home page)
+                            Intent newIntent = new Intent(LoginActivity.this, MainActivity.class);
+                            startActivity(newIntent);
+                        }
+                    });
                 }
             }
         });

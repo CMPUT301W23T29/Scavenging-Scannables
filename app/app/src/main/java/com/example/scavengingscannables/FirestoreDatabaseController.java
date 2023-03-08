@@ -11,7 +11,13 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.gson.Gson;
+
+import org.checkerframework.checker.units.qual.A;
+
+import java.util.ArrayList;
 
 public class FirestoreDatabaseController{
     private Gson gson = new Gson();
@@ -19,13 +25,13 @@ public class FirestoreDatabaseController{
     private String QrCodeCollectionName = "QRCodes";
     private String PlayersCollectionName = "Players";
 
-    public void GetQRCodeByID(Integer id, GetQRCodeFromDatabaseCallback callback){
+    public void GetQRCodeByID(Integer id, FirestoreDatabaseCallback callback){
         String idString = String.valueOf(id);
         db.collection(QrCodeCollectionName).document(idString).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 QrCode qrCode = documentSnapshot.toObject(QrCode.class);
-                callback.returnQRCode(qrCode);
+                callback.OnDataCallback(qrCode);
             }
         });
     }
@@ -50,17 +56,31 @@ public class FirestoreDatabaseController{
           });
     }
 
-    public void GetPlayerByUsername(String username, GetPlayerFromDatabaseCallback callback){
+    public void GetPlayerByUsername(String username, FirestoreDatabaseCallback callback){
         db.collection(PlayersCollectionName).document(username).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 Player player = documentSnapshot.toObject(Player.class);
-                callback.returnPlayer(player);
+                callback.OnDataCallback(player);
             }
         });
     }
 
-    // need to figure out a way to prevent duplicate logins?
+    public void GetAllUsernames(FirestoreDatabaseCallback callback){
+        db.collection(PlayersCollectionName).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                ArrayList<String> usernames = new ArrayList<>();
+                if (task.isSuccessful()){
+                    for (QueryDocumentSnapshot document : task.getResult()){
+                        usernames.add(document.getId());
+                    }
+                    callback.OnDataCallback(usernames);
+                }
+            }
+        });
+    }
+
     public void SavePlayerByUsername(Player player) {
         String playerUsername = player.getUsername();
 
@@ -80,5 +100,32 @@ public class FirestoreDatabaseController{
                         Log.d("LOG", "could not save" + playerUsername);
                     }
                 });
+    }
+
+    public void CheckUsernameExists(String username, FirestoreDatabaseCallback callback){
+        db.collection(PlayersCollectionName).document(username).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (documentSnapshot.exists()){
+                    callback.OnDocumentExists();
+                }else{
+                    callback.OnDocumentDoesNotExist();
+                }
+            }
+        });
+    }
+
+    public void CheckQRIDExists(Integer id, FirestoreDatabaseCallback callback){
+        String idString = String.valueOf(id);
+        db.collection(QrCodeCollectionName).document(idString).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (documentSnapshot.exists()){
+                    callback.OnDocumentExists();
+                }else{
+                    callback.OnDocumentDoesNotExist();
+                }
+            }
+        });
     }
 }
