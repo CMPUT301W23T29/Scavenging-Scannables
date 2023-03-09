@@ -43,7 +43,6 @@ public class FindUserActivity extends AppCompatActivity {
     private String target;
     FirestoreDatabaseController dbc = new FirestoreDatabaseController();
     ArrayList<String> allusername;
-    ArrayList<String> empty;
     ArrayList<String> output = new ArrayList<>();
 
     @Override
@@ -77,6 +76,7 @@ public class FindUserActivity extends AppCompatActivity {
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                         target = output.get(i);
                         Intent intent = new Intent(FindUserActivity.this, DisplaySearch.class);
+                        intent.putExtra("user",target);
                         startActivity(intent);
                     }
                 });
