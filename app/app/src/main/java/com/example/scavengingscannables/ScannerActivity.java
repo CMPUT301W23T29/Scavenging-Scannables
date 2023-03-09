@@ -24,6 +24,7 @@ import java.util.HashMap;
 public class ScannerActivity extends AppCompatActivity {
     private CodeScanner mCodeScanner;
     private FirestoreDatabaseController fdc = new FirestoreDatabaseController();
+    private ScoringSystem scrsys = new ScoringSystem();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,11 +45,11 @@ public class ScannerActivity extends AppCompatActivity {
                                 .toString();
 
                         Toast.makeText(ScannerActivity.this, sha256hex,Toast.LENGTH_SHORT).show();
-
+                        int score = scrsys.generateScore("aaaab1234j");
                         HashMap<String, String> DemoComments = new HashMap<String, String>();
                         ArrayList<String> DemoOwnedBy = new ArrayList<>();
                         ArrayList<Double> demoqrLocation = new ArrayList<>();
-                        QrCode newCode = new QrCode(123456, "DemoNameText", sha256hex, DemoComments, DemoOwnedBy, demoqrLocation);
+                        QrCode newCode = new QrCode(1234567, Integer.toString(score), sha256hex, DemoComments, DemoOwnedBy, demoqrLocation);
 
                         fdc.SaveQRCodeByID(newCode);
 
