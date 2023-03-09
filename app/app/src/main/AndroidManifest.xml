@@ -35,6 +35,11 @@
 
             android:label="@string/app_name">
         </activity>
+        <activity
+            android:name=".ui.home.OthersQrCodesActivity"
+
+            android:label="@string/app_name">
+        </activity>
         <activity android:name=".ScannerActivity"></activity>
 
     </application>
