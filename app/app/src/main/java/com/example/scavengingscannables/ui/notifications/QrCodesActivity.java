@@ -4,7 +4,6 @@ package com.example.scavengingscannables.ui.notifications;
 import static android.content.ContentValues.TAG;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,9 +14,6 @@ import android.widget.ListView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.scavengingscannables.FirestoreDatabaseCallback;
-import com.example.scavengingscannables.FirestoreDatabaseController;
-import com.example.scavengingscannables.MainActivity;
 import com.example.scavengingscannables.QrCode;
 import com.example.scavengingscannables.R;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -28,7 +24,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.gson.Gson;
 
 import java.security.KeyStore;
 import java.util.ArrayList;
@@ -39,25 +34,23 @@ import javax.annotation.Nullable;
 public class QrCodesActivity extends AppCompatActivity {
     Button backButton;
     Button deleteButton;
-    Boolean deleteState = false;
-    ArrayList<QrCode> qrCodes;
-    String username;
-    FirebaseFirestore db;
-    ListView qrCodesListView;
-    QrCustomerArrayAdapter QrAdapter;
+    Boolean deleteState;
+
+
+    //public void AddQrCode(QrCode qrCode) {}
+
+    HashMap<String,String> testComments=new HashMap<String,String>();
+    ArrayList<String> testOwnedBy = new ArrayList<String>();
+    ArrayList<Double> testLocation = new ArrayList<Double>();
 
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        deleteState = false;
+        FirebaseFirestore db;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_qrcodes);
-        Intent intent = getIntent();
-        username = intent.getStringExtra("username");
-
         backButton = findViewById(R.id.button_back);
-        QrAdapter = new QrCustomerArrayAdapter(this);
-        qrCodesListView = findViewById(R.id.qrcode_list);
-        qrCodesListView.setAdapter(QrAdapter);
         backButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 finish();
@@ -66,6 +59,65 @@ public class QrCodesActivity extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
         final CollectionReference collectionReference = db.collection("QrCodes");
+
+        testComments.put("user1","good");
+        testComments.put("user2","oh");
+        testOwnedBy.add("user2");
+        testOwnedBy.add("user1");
+        testLocation.add(222.22);
+        testLocation.add(111.22);
+
+
+        ArrayList<QrCode> arrayList = new ArrayList<QrCode>();
+        arrayList.add(new QrCode(R.drawable.ic_home_black_24dp, "pp","1",testComments,testOwnedBy,testLocation));
+        arrayList.add(new QrCode(R.drawable.ic_home_black_24dp, "cc", "1",testComments,testOwnedBy,testLocation));
+        arrayList.add(new QrCode(R.drawable.ic_home_black_24dp, "3","1", testComments,testOwnedBy,testLocation));
+        arrayList.add(new QrCode(R.drawable.ic_home_black_24dp, "4","1", testComments,testOwnedBy,testLocation));
+
+        QrCustomerArrayAdapter QrAdapter = new QrCustomerArrayAdapter(this, arrayList);
+
+        ListView qrCodesListView = findViewById(R.id.qrcode_list);
+
+        qrCodesListView.setAdapter(QrAdapter);
+
+
+
+
+        //for (QrCode qrCode : arrayList){
+            //final String qrName = qrCode.getQrName();
+            //final String qrScore = qrCode.getScore();
+            //final HashMap<String,String> qrComments = qrCode.getComments();
+            //final ArrayList<Double> qrLocation= qrCode.getLocation();
+            //final ArrayList<String> qrOwnedBy = qrCode.getOwnedBy();
+            //final Integer qrId = qrCode.getQrId();
+           // HashMap<String,> data = new HashMap<>();
+           // if (qrName.length() > 0) {
+                //data.put("Province Name", qrName);
+                //data.put("Province Name", qrScore);
+                //data.put("Province Name", qrOwnedBy);
+                //data.put("Province Name", qrId);
+                //data.put("Province Name", qrComments);
+                //data.put("Province Name", qrLocation);
+                //collectionReference
+                        //.document(qrName)
+                        //.set(data)
+                       // .addOnSuccessListener(new OnSuccessListener<Void>() {
+                           // @Override
+                           // public void onSuccess(Void aVoid) {
+                                // These are a method which gets executed when the task is succeeded
+                               // Log.d(TAG, "Data has been added successfully!");
+                            //}
+                        //})
+                        //.addOnFailureListener(new OnFailureListener() {
+                            //@Override
+                            //public void onFailure(@NonNull Exception e) {
+                                // These are a method which gets executed if there’s any problem
+                                //Log.d(TAG, "Data could not be added!" + e.toString());
+                           // }
+                        //});
+           // }
+
+
 
         deleteButton = findViewById(R.id.button_delete);
         deleteButton.setOnClickListener(new View.OnClickListener() {
@@ -83,7 +135,7 @@ public class QrCodesActivity extends AppCompatActivity {
                 //Click to delete Qrcode
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    String codeName = QrAdapter.getItem(i).getNameText();
+                    String codeName = QrAdapter.getItem(i).getQrName();
                     collectionReference
                             .document(codeName)
                             .delete()
@@ -105,17 +157,6 @@ public class QrCodesActivity extends AppCompatActivity {
             });
         }
 
-        FirestoreDatabaseController dbc = new FirestoreDatabaseController();
-        dbc.GetAllQrCodeOfUser(username, new FirestoreDatabaseCallback() {
-            @Override
-            public <T> void OnDataCallback(T data) {
-                qrCodes = (ArrayList<QrCode>) data;
-                QrAdapter.clear();
-                for (QrCode qrcode:qrCodes
-                     ) {
-                    QrAdapter.add(qrcode);
-                }
-            }
-        });
+
     }
 }
