@@ -26,6 +26,10 @@ public class ScannerActivity extends AppCompatActivity {
     private FirestoreDatabaseController fdc = new FirestoreDatabaseController();
     private ScoringSystem scrsys = new ScoringSystem();
 
+    private NamingSystem namingSystem = new NamingSystem();
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,15 +45,18 @@ public class ScannerActivity extends AppCompatActivity {
 
 
                         String sha256hex = Hashing.sha256()
-                                .hashString("a", StandardCharsets.UTF_8)
+                                .hashString(result.getText(), StandardCharsets.UTF_8)
                                 .toString();
 
                         Toast.makeText(ScannerActivity.this, sha256hex,Toast.LENGTH_SHORT).show();
-                        int score = scrsys.generateScore("aaaab1234j");
+                        int score = scrsys.generateScore(sha256hex);
+
+                        String hashedName = namingSystem.generateName(sha256hex);
+
                         HashMap<String, String> DemoComments = new HashMap<String, String>();
                         ArrayList<String> DemoOwnedBy = new ArrayList<>();
                         ArrayList<Double> demoqrLocation = new ArrayList<>();
-                        QrCode newCode = new QrCode(1234567, Integer.toString(score), sha256hex, DemoComments, DemoOwnedBy, demoqrLocation);
+                        QrCode newCode = new QrCode(1234567, hashedName, Integer.toString(score),  DemoComments, DemoOwnedBy, demoqrLocation);
 
                         fdc.SaveQRCodeByID(newCode);
 

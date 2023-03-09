@@ -39,7 +39,7 @@ public class ScoringSystem {
 
         // Find all the repeated characters and store them
         Pattern pattern = Pattern.compile("([0-9a-f])(\\1+)");
-        Matcher matcher = pattern.matcher("fff");
+        Matcher matcher = pattern.matcher(hash);
         ArrayList<String> repeats = new ArrayList<>();
 
         while (matcher.find()) {
@@ -53,4 +53,8 @@ public class ScoringSystem {
 
         return score;
     }
+
+
+
+
 }
