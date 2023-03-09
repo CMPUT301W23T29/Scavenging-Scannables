@@ -11,8 +11,8 @@ public class QrInfo {
 
         ArrayList<String> VisualOptionA = new ArrayList<String>;
         ArrayList<String> VisualOptionB = new ArrayList<String>;
-        VisualOptionA.addAll("1stOptionA", "2ndOptionA","3rdOptionA", "4thOptionA","5thOptionA", "6thOptionA",);
-        VisualOptionA.addAll("1stOptionB", "2ndOptionB","3rdOptionB", "4thOptionB","5thOptionB", "6thOptionB",);
+        VisualOptionA.addAll("1stOptionA\n", "2ndOptionA\n","3rdOptionA\n", "4thOptionA\n","5thOptionA\n", "6thOptionA\n",);
+        VisualOptionA.addAll("1stOptionB\n", "2ndOptionB\n","3rdOptionB\n", "4thOptionB\n","5thOptionB\n", "6thOptionB\n",);
 
         for (int i = 0; i < 6; i++) {
             if (hashOfQRID << i == 0) {
