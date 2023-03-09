@@ -19,39 +19,39 @@ public class QrCode {
     //private Location location;
 
     // create constructor to set the values for all the parameters of the each single view
-    public QrCode(int QrId, String NameText, String Score, HashMap<String,String> Comments, ArrayList<String> OwnedBy,ArrayList<Double> qrLocation) {
-        qrId = QrId;
-        score = Score;
-        nameText = NameText;
-        comments = Comments;
-        ownedBy = OwnedBy;
-        location = qrLocation;
-    }
 
     public QrCode(){}
+
+    public QrCode(int qrId, String score, String nameText, HashMap<String, String> comments, ArrayList<String> ownedBy, ArrayList<Double> location) {
+        this.qrId = qrId;
+        this.score = score;
+        this.nameText = nameText;
+        this.comments = comments;
+        this.ownedBy = ownedBy;
+        this.location = location;
+    }
 
     public int getQrId() {
         return qrId;
     }
+
     public String getScore() {
         return score;
-    }
-    public String getQrName() {
-        return nameText;
-    }
-
-    public HashMap<String,String> getComments(){return comments;}
-    public ArrayList<String> getOwnedBy(){return ownedBy;}
-
-    public ArrayList<Double> getLocation() {
-        return location;
     }
 
     public String getNameText() {
         return nameText;
     }
 
-    //public String getComment() {return comment;}
+    public HashMap<String, String> getComments() {
+        return comments;
+    }
 
-    //public String getOthers() {return others;}
+    public ArrayList<String> getOwnedBy() {
+        return ownedBy;
+    }
+
+    public ArrayList<Double> getLocation() {
+        return location;
+    }
 }
