@@ -27,7 +27,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -47,15 +46,13 @@ public class MainActivity extends AppCompatActivity {
 
         // tests getting data from database
         FirestoreDatabaseController dbc = new FirestoreDatabaseController();
-        dbc.GetPlayerByUsername("321d213", new FirestoreDatabaseCallback() {
+        dbc.GetPlayerByUsername("test", new FirestoreDatabaseCallback() {
             @Override
             public <T> void OnDataCallback(T data) {
                 Player p = (Player)data;
+                Log.d("LOG", p.getEmail());
             }
         });
-
-        // tests adding qrcode to database
-        dbc.SaveQRCodeByID(new QrCode(123, "TESTNAME", "999", new HashMap<String, String>(), new ArrayList<String>(), new ArrayList<Double>()));
 
         // tests getting all usernames
         dbc.GetAllUsernames(new FirestoreDatabaseCallback() {

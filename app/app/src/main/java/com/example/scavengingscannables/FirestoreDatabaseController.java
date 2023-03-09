@@ -2,7 +2,6 @@ package com.example.scavengingscannables;
 
 import android.util.Log;
 
-import androidx.annotation.LongDef;
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -18,7 +17,6 @@ import com.google.gson.Gson;
 
 import org.checkerframework.checker.units.qual.A;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class FirestoreDatabaseController{
@@ -38,7 +36,7 @@ public class FirestoreDatabaseController{
         });
     }
 
-    public void SaveQRCodeByID(@NonNull QrCode qrcode){
+    public void SaveQRCodeByID(QrCode qrcode){
         String qrCodeIDString = String.valueOf(qrcode.getQrId());
 
         db.collection(QrCodeCollectionName)
@@ -56,28 +54,6 @@ public class FirestoreDatabaseController{
                   Log.d("LOG", "could not save " + qrCodeIDString);
               }
           });
-    }
-
-    public void GetAllQrCodeOfUser(String username, FirestoreDatabaseCallback callback){
-
-        GetPlayerByUsername(username, new FirestoreDatabaseCallback() {
-            @Override
-            public <T> void OnDataCallback(T data) {
-                Player player = (Player)data;
-                ArrayList<QrCode> qrCodesArray = new ArrayList<>();
-                ArrayList<Integer> scannedIDs = player.getScannedQRCodesID();
-                Log.d("LOGSCANNEDIDS", String.valueOf(scannedIDs));
-                for (Integer id:scannedIDs) {
-                    GetQRCodeByID(id, new FirestoreDatabaseCallback() {
-                        @Override
-                        public <T> void OnDataCallback(T data) {
-                            qrCodesArray.add((QrCode) data);
-                            callback.OnDataCallback(qrCodesArray);
-                        }
-                    });
-                }
-            }
-        });
     }
 
     public void GetPlayerByUsername(String username, FirestoreDatabaseCallback callback){
@@ -105,7 +81,7 @@ public class FirestoreDatabaseController{
         });
     }
 
-    public void SavePlayerByUsername(@NonNull Player player) {
+    public void SavePlayerByUsername(Player player) {
         String playerUsername = player.getUsername();
 
         db.collection(PlayersCollectionName)

@@ -28,12 +28,6 @@ public class QrCustomerArrayAdapter extends ArrayAdapter<QrCode>{
         this.qrCodes = qrCodes;
     }
 
-    public QrCustomerArrayAdapter(@NonNull Context context) {
-        super(context, 0);
-        this.context = context;
-        this.qrCodes = new ArrayList<QrCode>();
-    }
-
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -45,15 +39,15 @@ public class QrCustomerArrayAdapter extends ArrayAdapter<QrCode>{
             currentItemView = LayoutInflater.from(getContext()).inflate(R.layout.qrcode, parent, false);
 
         }
-        QrCode qrcode = super.getItem(position);
+        QrCode qrcode = qrCodes.get(position);
 
-        //ImageView image = currentItemView.findViewById(R.id.codeImage);
-        //assert image != null;
-        //image.setImageResource(qrcode.getQrId());
+        ImageView image = currentItemView.findViewById(R.id.codeImage);
+        assert image != null;
+        image.setImageResource(qrcode.getQrId());
 
 
         TextView name = currentItemView.findViewById(R.id.codeName);
-        name.setText("Name: "+qrcode.getNameText());
+        name.setText("Name: "+qrcode.getQrName());
 
         TextView score = currentItemView.findViewById(R.id.codeScore);
         score.setText("Score: "+qrcode.getScore());
