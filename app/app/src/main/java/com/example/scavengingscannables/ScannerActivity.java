@@ -10,12 +10,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.CodeScannerView;
 import com.budiyev.android.codescanner.DecodeCallback;
+import com.google.common.hash.Hashing;
 import com.google.zxing.Result;
 import com.google.zxing.qrcode.encoder.QRCode;
 
 import org.checkerframework.checker.units.qual.A;
 
 import java.lang.reflect.Array;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -35,12 +37,18 @@ public class ScannerActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(ScannerActivity.this, result.getText(), Toast.LENGTH_SHORT).show();
+
+
+                        String sha256hex = Hashing.sha256()
+                                .hashString("a", StandardCharsets.UTF_8)
+                                .toString();
+
+                        Toast.makeText(ScannerActivity.this, sha256hex,Toast.LENGTH_SHORT).show();
 
                         HashMap<String, String> DemoComments = new HashMap<String, String>();
                         ArrayList<String> DemoOwnedBy = new ArrayList<>();
                         ArrayList<Double> demoqrLocation = new ArrayList<>();
-                        QrCode newCode = new QrCode(123456, "DemoNameText", result.getText(), DemoComments, DemoOwnedBy, demoqrLocation);
+                        QrCode newCode = new QrCode(123456, "DemoNameText", sha256hex, DemoComments, DemoOwnedBy, demoqrLocation);
 
                         fdc.SaveQRCodeByID(newCode);
 
