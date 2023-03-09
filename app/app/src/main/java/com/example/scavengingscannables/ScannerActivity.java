@@ -11,9 +11,17 @@ import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.CodeScannerView;
 import com.budiyev.android.codescanner.DecodeCallback;
 import com.google.zxing.Result;
+import com.google.zxing.qrcode.encoder.QRCode;
+
+import org.checkerframework.checker.units.qual.A;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ScannerActivity extends AppCompatActivity {
     private CodeScanner mCodeScanner;
+    private FirestoreDatabaseController fdc = new FirestoreDatabaseController();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +36,14 @@ public class ScannerActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         Toast.makeText(ScannerActivity.this, result.getText(), Toast.LENGTH_SHORT).show();
+
+                        HashMap<String, String> DemoComments = new HashMap<String, String>();
+                        ArrayList<String> DemoOwnedBy = new ArrayList<>();
+                        ArrayList<Double> demoqrLocation = new ArrayList<>();
+                        QrCode newCode = new QrCode(123456, "DemoNameText", result.getText(), DemoComments, DemoOwnedBy, demoqrLocation);
+
+                        fdc.SaveQRCodeByID(newCode);
+
                     }
                 });
             }
