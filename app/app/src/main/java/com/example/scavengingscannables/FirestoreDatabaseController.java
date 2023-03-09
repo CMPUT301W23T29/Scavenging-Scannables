@@ -10,6 +10,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -128,4 +129,44 @@ public class FirestoreDatabaseController{
             }
         });
     }
+
+    public void DeleteQrcodeFromPlayer(String playerUsername, int QrCodeID) {
+        db.collection(PlayersCollectionName)
+                .document(playerUsername)
+                .update("scannedQRCodesID", FieldValue.arrayRemove(QrCodeID))
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Log.d("LOG", "successfully deleted QrCodeID " + QrCodeID + " from " + playerUsername);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("LOG", "could not delete QrCodeID " + QrCodeID + " from " + playerUsername + " due to error: " + e.getMessage());
+                    }
+                });
+    }
+
+    // maybe don't need DeleteQRCode
+    public void DeleteQRCode(QrCode qrcode) {
+        String qrCodeIDString = String.valueOf(qrcode.getQrId());
+        db.collection(QrCodeCollectionName)
+                .document(qrCodeIDString)
+                .delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Log.d("LOG", "successfully deleted " + qrCodeIDString);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("LOG", "could not deleted " + qrCodeIDString);
+                    }
+                });
+    }
+
+
 }

@@ -14,6 +14,11 @@ import android.widget.ListView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.scavengingscannables.FirestoreDatabaseCallback;
+import com.example.scavengingscannables.FirestoreDatabaseController;
+import com.example.scavengingscannables.LoginActivity;
+import com.example.scavengingscannables.MainActivity;
+import com.example.scavengingscannables.Player;
 import com.example.scavengingscannables.QrCode;
 import com.example.scavengingscannables.R;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -32,22 +37,25 @@ import java.util.HashMap;
 import javax.annotation.Nullable;
 
 public class QrCodesActivity extends AppCompatActivity {
+
+    String userName;
+    Player currentPlayer;
     Button backButton;
     Button deleteButton;
     Boolean deleteState;
+    QrCode qrCode;
+    ArrayList<Integer> qrCodeIDs;
+
+    FirestoreDatabaseController db;
+
+    ListView qrCodesListView;
 
 
-    //public void AddQrCode(QrCode qrCode) {}
-
-    HashMap<String,String> testComments=new HashMap<String,String>();
-    ArrayList<String> testOwnedBy = new ArrayList<String>();
-    ArrayList<Double> testLocation = new ArrayList<Double>();
 
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         deleteState = false;
-        FirebaseFirestore db;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_qrcodes);
         backButton = findViewById(R.id.button_back);
@@ -57,68 +65,45 @@ public class QrCodesActivity extends AppCompatActivity {
             }
         });
 
-        db = FirebaseFirestore.getInstance();
-        final CollectionReference collectionReference = db.collection("QrCodes");
 
-        testComments.put("user1","good");
-        testComments.put("user2","oh");
-        testOwnedBy.add("user2");
-        testOwnedBy.add("user1");
-        testLocation.add(222.22);
-        testLocation.add(111.22);
-
-
+        db = new FirestoreDatabaseController();
         ArrayList<QrCode> arrayList = new ArrayList<QrCode>();
-        arrayList.add(new QrCode(R.drawable.ic_home_black_24dp, "pp","1",testComments,testOwnedBy,testLocation));
-        arrayList.add(new QrCode(R.drawable.ic_home_black_24dp, "cc", "1",testComments,testOwnedBy,testLocation));
-        arrayList.add(new QrCode(R.drawable.ic_home_black_24dp, "3","1", testComments,testOwnedBy,testLocation));
-        arrayList.add(new QrCode(R.drawable.ic_home_black_24dp, "4","1", testComments,testOwnedBy,testLocation));
 
         QrCustomerArrayAdapter QrAdapter = new QrCustomerArrayAdapter(this, arrayList);
-
-        ListView qrCodesListView = findViewById(R.id.qrcode_list);
-
+        qrCodesListView = findViewById(R.id.qrcode_list);
         qrCodesListView.setAdapter(QrAdapter);
 
+        //Who's profile
+        userName = LoginActivity.MyUsername;
+        userName = "zhi";
+
+
+        //Show my qr code
+        db.GetPlayerByUsername(userName, new FirestoreDatabaseCallback() {
+            @Override
+            public <T> void OnDataCallback(T data) {
+                Player p = (Player)data;
+                currentPlayer = p;
+            }
+        });
+
+        //Show my current qr code
+        qrCodeIDs = currentPlayer.getScannedQRCodesID();
+        for (int qrcodeId:qrCodeIDs){
+            db.GetQRCodeByID(qrcodeId, new FirestoreDatabaseCallback() {
+                @Override
+                public <T> void OnDataCallback(T data) {
+                    QrCode q = (QrCode)data;
+                    qrCode = q;
+                }
+            });
+            arrayList.add(qrCode);
+        }
+        QrAdapter.notifyDataSetChanged();
 
 
 
-        //for (QrCode qrCode : arrayList){
-            //final String qrName = qrCode.getQrName();
-            //final String qrScore = qrCode.getScore();
-            //final HashMap<String,String> qrComments = qrCode.getComments();
-            //final ArrayList<Double> qrLocation= qrCode.getLocation();
-            //final ArrayList<String> qrOwnedBy = qrCode.getOwnedBy();
-            //final Integer qrId = qrCode.getQrId();
-           // HashMap<String,> data = new HashMap<>();
-           // if (qrName.length() > 0) {
-                //data.put("Province Name", qrName);
-                //data.put("Province Name", qrScore);
-                //data.put("Province Name", qrOwnedBy);
-                //data.put("Province Name", qrId);
-                //data.put("Province Name", qrComments);
-                //data.put("Province Name", qrLocation);
-                //collectionReference
-                        //.document(qrName)
-                        //.set(data)
-                       // .addOnSuccessListener(new OnSuccessListener<Void>() {
-                           // @Override
-                           // public void onSuccess(Void aVoid) {
-                                // These are a method which gets executed when the task is succeeded
-                               // Log.d(TAG, "Data has been added successfully!");
-                            //}
-                        //})
-                        //.addOnFailureListener(new OnFailureListener() {
-                            //@Override
-                            //public void onFailure(@NonNull Exception e) {
-                                // These are a method which gets executed if there’s any problem
-                                //Log.d(TAG, "Data could not be added!" + e.toString());
-                           // }
-                        //});
-           // }
-
-
-
+        //delete QRCode
         deleteButton = findViewById(R.id.button_delete);
         deleteButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -130,32 +115,19 @@ public class QrCodesActivity extends AppCompatActivity {
                 }
             }
         });
-        if (deleteState) {
-            qrCodesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                //Click to delete Qrcode
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    String codeName = QrAdapter.getItem(i).getQrName();
-                    collectionReference
-                            .document(codeName)
-                            .delete()
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    // These are a method which gets executed when the task is succeeded
-                                    Log.d(TAG, "Data has been deleted successfully!");
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    // These are a method which gets executed if there’s any problem
-                                    Log.d(TAG, "Data could not be deleted!" + e.toString());
-                                }
-                            });
+        qrCodesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            //Click to delete Qrcode
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if (deleteState) {
+                    QrCode qrCode = QrAdapter.getItem(i);
+                    db.DeleteQrcodeFromPlayer(currentPlayer.getUsername(),qrCode.getQrId());
+                    arrayList.remove(i);
+                    QrAdapter.notifyDataSetChanged();
                 }
-            });
-        }
+            }
+        });
+
 
 
     }

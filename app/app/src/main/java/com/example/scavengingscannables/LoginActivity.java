@@ -24,6 +24,9 @@ public class LoginActivity extends AppCompatActivity {
     EditText emailView;
     EditText phoneNumberView;
 
+    public static String MyUsername;
+
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +53,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String username = usernameView.getText().toString();
+                MyUsername = username;
                 String firstName = firstNameView.getText().toString();
                 String lastName = lastNameView.getText().toString();
 
