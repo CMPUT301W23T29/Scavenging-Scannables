@@ -17,8 +17,7 @@ public class QrInfo {
         for (int i = 0; i < 6; i++) {
             if (hashOfQRID << i == 0) {
                 visualization = VisualOptionA[i];
-            }
-            else {
+            } else {
                 visualization = VisualOptionB[i];
             }
         }
