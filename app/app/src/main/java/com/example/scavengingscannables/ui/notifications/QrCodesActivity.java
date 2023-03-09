@@ -111,8 +111,7 @@ public class QrCodesActivity extends AppCompatActivity {
             public <T> void OnDataCallback(T data) {
                 qrCodes = (ArrayList<QrCode>) data;
                 QrAdapter.clear();
-                for (QrCode qrcode:qrCodes
-                     ) {
+                for (QrCode qrcode:qrCodes) {
                     QrAdapter.add(qrcode);
                 }
             }

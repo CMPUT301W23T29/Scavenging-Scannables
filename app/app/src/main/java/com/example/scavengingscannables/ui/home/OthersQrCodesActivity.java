@@ -41,7 +41,6 @@ public class OthersQrCodesActivity extends AppCompatActivity {
     Button backButton;
     ArrayList<QrCode> qrCodes;
     String username;
-    FirebaseFirestore db;
     ListView qrCodesListView;
     QrCustomerArrayAdapter QrAdapter;
 
@@ -55,9 +54,23 @@ public class OthersQrCodesActivity extends AppCompatActivity {
                 finish();
             }
         });
+
         Intent intent = getIntent();
         username = intent.getStringExtra("other");
+        QrAdapter = new QrCustomerArrayAdapter(this);
+        qrCodesListView = findViewById(R.id.other_qrcode_list);
+        qrCodesListView.setAdapter(QrAdapter);
 
-
+        FirestoreDatabaseController dbc = new FirestoreDatabaseController();
+        dbc.GetAllQrCodeOfUser(username, new FirestoreDatabaseCallback() {
+            @Override
+            public <T> void OnDataCallback(T data) {
+                qrCodes = (ArrayList<QrCode>) data;
+                QrAdapter.clear();
+                for (QrCode qrcode:qrCodes) {
+                    QrAdapter.add(qrcode);
+                }
+            }
+        });
     }
 }
