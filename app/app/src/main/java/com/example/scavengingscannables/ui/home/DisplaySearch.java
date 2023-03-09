@@ -40,7 +40,7 @@ public class DisplaySearch extends AppCompatActivity {
         Intent intent = getIntent();
         String str = intent.getStringExtra("user");
         name.setText(str);
-        dbc.GetPlayerByUsername("test", new FirestoreDatabaseCallback() {
+        dbc.GetPlayerByUsername(str, new FirestoreDatabaseCallback() {
             @Override
             public <T> void OnDataCallback(T data) {
                 Player p = (Player)data;
