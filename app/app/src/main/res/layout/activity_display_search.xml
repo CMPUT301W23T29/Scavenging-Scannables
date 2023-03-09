@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.home.DisplaySearch">
+
     <LinearLayout
         android:id="@+id/display_linearLayout"
         android:layout_width="match_parent"
@@ -43,45 +44,49 @@
         <LinearLayout
             android:layout_width="205dp"
             android:layout_height="150dp">
+
             <TextView
                 android:id="@+id/display_total_score"
                 android:layout_width="205dp"
                 android:layout_height="100dp"
+                android:gravity="center"
                 android:text="0"
                 android:textColor="@color/black"
-                android:textSize="60dp"
-                android:gravity="center"/>
+                android:textSize="60dp" />
+
             <TextView
                 android:layout_width="205dp"
                 android:layout_height="50dp"
-                android:layout_marginTop="60dp"
                 android:layout_marginLeft="-205dp"
+                android:layout_marginTop="60dp"
+                android:gravity="center"
                 android:text="Total Score"
                 android:textColor="@color/black"
-                android:textSize="20dp"
-                android:gravity="center"/>
+                android:textSize="20dp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="205dp"
             android:layout_height="150dp">
+
             <TextView
                 android:id="@+id/display_highest_score"
                 android:layout_width="205dp"
                 android:layout_height="100dp"
+                android:gravity="center"
                 android:text="0"
                 android:textColor="@color/black"
-                android:textSize="60dp"
-                android:gravity="center"/>
+                android:textSize="60dp" />
+
             <TextView
                 android:layout_width="205dp"
                 android:layout_height="50dp"
-                android:layout_marginTop="60dp"
                 android:layout_marginLeft="-205dp"
+                android:layout_marginTop="60dp"
+                android:gravity="center"
                 android:text="Highest Score"
                 android:textColor="@color/black"
-                android:textSize="20dp"
-                android:gravity="center"/>
+                android:textSize="20dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -89,46 +94,50 @@
             android:layout_height="150dp"
             android:layout_marginLeft="-411dp"
             android:layout_marginTop="150dp">
+
             <TextView
                 android:id="@+id/display_codes_scanned"
                 android:layout_width="205dp"
                 android:layout_height="100dp"
+                android:gravity="center"
                 android:text="0"
                 android:textColor="@color/black"
-                android:textSize="60dp"
-                android:gravity="center"/>
+                android:textSize="60dp" />
+
             <TextView
                 android:layout_width="205dp"
                 android:layout_height="50dp"
-                android:layout_marginTop="60dp"
                 android:layout_marginLeft="-205dp"
+                android:layout_marginTop="60dp"
+                android:gravity="center"
                 android:text="Codes scanned"
                 android:textColor="@color/black"
-                android:textSize="20dp"
-                android:gravity="center"/>
+                android:textSize="20dp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="205dp"
             android:layout_height="150dp"
             android:layout_marginTop="150dp">
+
             <TextView
                 android:id="@+id/display_lowest_score"
                 android:layout_width="205dp"
                 android:layout_height="100dp"
+                android:gravity="center"
                 android:text="0"
                 android:textColor="@color/black"
-                android:textSize="60dp"
-                android:gravity="center"/>
+                android:textSize="60dp" />
+
             <TextView
                 android:layout_width="205dp"
                 android:layout_height="50dp"
-                android:layout_marginTop="60dp"
                 android:layout_marginLeft="-205dp"
+                android:layout_marginTop="60dp"
+                android:gravity="center"
                 android:text="Lowest score"
                 android:textColor="@color/black"
-                android:textSize="20dp"
-                android:gravity="center"/>
+                android:textSize="20dp" />
         </LinearLayout>
 
     </LinearLayout>
@@ -141,6 +150,15 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
+    <Button
+        android:id="@+id/view_qrCodes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="View QrCodes"
+        app:layout_constraintBottom_toTopOf="@+id/display_back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 </androidx.constraintlayout.widget.ConstraintLayout>

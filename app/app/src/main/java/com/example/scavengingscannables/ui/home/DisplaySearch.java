@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 public class DisplaySearch extends AppCompatActivity {
     private  Button btn_back;
+    private  Button button_viewQrCodes;
     private TextView name;
     private TextView phone;
     private TextView total;
@@ -37,6 +38,7 @@ public class DisplaySearch extends AppCompatActivity {
         lowest = (TextView) findViewById(R.id.display_lowest_score);
         number_of_scanned = (TextView) findViewById(R.id.display_codes_scanned);
         btn_back = (Button) findViewById(R.id.display_back);
+        button_viewQrCodes = (Button) findViewById(R.id.view_qrCodes);
         Intent intent = getIntent();
         String str = intent.getStringExtra("user");
         name.setText(str);
@@ -53,7 +55,15 @@ public class DisplaySearch extends AppCompatActivity {
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(DisplaySearch.this, FindUserActivity.class);
+                finish();
+            }
+        });
+
+        button_viewQrCodes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DisplaySearch.this, OthersQrCodesActivity.class);
+                intent.putExtra("other",str);
                 startActivity(intent);
             }
         });
