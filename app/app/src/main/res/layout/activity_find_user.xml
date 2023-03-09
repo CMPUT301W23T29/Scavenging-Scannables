@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    tools:context=".ui.home.FindUserActivity">
+
+    <EditText
+        android:id="@+id/search_box_input"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:hint="search here"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/search_button2"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:text="Search"
+        app:layout_constraintStart_toEndOf="@+id/search_box_input"
+        app:layout_constraintTop_toTopOf="parent" />
+
+   <ListView
+       android:layout_width="match_parent"
+       android:layout_height="600dp"
+       android:layout_marginLeft="-410dp"
+       android:layout_marginTop="50dp"
+       android:id="@+id/search_result_list"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="-250dp"
+        android:layout_marginTop="665dp"
+        android:id="@+id/search_back_button"
+        android:text="BacK"/>
+</LinearLayout>
