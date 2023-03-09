@@ -6,8 +6,7 @@ public class QrInfo {
         String visualization = "";
         int hashOfQRID = qrID.hashCode();
 
-        // Checks first 6 bits of HashCode to determine visualization, currently using placeholders
-        // as visualizations
+        // Each hexa input corresponds to a different element on the visualization, use only first 6 hexa characters
 
         String[] VisualOptionA = {"1stOptionB\n", "2ndOptionB\n","3rdOptionB\n", "4thOptionB\n","5thOptionB\n", "6thOptionB\n",};
         String[] VisualOptionB = {"1stOptionA\n","2ndOptionA\n","3rdOptionA\n", "4thOptionA\n","5thOptionA\n", "6thOptionA\n",};
