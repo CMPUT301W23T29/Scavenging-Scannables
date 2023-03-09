@@ -44,6 +44,7 @@ public class ScannerActivity extends AppCompatActivity {
 
                         fdc.SaveQRCodeByID(newCode);
 
+                        finish();
                     }
                 });
             }
