@@ -14,19 +14,22 @@ public class QrCode {
     private HashMap<String,String> comments;
     private ArrayList<String> ownedBy;
 
+    private String VisualLink;
+
 
     //Currently set location to [x,y]
     private ArrayList<Double> location;
     //private Location location;
 
     // create constructor to set the values for all the parameters of the each single view
-    public QrCode(int QrId, String NameText, String Score, HashMap<String,String> Comments, ArrayList<String> OwnedBy,ArrayList<Double> qrLocation) {
+    public QrCode(int QrId, String NameText, String Score, HashMap<String,String> Comments, ArrayList<String> OwnedBy,ArrayList<Double> qrLocation, String VisualLink) {
         qrId = QrId;
         score = Score;
         nameText = NameText;
         comments = Comments;
         ownedBy = OwnedBy;
         location = qrLocation;
+        VisualLink = VisualLink;
     }
 
     public QrCode(){}
@@ -50,6 +53,10 @@ public class QrCode {
 
     public String getNameText() {
         return nameText;
+    }
+
+    public String getVisualLink() {
+        return VisualLink;
     }
 
     //public String getComment() {return comment;}
