@@ -34,8 +34,6 @@ public class HomeFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        final TextView textView = binding.textHome;
-        homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 

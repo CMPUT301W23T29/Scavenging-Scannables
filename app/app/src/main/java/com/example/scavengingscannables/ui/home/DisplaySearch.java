@@ -59,11 +59,9 @@ public class DisplaySearch extends AppCompatActivity {
             public <T> void OnDataCallback(T data) {
                 FirestoreDatabaseCallback.super.OnDataCallback(data);
                 qrids = (ArrayList<Integer>) data;
+                Log.d("QRCODE List", String.valueOf(qrids));
             }
         });
-        for (int i = 0; i<qrids.size();i++){
-            System.out.println(qrids.get(i));
-        }
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
