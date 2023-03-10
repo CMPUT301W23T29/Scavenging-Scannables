@@ -32,7 +32,6 @@ public class LoginActivity extends AppCompatActivity {
         SharedPreferences sharedPref = getSharedPreferences("account", Context.MODE_PRIVATE);
         if (sharedPref.getBoolean("hasAccount", false)){
             // if already has account, skip directly to main activity
-
             // swap to main activity (home page)
             Intent newIntent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(newIntent);
@@ -63,8 +62,13 @@ public class LoginActivity extends AppCompatActivity {
                 String email = emailView.getText().toString();
 
                 FirestoreDatabaseController dbc = new FirestoreDatabaseController();
+                SignupValidator validator = new SignupValidator();
                 // checks if inputs are valid
-                if (!username.matches("") && !firstName.matches("") && !lastName.matches("") && !email.matches("") && phoneNumber != -1L){
+                if (!validator.IsValidUsername(username)){
+                    Toast.makeText(LoginActivity.this, "Invalid username!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (validator.IsValidName(firstName) && validator.IsValidName(lastName) && validator.IsValidEmail(email) && validator.IsValidPhoneNumber(phoneNumber)){
                     // only allows creating if username does not exist in databse
                     Long finalPhoneNumber = phoneNumber;
                     dbc.CheckUsernameExists(username, new FirestoreDatabaseCallback() {
