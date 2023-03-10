@@ -14,10 +14,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.example.scavengingscannables.FirestoreDatabaseCallback;
 import com.example.scavengingscannables.FirestoreDatabaseController;
+import com.example.scavengingscannables.LoginActivity;
 import com.example.scavengingscannables.MainActivity;
 import com.example.scavengingscannables.R;
 import com.example.scavengingscannables.ui.notifications.NotificationsFragment;
@@ -45,11 +48,13 @@ public class FindUserActivity extends AppCompatActivity {
     ArrayList<String> allusername;
     ArrayList<String> output = new ArrayList<>();
 
+    ArrayAdapter<String> searchResultAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_user);
-
+        searchResultAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, output);
         searchresult = (ListView) findViewById(R.id.search_result_list);
         btn_search = (Button) findViewById(R.id.search_button2);
         btn_back = (Button) findViewById(R.id.search_back_button);
@@ -64,13 +69,19 @@ public class FindUserActivity extends AppCompatActivity {
         btn_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                searchresult.setAdapter(searchResultAdapter);
+                searchResultAdapter.clear();
                 String input = searchinput.getText().toString();
-                for (int i=0; i < allusername.size(); i++){
-                    if(allusername.get(i).contains(input) ){
-                        output.add(allusername.get(i));
+                if(input.length() > 0){
+                    for (int i=0; i < allusername.size(); i++){
+                        if(allusername.get(i).contains(input) ){
+                            output.add(allusername.get(i));
+                        }
                     }
+                }else{
+                    Toast.makeText(FindUserActivity.this,"Please input a name", Toast.LENGTH_SHORT).show();
                 }
-                searchresult.setAdapter(new ArrayAdapter(FindUserActivity.this, android.R.layout.simple_list_item_1,output));
+
                 searchresult.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
