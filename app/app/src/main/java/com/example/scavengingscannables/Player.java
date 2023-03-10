@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Player {
     private String username;
-    private ArrayList<Integer> scannedQRCodesID = new ArrayList<>();
+    private ArrayList<String> scannedQRCodesID = new ArrayList<>();
     private String firstName;
     private String lastName;
     private Long phoneNumber;
@@ -20,11 +20,11 @@ public class Player {
 
     public Player(){}
 
-    public void AddQRCodeByID(Integer id){
+    public void AddQRCodeByID(String id){
         this.scannedQRCodesID.add(id);
     }
 
-    public void RemoveQRCodeByID(Integer id){
+    public void RemoveQRCodeByID(String id){
         this.scannedQRCodesID.remove(id);
     }
 
@@ -32,7 +32,7 @@ public class Player {
         return username;
     }
 
-    public ArrayList<Integer> getScannedQRCodesID() {
+    public ArrayList<String> getScannedQRCodesID() {
         return scannedQRCodesID;
     }
 
