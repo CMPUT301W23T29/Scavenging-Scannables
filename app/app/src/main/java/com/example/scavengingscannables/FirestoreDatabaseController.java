@@ -173,8 +173,6 @@ public class FirestoreDatabaseController{
                 });
     }
 
-    public void DeleteQrcodeOfPlayer(String playerUsername, int QrCodeID) {
 
-    }
 
 }
