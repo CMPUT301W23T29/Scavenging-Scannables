@@ -28,74 +28,101 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login_activity);
+        FirestoreDatabaseController dbc = new FirestoreDatabaseController();
+
+        // checks if current device has a registered account
         SharedPreferences sharedPref = getSharedPreferences("account", Context.MODE_PRIVATE);
-        if (sharedPref.getBoolean("hasAccount", false)){
-            // if already has account, skip directly to main activity
-            // swap to main activity (home page)
-            Intent newIntent = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(newIntent);
-        }
-
-        // find all views
-        signupButtonView = findViewById(R.id.signup);
-        usernameView = findViewById(R.id.username);
-        firstNameView = findViewById(R.id.first_name);
-        lastNameView = findViewById(R.id.last_name);
-        emailView = findViewById(R.id.email);
-        phoneNumberView = findViewById(R.id.phone_number);
-
-        signupButtonView.setOnClickListener(new View.OnClickListener() {
+        String username = sharedPref.getString("username", " ");
+        Log.d("LOG", username);
+        dbc.CheckUsernameExists(username, new FirestoreDatabaseCallback() {
+            // account exists in database
             @Override
-            public void onClick(View view) {
-                String username = usernameView.getText().toString();
-                String firstName = firstNameView.getText().toString();
-                String lastName = lastNameView.getText().toString();
+            public void OnDocumentExists() {
+                SwitchToMainActivity();
+            }
 
-                Long phoneNumber;
-                try{
-                    phoneNumber = Long.parseLong(phoneNumberView.getText().toString());
-                }
-                catch (NumberFormatException e){
-                    phoneNumber = -1L;
-                }
-                String email = emailView.getText().toString();
+            @Override
+            public void OnDocumentDoesNotExist() {
+                setContentView(R.layout.login_activity);
+                // find all views
+                signupButtonView = findViewById(R.id.signup);
+                usernameView = findViewById(R.id.username);
+                firstNameView = findViewById(R.id.first_name);
+                lastNameView = findViewById(R.id.last_name);
+                emailView = findViewById(R.id.email);
+                phoneNumberView = findViewById(R.id.phone_number);
 
-                FirestoreDatabaseController dbc = new FirestoreDatabaseController();
-                SignupValidator validator = new SignupValidator();
-                // checks if inputs are valid
-                if (!validator.IsValidUsername(username)){
-                    Toast.makeText(LoginActivity.this, "Invalid username!", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (validator.IsValidName(firstName) && validator.IsValidName(lastName) && validator.IsValidEmail(email) && validator.IsValidPhoneNumber(phoneNumber)){
-                    // only allows creating if username does not exist in databse
-                    Long finalPhoneNumber = phoneNumber;
-                    dbc.CheckUsernameExists(username, new FirestoreDatabaseCallback() {
-                        @Override
-                        public void OnDocumentExists() {
-                            Toast.makeText(LoginActivity.this, username + " already exists!", Toast.LENGTH_SHORT).show();
+                signupButtonView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String username = usernameView.getText().toString();
+                        String firstName = firstNameView.getText().toString();
+                        String lastName = lastNameView.getText().toString();
+
+                        Long phoneNumber;
+                        try {
+                            phoneNumber = Long.parseLong(phoneNumberView.getText().toString());
+                        } catch (NumberFormatException e) {
+                            phoneNumber = -1L;
                         }
+                        String email = emailView.getText().toString();
 
-                        @Override
-                        public void OnDocumentDoesNotExist() {
-                            // create new user and save to database
-                            Player newPlayer = new Player(username, firstName, lastName, finalPhoneNumber, email);
-                            dbc.SavePlayerByUsername(newPlayer);
-
-                            SharedPreferences.Editor editor = sharedPref.edit();
-                            editor.putBoolean("hasAccount", true);
-                            editor.putString("username", username);
-                            editor.apply();
-
-                            Toast.makeText(LoginActivity.this, "Welcome to Scavenging Scannables, " + username + "!", Toast.LENGTH_SHORT).show();
-                            // swap to main activity (home page)
-                            Intent newIntent = new Intent(LoginActivity.this, MainActivity.class);
-                            startActivity(newIntent);
+                        SignupValidator validator = new SignupValidator();
+                        // checks if inputs are valid
+                        if (!validator.IsValidUsername(username)) {
+                            Toast.makeText(LoginActivity.this, "Invalid username!", Toast.LENGTH_SHORT).show();
+                            return;
                         }
-                    });
-                }
+                        if (!validator.IsValidName(firstName)) {
+                            Toast.makeText(LoginActivity.this, "Invalid first name!", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        if (!validator.IsValidName(lastName)) {
+                            Toast.makeText(LoginActivity.this, "Invalid last name!", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        if (!validator.IsValidEmail(email)) {
+                            Toast.makeText(LoginActivity.this, "Invalid email!", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        if (!validator.IsValidPhoneNumber(phoneNumber)) {
+                            Toast.makeText(LoginActivity.this, "Invalid phone number!", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        // only allows creating if username does not exist in database
+                        Long finalPhoneNumber = phoneNumber;
+                        dbc.CheckUsernameExists(username, new FirestoreDatabaseCallback() {
+                            // username does exist, prevent signup
+                            @Override
+                            public void OnDocumentExists() {
+                                Toast.makeText(LoginActivity.this, username + " already exists!", Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void OnDocumentDoesNotExist() {
+                                // create new user and save to database
+                                Player newPlayer = new Player(username, firstName, lastName, finalPhoneNumber, email);
+                                dbc.SavePlayerByUsername(newPlayer);
+
+                                // saves username to local file for future logins
+                                SharedPreferences.Editor editor = sharedPref.edit();
+                                editor.putBoolean("hasAccount", true);
+                                editor.putString("username", username);
+                                editor.apply();
+
+                                Toast.makeText(LoginActivity.this, "Welcome to Scavenging Scannables, " + username + "!", Toast.LENGTH_SHORT).show();
+                                SwitchToMainActivity();
+                            }
+                        });
+                    }
+                });
             }
         });
+    }
+
+    // swap to main activity (home page)
+    private void SwitchToMainActivity(){
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(intent);
     }
 }

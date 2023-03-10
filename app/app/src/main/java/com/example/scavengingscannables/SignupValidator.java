@@ -9,11 +9,13 @@ public class SignupValidator {
 
     public Boolean IsValidName(String name){
         if (name.matches("")){return false;}
+        if (name.contains(" ")){return false;}
         return true;
     }
 
     public Boolean IsValidEmail(String email){
         if (email.matches("")){return false;}
+        if (email.contains(" ")){return false;}
         return true;
     }
 
