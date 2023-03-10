@@ -14,6 +14,7 @@ public class QrCode {
     private HashMap<String,String> comments;
     private ArrayList<String> ownedBy;
 
+
     //Currently set location to [x,y]
     private ArrayList<Double> location;
     //private Location location;
