@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.example.scavengingscannables.FirestoreDatabaseCallback;
 import com.example.scavengingscannables.FirestoreDatabaseController;
 import com.example.scavengingscannables.Player;
+import com.example.scavengingscannables.QrCode;
 import com.example.scavengingscannables.R;
 
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ public class DisplaySearch extends AppCompatActivity {
     private TextView number_of_scanned;
     private TextView lowest;
     private String user_phone;
+    private ArrayList<Integer> qrids = new ArrayList<>();
     FirestoreDatabaseController dbc = new FirestoreDatabaseController();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +52,14 @@ public class DisplaySearch extends AppCompatActivity {
                 phone.setText(user_phone);
                 Log.d("LOG", p.getEmail());
 
+            }
+        });
+        dbc.GetAllQrCodeOfUser("test", new FirestoreDatabaseCallback() {
+            @Override
+            public <T> void OnDataCallback(T data) {
+                FirestoreDatabaseCallback.super.OnDataCallback(data);
+                qrids = (ArrayList<Integer>) data;
+                Log.d("QRCODE List", String.valueOf(qrids));
             }
         });
         btn_back.setOnClickListener(new View.OnClickListener() {

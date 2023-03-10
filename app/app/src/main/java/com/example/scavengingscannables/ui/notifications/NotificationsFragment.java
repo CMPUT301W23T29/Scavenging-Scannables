@@ -56,9 +56,6 @@ public class NotificationsFragment extends Fragment {
         usernameView = root.findViewById(R.id.user_name);
         username = sharedPref.getString("username", "ERROR NO USERNAME FOUND");
         usernameView.setText(username);
-
-        final TextView textView = binding.textNotifications;
-        notificationsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 

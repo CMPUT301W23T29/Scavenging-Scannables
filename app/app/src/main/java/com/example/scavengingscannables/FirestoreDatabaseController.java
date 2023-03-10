@@ -154,7 +154,7 @@ public class FirestoreDatabaseController{
         });
     }
 
-    public void DeleteQrcodeFromPlayer(String playerUsername, int QrCodeID) {
+    public void DeleteQrcodeFromPlayer(String playerUsername, int QrCodeID, FirestoreDatabaseCallback callback) {
         db.collection(PlayersCollectionName)
                 .document(playerUsername)
                 .update("scannedQRCodesID", FieldValue.arrayRemove(QrCodeID))
@@ -162,6 +162,7 @@ public class FirestoreDatabaseController{
                     @Override
                     public void onSuccess(Void unused) {
                         Log.d("LOG", "successfully deleted QrCodeID " + QrCodeID + " from " + playerUsername);
+                        callback.OnDataCallback(true);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -170,6 +171,10 @@ public class FirestoreDatabaseController{
                         Log.d("LOG", "could not delete QrCodeID " + QrCodeID + " from " + playerUsername + " due to error: " + e.getMessage());
                     }
                 });
+    }
+
+    public void DeleteQrcodeOfPlayer(String playerUsername, int QrCodeID) {
+
     }
 
 }
