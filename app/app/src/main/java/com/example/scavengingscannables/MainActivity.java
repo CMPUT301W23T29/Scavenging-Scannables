@@ -132,9 +132,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-
-
-
         //ertvregevwrtgjwkth
 
 
