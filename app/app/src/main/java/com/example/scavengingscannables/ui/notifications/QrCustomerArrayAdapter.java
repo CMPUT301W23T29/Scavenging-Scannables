@@ -1,5 +1,6 @@
 package com.example.scavengingscannables.ui.notifications;
 
+import android.content.Intent;
 import android.widget.ArrayAdapter;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 
 import com.example.scavengingscannables.QrCode;
 import com.example.scavengingscannables.R;
+import com.google.gson.Gson;
 
 
 public class QrCustomerArrayAdapter extends ArrayAdapter<QrCode>{
@@ -37,7 +39,6 @@ public class QrCustomerArrayAdapter extends ArrayAdapter<QrCode>{
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-
         View currentItemView = convertView;
 
 
@@ -66,7 +67,9 @@ public class QrCustomerArrayAdapter extends ArrayAdapter<QrCode>{
         comment.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 System.out.println("Comment Clicked");
-                //TODO
+                Intent intent = new Intent(context,Comments.class);
+                intent.putExtra("QrCodeID", qrcode.getQrId());
+                context.startActivity(intent);
             }
         });
 
@@ -74,7 +77,9 @@ public class QrCustomerArrayAdapter extends ArrayAdapter<QrCode>{
         others.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 System.out.println("others Clicked");
-                //TODO
+                Intent intent = new Intent(context,Others.class);
+                intent.putExtra("QrCodeID", qrcode.getQrId());
+                context.startActivity(intent);
             }
         });
 

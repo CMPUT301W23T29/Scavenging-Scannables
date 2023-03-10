@@ -85,7 +85,7 @@ public class QrCodesActivity extends AppCompatActivity {
             }
         });
 
-        //Create a alert dialog
+        //define a alert dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(QrCodesActivity.this);
         builder.setMessage("Do you want to delete ?");
         builder.setTitle("Warning !");
@@ -112,7 +112,6 @@ public class QrCodesActivity extends AppCompatActivity {
         AlertDialog alertDialog = builder.create();
 
         //Show the list
-
         dbc.GetAllQrCodeOfUser(username, new FirestoreDatabaseCallback() {
             @Override
             public <T> void OnDataCallback(T data) {
@@ -124,7 +123,7 @@ public class QrCodesActivity extends AppCompatActivity {
             }
         });
 
-
+        //Show alertdialog when delete
         qrCodesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
            //Click to delete Qrcode
            @Override
@@ -135,6 +134,10 @@ public class QrCodesActivity extends AppCompatActivity {
                }
            }
        });
+
+        //Click comments to see comments
+
+
         /***
          dbc.DeleteQrcodeFromPlayer(username, qrCode.getQrId(), new FirestoreDatabaseCallback() {
         @Override
