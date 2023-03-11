@@ -15,7 +15,7 @@ import com.example.scavengingscannables.R;
 
 public class Comments extends AppCompatActivity {
 
-    Integer QrCodeID;
+    String QrCodeID;
     Button backButton;
 
     @Override
@@ -23,7 +23,7 @@ public class Comments extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_comments);
         Intent intent = getIntent();
-        QrCodeID = intent.getIntExtra("QrCodeID",0);
+        QrCodeID = intent.getStringExtra("QrCodeID");
         FirestoreDatabaseController dbc = new FirestoreDatabaseController();
         backButton = findViewById(R.id.button_comments_back);
 

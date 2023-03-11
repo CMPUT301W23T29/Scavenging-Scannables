@@ -56,7 +56,7 @@ public class ScannerActivity extends AppCompatActivity {
                         HashMap<String, String> DemoComments = new HashMap<String, String>();
                         ArrayList<String> DemoOwnedBy = new ArrayList<>();
                         ArrayList<Double> demoqrLocation = new ArrayList<>();
-                        QrCode newCode = new QrCode(1234567, hashedName, Integer.toString(score),  DemoComments, DemoOwnedBy, demoqrLocation);
+                        QrCode newCode = new QrCode("1234567", hashedName, Integer.toString(score),  DemoComments, DemoOwnedBy, demoqrLocation);
 
                         fdc.SaveQRCodeByID(newCode);
 
