@@ -31,16 +31,16 @@ public class DisplaySearch extends AppCompatActivity {
     private TextView total_scanned;
     private TextView total_score;
     private ImageView highest;
-    private Integer highest_id;
+    private String highest_id;
     private ImageView lowest;
-    private Integer lowest_id;
-    private HashMap<Integer,Integer> lowest_highest = new HashMap<>();
-    private ArrayList<Integer> qrcodes = new ArrayList<>();
+    private String lowest_id;
+    private HashMap<String,Integer> lowest_highest = new HashMap<>();
+    private ArrayList<String> qrcodes = new ArrayList<>();
     private Integer t_score = 0;
     private Integer t_scanned = 0;
     private ArrayList<String> scores = new ArrayList<>();
     private String user_phone;
-    private ArrayList<Integer> qrids = new ArrayList<>();
+    private ArrayList<String> qrids = new ArrayList<>();
     FirestoreDatabaseController dbc = new FirestoreDatabaseController();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +71,7 @@ public class DisplaySearch extends AppCompatActivity {
             @Override
             public <T> void OnDataCallback(T data) {
                 FirestoreDatabaseCallback.super.OnDataCallback(data);
-                qrids = (ArrayList<Integer>) data;
+                qrids = (ArrayList<String>) data;
                 Log.d("QRCODE List", String.valueOf(qrids));
             }
         });
@@ -84,7 +84,7 @@ public class DisplaySearch extends AppCompatActivity {
                 qrcodes = p.getScannedQRCodesID();
                 if (qrcodes.size() > 0){
                     for (int i=0;i<qrcodes.size();i++){
-                        Integer qrcode = qrcodes.get(i);
+                        String qrcode = qrcodes.get(i);
                         dbc.GetQRCodeByID(qrcode, new FirestoreDatabaseCallback() {
                             @Override
                             public <T> void OnDataCallback(T data) {
@@ -93,10 +93,10 @@ public class DisplaySearch extends AppCompatActivity {
                                 if(lowest_highest.size() == 1){
                                     //
                                 }else{
-                                    List<Map.Entry<Integer, Integer>> list = new ArrayList<Map.Entry<Integer, Integer>>(lowest_highest.entrySet());
-                                    Collections.sort(list, new Comparator<Map.Entry<Integer, Integer>>() {
+                                    List<Map.Entry<String, Integer>> list = new ArrayList<Map.Entry<String, Integer>>(lowest_highest.entrySet());
+                                    Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
                                         @Override
-                                        public int compare(Map.Entry<Integer, Integer> o1, Map.Entry<Integer, Integer> o2) {
+                                        public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
                                             return o1.getValue().compareTo(o2.getValue());
                                         }
                                     });
