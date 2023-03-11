@@ -50,8 +50,13 @@
 
             android:label="@string/app_name">
         </activity>
+        <activity
+            android:name=".ScannerActivity">
 
-        <activity android:name=".ScannerActivity"></activity>
+        </activity>
+        <activity android:name=".CameraActivity">
+
+        </activity>
 
     </application>
     <uses-permission android:name="android.permission.CAMERA"/>
