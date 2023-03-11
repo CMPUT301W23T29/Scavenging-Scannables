@@ -17,6 +17,11 @@ import com.example.scavengingscannables.QrCode;
 import com.example.scavengingscannables.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class DisplaySearch extends AppCompatActivity {
     private  Button btn_back;
@@ -26,9 +31,11 @@ public class DisplaySearch extends AppCompatActivity {
     private TextView total_scanned;
     private TextView total_score;
     private ImageView highest;
+    private Integer highest_id;
     private ImageView lowest;
+    private Integer lowest_id;
+    private HashMap<Integer,Integer> lowest_highest = new HashMap<>();
     private ArrayList<Integer> qrcodes = new ArrayList<>();
-    String username;
     private Integer t_score = 0;
     private Integer t_scanned = 0;
     private ArrayList<String> scores = new ArrayList<>();
@@ -75,7 +82,6 @@ public class DisplaySearch extends AppCompatActivity {
                 user_phone = p.getPhoneNumber().toString();
                 phone.setText(user_phone);
                 qrcodes = p.getScannedQRCodesID();
-                System.out.println(qrcodes.size());
                 if (qrcodes.size() > 0){
                     for (int i=0;i<qrcodes.size();i++){
                         Integer qrcode = qrcodes.get(i);
@@ -83,6 +89,26 @@ public class DisplaySearch extends AppCompatActivity {
                             @Override
                             public <T> void OnDataCallback(T data) {
                                 QrCode q = (QrCode)data;
+                                lowest_highest.put(qrcode,Integer.valueOf(q.getScore()));
+                                if(lowest_highest.size() == 1){
+                                    //
+                                }else{
+                                    List<Map.Entry<Integer, Integer>> list = new ArrayList<Map.Entry<Integer, Integer>>(lowest_highest.entrySet());
+                                    list.sort(new Comparator<Map.Entry<Integer, Integer>>() {
+                                                  @Override
+                                                  public int compare(Map.Entry<Integer, Integer> o1, Map.Entry<Integer, Integer> o2) {
+                                                      return o1.getKey().compareTo(o2.getKey());
+                                                  }
+                                    });
+                                    Collections.sort(list, new Comparator<Map.Entry<Integer, Integer>>() {
+                                        @Override
+                                        public int compare(Map.Entry<Integer, Integer> o1, Map.Entry<Integer, Integer> o2) {
+                                            return o1.getValue().compareTo(o2.getValue());
+                                        }
+                                    });
+                                    lowest_id = list.get(0).getKey();
+                                    highest_id = list.get((list.size())-1).getKey();
+                                }
                                 scores.add(q.getScore());
                                 t_score = 0;
                                 for (int i=0;i<scores.size();i++) {
