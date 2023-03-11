@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // tests adding qrcode to database
-        dbc.SaveQRCodeByID(new QrCode(123, "TESTNAME", "999", new HashMap<String, String>(), new ArrayList<String>(), new ArrayList<Double>()));
+        dbc.SaveQRCodeByID(new QrCode("123", "TESTNAME", "999", new HashMap<String, String>(), new ArrayList<String>(), new ArrayList<Double>()));
 
         // tests getting all usernames
         dbc.GetAllUsernames(new FirestoreDatabaseCallback() {
@@ -121,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
         // This is more of the camera permissions code. We'll make this comment more descriptive later.
         @Override
         public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
             if (requestCode == CAMERA_PERMISSION_CODE) {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show();

@@ -28,9 +28,8 @@ public class FirestoreDatabaseController{
     private String QrCodeCollectionName = "QRCodes";
     private String PlayersCollectionName = "Players";
 
-    public void GetQRCodeByID(Integer id, FirestoreDatabaseCallback callback){
-        String idString = String.valueOf(id);
-        db.collection(QrCodeCollectionName).document(idString).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+    public void GetQRCodeByID(String id, FirestoreDatabaseCallback callback){
+        db.collection(QrCodeCollectionName).document(id).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 QrCode qrCode = documentSnapshot.toObject(QrCode.class);
@@ -40,7 +39,7 @@ public class FirestoreDatabaseController{
     }
 
     public void SaveQRCodeByID(@NonNull QrCode qrcode){
-        String qrCodeIDString = String.valueOf(qrcode.getQrId());
+        String qrCodeIDString = qrcode.getQrId();
 
         db.collection(QrCodeCollectionName)
           .document(qrCodeIDString)
@@ -66,9 +65,9 @@ public class FirestoreDatabaseController{
             public <T> void OnDataCallback(T data) {
                 Player player = (Player)data;
                 ArrayList<QrCode> qrCodesArray = new ArrayList<>();
-                ArrayList<Integer> scannedIDs = player.getScannedQRCodesID();
+                ArrayList<String> scannedIDs = player.getScannedQRCodesID();
                 Log.d("LOGSCANNEDIDS", String.valueOf(scannedIDs));
-                for (Integer id:scannedIDs) {
+                for (String id:scannedIDs) {
                     GetQRCodeByID(id, new FirestoreDatabaseCallback() {
                         @Override
                         public <T> void OnDataCallback(T data) {
@@ -140,9 +139,8 @@ public class FirestoreDatabaseController{
         });
     }
 
-    public void CheckQRIDExists(Integer id, FirestoreDatabaseCallback callback){
-        String idString = String.valueOf(id);
-        db.collection(QrCodeCollectionName).document(idString).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+    public void CheckQRIDExists(String id, FirestoreDatabaseCallback callback){
+        db.collection(QrCodeCollectionName).document(id).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if (documentSnapshot.exists()){
@@ -154,7 +152,7 @@ public class FirestoreDatabaseController{
         });
     }
 
-    public void DeleteQrcodeFromPlayer(String playerUsername, int QrCodeID, FirestoreDatabaseCallback callback) {
+    public void DeleteQrcodeFromPlayer(String playerUsername, String QrCodeID, FirestoreDatabaseCallback callback) {
         db.collection(PlayersCollectionName)
                 .document(playerUsername)
                 .update("scannedQRCodesID", FieldValue.arrayRemove(QrCodeID))
