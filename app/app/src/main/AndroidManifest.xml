@@ -40,6 +40,17 @@
 
             android:label="@string/app_name">
         </activity>
+        <activity
+            android:name=".ui.notifications.Comments"
+
+            android:label="@string/app_name">
+        </activity>
+        <activity
+            android:name=".ui.notifications.Others"
+
+            android:label="@string/app_name">
+        </activity>
+
         <activity android:name=".ScannerActivity"></activity>
 
     </application>

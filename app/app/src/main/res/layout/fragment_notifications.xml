@@ -5,11 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.notifications.NotificationsFragment">
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints">
 
         <TextView
@@ -38,50 +42,56 @@
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="300dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
         <LinearLayout
             android:layout_width="205dp"
             android:layout_height="150dp">
+
             <TextView
                 android:id="@+id/total_score"
                 android:layout_width="205dp"
                 android:layout_height="100dp"
+                android:gravity="center"
                 android:text="0"
                 android:textColor="@color/black"
-                android:textSize="60dp"
-                android:gravity="center"/>
+                android:textSize="60dp" />
+
             <TextView
                 android:layout_width="205dp"
                 android:layout_height="50dp"
-                android:layout_marginTop="60dp"
                 android:layout_marginLeft="-205dp"
+                android:layout_marginTop="60dp"
+                android:gravity="center"
                 android:text="Total Score"
                 android:textColor="@color/black"
-                android:textSize="20dp"
-                android:gravity="center"/>
+                android:textSize="20dp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="205dp"
             android:layout_height="150dp">
+
             <TextView
-                android:id="@+id/highest_score"
+                android:id="@+id/codes_scanned"
                 android:layout_width="205dp"
                 android:layout_height="100dp"
+                android:gravity="center"
                 android:text="0"
                 android:textColor="@color/black"
-                android:textSize="60dp"
-                android:gravity="center"/>
+                android:textSize="60dp" />
+
             <TextView
                 android:layout_width="205dp"
                 android:layout_height="50dp"
-                android:layout_marginTop="60dp"
                 android:layout_marginLeft="-205dp"
-                android:text="Highest Score"
+                android:layout_marginTop="60dp"
+                android:gravity="center"
+                android:text="Codes Scanned"
                 android:textColor="@color/black"
-                android:textSize="20dp"
-                android:gravity="center"/>
+                android:textSize="20dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -89,64 +99,50 @@
             android:layout_height="150dp"
             android:layout_marginLeft="-411dp"
             android:layout_marginTop="150dp">
-            <TextView
-                android:id="@+id/codes_scanned"
+
+            <ImageView
+                android:id="@+id/n_image_highest_qr"
                 android:layout_width="205dp"
                 android:layout_height="100dp"
-                android:text="0"
-                android:textColor="@color/black"
-                android:textSize="60dp"
-                android:gravity="center"/>
+                android:gravity="center"
+                />
+
             <TextView
                 android:layout_width="205dp"
                 android:layout_height="50dp"
-                android:layout_marginTop="60dp"
                 android:layout_marginLeft="-205dp"
-                android:text="Codes scanned"
+                android:layout_marginTop="100dp"
+                android:gravity="center"
+                android:text="HIGHEST SCORE QR CODE"
                 android:textColor="@color/black"
-                android:textSize="20dp"
-                android:gravity="center"/>
+                android:textSize="15dp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="205dp"
             android:layout_height="150dp"
             android:layout_marginTop="150dp">
-            <TextView
-                android:id="@+id/lowest_score"
+
+            <ImageView
+                android:id="@+id/n_image_lowest_qr"
                 android:layout_width="205dp"
                 android:layout_height="100dp"
-                android:text="0"
+                android:gravity="center"
                 android:textColor="@color/black"
-                android:textSize="60dp"
-                android:gravity="center"/>
+                />
+
             <TextView
                 android:layout_width="205dp"
                 android:layout_height="50dp"
-                android:layout_marginTop="60dp"
                 android:layout_marginLeft="-205dp"
-                android:text="Lowest score"
+                android:layout_marginTop="100dp"
+                android:gravity="center"
+                android:text="Lowest SCORE QR CODE"
                 android:textColor="@color/black"
-                android:textSize="20dp"
-                android:gravity="center"/>
+                android:textSize="15dp" />
         </LinearLayout>
 
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/text_notifications"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-        app:layout_constraintVertical_bias="0.125" />
 
     <Button
         android:id="@+id/ViewQrCodes"
@@ -156,6 +152,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_notifications"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
         app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>

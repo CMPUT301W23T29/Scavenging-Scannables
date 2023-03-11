@@ -7,6 +7,14 @@ android {
     namespace 'com.example.scavengingscannables'
     compileSdk 33
 
+    task wrapper(type: Wrapper){
+        gradleVersion = '7.2'
+    }
+
+    task prepareKotlinBuildScriptModel {
+
+    }
+
     defaultConfig {
         applicationId "com.example.scavengingscannables"
         minSdk 24
@@ -56,4 +64,6 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore'
     implementation 'com.google.code.gson:gson:2.10.1'
     implementation 'com.github.yuriy-budiyev:code-scanner:2.3.2'
+    implementation("com.google.guava:guava:31.1-android")
+
 }
