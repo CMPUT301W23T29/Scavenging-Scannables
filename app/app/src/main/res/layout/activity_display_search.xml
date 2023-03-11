@@ -11,6 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints">
 
         <TextView
@@ -39,6 +42,8 @@
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="300dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/display_linearLayout">
 
         <LinearLayout
@@ -70,32 +75,6 @@
             android:layout_height="150dp">
 
             <TextView
-                android:id="@+id/display_highest_score"
-                android:layout_width="205dp"
-                android:layout_height="100dp"
-                android:gravity="center"
-                android:text="0"
-                android:textColor="@color/black"
-                android:textSize="60dp" />
-
-            <TextView
-                android:layout_width="205dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="-205dp"
-                android:layout_marginTop="60dp"
-                android:gravity="center"
-                android:text="Highest Score"
-                android:textColor="@color/black"
-                android:textSize="20dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="205dp"
-            android:layout_height="150dp"
-            android:layout_marginLeft="-411dp"
-            android:layout_marginTop="150dp">
-
-            <TextView
                 android:id="@+id/display_codes_scanned"
                 android:layout_width="205dp"
                 android:layout_height="100dp"
@@ -110,7 +89,7 @@
                 android:layout_marginLeft="-205dp"
                 android:layout_marginTop="60dp"
                 android:gravity="center"
-                android:text="Codes scanned"
+                android:text="Codes Scanned"
                 android:textColor="@color/black"
                 android:textSize="20dp" />
         </LinearLayout>
@@ -118,26 +97,46 @@
         <LinearLayout
             android:layout_width="205dp"
             android:layout_height="150dp"
+            android:layout_marginLeft="-411dp"
             android:layout_marginTop="150dp">
 
-            <TextView
-                android:id="@+id/display_lowest_score"
+            <ImageView
+                android:id="@+id/display_highest_qr"
                 android:layout_width="205dp"
                 android:layout_height="100dp"
-                android:gravity="center"
-                android:text="0"
-                android:textColor="@color/black"
-                android:textSize="60dp" />
+                android:gravity="center" />
 
             <TextView
                 android:layout_width="205dp"
                 android:layout_height="50dp"
                 android:layout_marginLeft="-205dp"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="100dp"
                 android:gravity="center"
-                android:text="Lowest score"
+                android:text="HIGHEST SCORE QR CODE"
                 android:textColor="@color/black"
-                android:textSize="20dp" />
+                android:textSize="15dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="205dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="150dp">
+
+            <ImageView
+                android:id="@+id/display_lowest_qr"
+                android:layout_width="205dp"
+                android:layout_height="100dp"
+                android:gravity="center" />
+
+            <TextView
+                android:layout_width="205dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="-205dp"
+                android:layout_marginTop="100dp"
+                android:gravity="center"
+                android:text="Lowest SCORE QR CODE"
+                android:textColor="@color/black"
+                android:textSize="15dp" />
         </LinearLayout>
 
     </LinearLayout>
