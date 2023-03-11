@@ -21,7 +21,7 @@ import java.util.ArrayList;
 
 public class Others extends AppCompatActivity {
 
-    Integer QrCodeID;
+    String QrCodeID;
     Button backButton;
     ArrayList<String> playerNamesList;
 
@@ -31,7 +31,7 @@ public class Others extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_others);
         Intent intent = getIntent();
-        QrCodeID = intent.getIntExtra("QrCodeID",0);
+        QrCodeID = intent.getStringExtra("QrCodeID");
 
         FirestoreDatabaseController dbc = new FirestoreDatabaseController();
         backButton = findViewById(R.id.button_others_back);

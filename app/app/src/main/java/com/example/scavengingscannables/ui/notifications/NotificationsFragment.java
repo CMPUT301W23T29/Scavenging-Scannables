@@ -44,11 +44,11 @@ public class NotificationsFragment extends Fragment {
     private TextView total_scanned;
     private TextView total_score;
     private ImageView highest;
-    private Integer highest_id;
+    private String highest_id;
     private ImageView lowest;
-    private Integer lowest_id;
-    private HashMap<Integer,Integer> lowest_highest = new HashMap<>();
-    private ArrayList<Integer> qrcodes = new ArrayList<>();
+    private String lowest_id;
+    private HashMap<String,Integer> lowest_highest = new HashMap<>();
+    private ArrayList<String> qrcodes = new ArrayList<>();
     String username;
     private Integer t_score = 0;
     private Integer t_scanned = 0;
@@ -92,7 +92,7 @@ public class NotificationsFragment extends Fragment {
                 qrcodes = p.getScannedQRCodesID();
                 if (qrcodes.size() > 0){
                     for (int i=0;i<qrcodes.size();i++){
-                        Integer qrcode = qrcodes.get(i);
+                        String qrcode = qrcodes.get(i);
                         dbc.GetQRCodeByID(qrcode, new FirestoreDatabaseCallback() {
                             @Override
                             public <T> void OnDataCallback(T data) {
@@ -101,10 +101,10 @@ public class NotificationsFragment extends Fragment {
                                 if(lowest_highest.size() == 1){
                                     //
                                 }else{
-                                    List<Map.Entry<Integer, Integer>> list = new ArrayList<Map.Entry<Integer, Integer>>(lowest_highest.entrySet());
-                                    Collections.sort(list, new Comparator<Map.Entry<Integer, Integer>>() {
+                                    List<Map.Entry<String, Integer>> list = new ArrayList<Map.Entry<String, Integer>>(lowest_highest.entrySet());
+                                    Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
                                         @Override
-                                        public int compare(Map.Entry<Integer, Integer> o1, Map.Entry<Integer, Integer> o2) {
+                                        public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
                                             return o1.getValue().compareTo(o2.getValue());
                                         }
                                     });
