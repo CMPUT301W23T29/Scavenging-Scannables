@@ -227,7 +227,7 @@ public class ScannerActivity extends AppCompatActivity {
                         }
 
                         // Create a QR code using the data we've generated
-                        QrCode newCode = new QrCode(sha256hex, hashedName, Integer.toString(score),  comments, ownedBy, qrLocation);
+                        QrCode newCode = new QrCode(sha256hex, Integer.toString(score), hashedName,  comments, ownedBy, qrLocation);
 
                         // Save the new QR code to the database
                         fdc.SaveQRCodeByID(newCode);
