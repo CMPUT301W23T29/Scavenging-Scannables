@@ -20,6 +20,7 @@ import com.example.scavengingscannables.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Comments extends AppCompatActivity {
 
@@ -28,8 +29,10 @@ public class Comments extends AppCompatActivity {
     Button confirmButton;
     String userName;
     EditText commentInput;
+    ListView commentsView;
 
     HashMap<String, String> commentsHashMap;
+    CommentCustomerArrayAdapter arrayAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,9 +44,9 @@ public class Comments extends AppCompatActivity {
         backButton = findViewById(R.id.button_comments_back);
         confirmButton = findViewById(R.id.Confirm);
         commentInput = findViewById(R.id.input);
-        ListView commentsView = findViewById(R.id.comments_list);
+        commentsView = findViewById(R.id.comments_list);
         commentsHashMap = new HashMap<String,String>();
-        CommentCustomerArrayAdapter arrayAdapter = new CommentCustomerArrayAdapter(this);
+        arrayAdapter = new CommentCustomerArrayAdapter(this);
         commentsView.setAdapter(arrayAdapter);
 
 
@@ -54,6 +57,22 @@ public class Comments extends AppCompatActivity {
                 finish();
             }
         });
+
+        //Show the Comments
+        dbc.GetQRCodeByID(QrCodeID, new FirestoreDatabaseCallback() {
+            @Override
+            public <T> void OnDataCallback(T data) {
+                arrayAdapter.clear();
+                QrCode q = (QrCode) data;
+                commentsHashMap = q.getComments();
+                q.getComments().forEach((key, value) -> {
+                    Comment comment = new Comment(key, value);
+                    arrayAdapter.add(comment);
+                    arrayAdapter.notifyDataSetChanged();
+                });
+            }
+        });
+        //Add a Comment
 
         confirmButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -67,6 +86,19 @@ public class Comments extends AppCompatActivity {
                         commentInput.setText("");
                         q.setComments(currentComments);
                         dbc.SaveQRCodeByID(q);
+                        dbc.GetQRCodeByID(QrCodeID, new FirestoreDatabaseCallback() {
+                            @Override
+                            public <T> void OnDataCallback(T data) {
+                                arrayAdapter.clear();
+                                QrCode q = (QrCode) data;
+                                commentsHashMap = q.getComments();
+                                q.getComments().forEach((key, value) -> {
+                                    Comment comment = new Comment(key, value);
+                                    arrayAdapter.add(comment);
+                                    arrayAdapter.notifyDataSetChanged();
+                                });
+                            }
+                        });
 
                     }
                 });

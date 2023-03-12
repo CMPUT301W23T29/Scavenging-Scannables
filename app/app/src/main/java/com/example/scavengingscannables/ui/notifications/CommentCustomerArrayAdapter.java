@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.example.scavengingscannables.QrCode;
 import com.example.scavengingscannables.R;
@@ -17,35 +18,36 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CommentCustomerArrayAdapter extends ArrayAdapter {
-    private HashMap<String,String> comments;
+public class CommentCustomerArrayAdapter extends ArrayAdapter<Comment> {
+    private ArrayList<Comment> comments;
     private Context context;
 
     public CommentCustomerArrayAdapter(@NonNull Context context) {
         super(context, 0);
         this.context = context;
-        this.comments = new HashMap<String,String>();
+        this.comments = new ArrayList<Comment>();
     }
 
 
-
+    @NonNull
     @Override
-    public View getView(int position, View currentItemView, ViewGroup parent) {
-        final View result;
+    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        View currentItemView = convertView;
 
         if (currentItemView == null) {
-            result = LayoutInflater.from(parent.getContext()).inflate(R.layout.comment_item, parent, false);
-        } else {
-            result = currentItemView;
+            currentItemView = LayoutInflater.from(getContext()).inflate(R.layout.comment_item, parent, false);
+
         }
+        Comment CurrentComment = super.getItem(position);
+
 
 
         TextView name = currentItemView.findViewById(R.id.comment_user);
-        name.setText("User: "+NotificationsFragment.name);
+        name.setText(CurrentComment.getName()+":");
 
         TextView comment = currentItemView.findViewById(R.id.comment);
-        comment.setText("Comment: "+comments.get(NotificationsFragment.name));
+        comment.setText("       "+CurrentComment.getComment());
 
-        return result;
+        return currentItemView;
     }
 }
