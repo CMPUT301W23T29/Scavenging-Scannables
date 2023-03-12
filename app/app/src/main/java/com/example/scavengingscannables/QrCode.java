@@ -60,6 +60,10 @@ public class QrCode {
         return comments;
     }
 
+    public void setComments(HashMap<String, String> newComments) {
+        this.comments = newComments;
+    }
+
     public ArrayList<String> getOwnedBy() {
         return ownedBy;
     }
