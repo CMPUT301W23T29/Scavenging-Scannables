@@ -65,5 +65,8 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.10.1'
     implementation 'com.github.yuriy-budiyev:code-scanner:2.3.2'
     implementation("com.google.guava:guava:31.1-android")
+    androidTestImplementation "androidx.test:runner:1.5.2"
+    androidTestImplementation "androidx.test:rules:1.5.0"
+    androidTestImplementation "com.jayway.android.robotium:robotium-solo:5.2.1"
 
 }
