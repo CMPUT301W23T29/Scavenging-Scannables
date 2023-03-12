@@ -4,6 +4,10 @@ import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
@@ -16,16 +20,23 @@ import androidx.core.app.ActivityCompat;
 import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.CodeScannerView;
 import com.budiyev.android.codescanner.DecodeCallback;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.common.hash.Hashing;
 import com.google.zxing.Result;
 import com.google.zxing.qrcode.encoder.QRCode;
 
 import org.checkerframework.checker.units.qual.A;
 
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 
 public class ScannerActivity extends AppCompatActivity {
     private CodeScanner mCodeScanner;
@@ -36,16 +47,25 @@ public class ScannerActivity extends AppCompatActivity {
 
     private NamingSystem namsys = new NamingSystem();
 
-    private boolean storeCode;
+    private boolean storePhoto;
 
     private boolean storeLocation;
 
     int CAMERA_REQUEST_CODE = 102;
 
+    double latitude;
+
+    double longitude;
+
+    FusedLocationProviderClient flpc;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.scanner);
+
+        flpc = LocationServices.getFusedLocationProviderClient(ScannerActivity.this);
+
         CodeScannerView scannerView = findViewById(R.id.scanner_view);
         mCodeScanner = new CodeScanner(this, scannerView);
         mCodeScanner.setDecodeCallback(new DecodeCallback() {
@@ -77,7 +97,7 @@ public class ScannerActivity extends AppCompatActivity {
                                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        storeCode = true;
+                                        storePhoto= true;
 
                                         // Launch camera activity
                                         Intent myIntent = new Intent(ScannerActivity.this, CameraActivity.class);
@@ -93,6 +113,33 @@ public class ScannerActivity extends AppCompatActivity {
                                                     @Override
                                                     public void onClick(DialogInterface dialog, int which) {
                                                         storeLocation = true;
+                                                        if (ActivityCompat.checkSelfPermission(ScannerActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+//                                                            getLocation();
+                                                            flpc.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+                                                                @Override
+                                                                public void onComplete(@NonNull Task<Location> task) {
+                                                                    Location location = task.getResult();
+                                                                    if (location != null) {
+                                                                        try {
+                                                                            // Initialize geoCoder
+                                                                            Geocoder geocoder = new Geocoder(ScannerActivity.this, Locale.getDefault());
+                                                                            // Initialize address list
+                                                                            List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+                                                                            Toast.makeText(ScannerActivity.this, addresses.get(0).getLatitude() + ", " + addresses.get(0).getLongitude(), Toast.LENGTH_LONG).show();
+                                                                            // Store latitude and longitude
+                                                                            latitude = addresses.get(0).getLatitude();
+                                                                            longitude = addresses.get(0).getLongitude();
+
+                                                                        } catch (IOException e) {
+                                                                            e.printStackTrace();
+                                                                        }
+                                                                    }
+                                                                }
+                                                            });
+                                                        }
+                                                        else {
+                                                            ActivityCompat.requestPermissions(ScannerActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
+                                                        }
                                                     }
                                                 })
 
@@ -111,7 +158,7 @@ public class ScannerActivity extends AppCompatActivity {
                                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        storeCode = false;
+                                        storePhoto = false;
                                         dialog.dismiss();
 
                                         // Here we ask the user if they want to store the object's location
@@ -123,6 +170,32 @@ public class ScannerActivity extends AppCompatActivity {
                                                     @Override
                                                     public void onClick(DialogInterface dialog, int which) {
                                                         storeLocation = true;
+                                                        if (ActivityCompat.checkSelfPermission(ScannerActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+//                                                            getLocation();
+                                                            flpc.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+                                                                @Override
+                                                                public void onComplete(@NonNull Task<Location> task) {
+                                                                    Location location = task.getResult();
+                                                                    if (location != null) {
+                                                                        try {
+                                                                            // Initialize geoCoder
+                                                                            Geocoder geocoder = new Geocoder(ScannerActivity.this, Locale.getDefault());
+                                                                            // Initialize address list
+                                                                            List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+                                                                            Toast.makeText(ScannerActivity.this, addresses.get(0).getLatitude() + ", " + addresses.get(0).getLongitude(), Toast.LENGTH_LONG).show();
+                                                                            // Store latitude and longitude
+                                                                            latitude = addresses.get(0).getLatitude();
+                                                                            longitude = addresses.get(0).getLongitude();
+                                                                        } catch (IOException e) {
+                                                                            e.printStackTrace();
+                                                                        }
+                                                                    }
+                                                                }
+                                                            });
+                                                        }
+                                                        else {
+                                                            ActivityCompat.requestPermissions(ScannerActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
+                                                        }
                                                     }
                                                 })
 
@@ -142,13 +215,19 @@ public class ScannerActivity extends AppCompatActivity {
                         // Generate a name for the hash
                         String hashedName = namsys.generateName(sha256hex);
 
-                        // These lines are temporary and just create dummy data to feed to our QR code
-                        HashMap<String, String> DemoComments = new HashMap<String, String>();
-                        ArrayList<String> DemoOwnedBy = new ArrayList<>();
-                        ArrayList<Double> demoqrLocation = new ArrayList<>();
+                        // Create HashMap for comments, ArrayList for owners, and an ArrayList for locations
+                        HashMap<String, String> comments = new HashMap<String, String>();
+                        ArrayList<String> ownedBy = new ArrayList<>();
+
+                        // Store location based on the user's choices
+                        ArrayList<Double> qrLocation = new ArrayList<>();
+                        if (storeLocation) {
+                            qrLocation.add(latitude);
+                            qrLocation.add(longitude);
+                        }
 
                         // Create a QR code using the data we've generated
-                        QrCode newCode = new QrCode("1234567", hashedName, Integer.toString(score),  DemoComments, DemoOwnedBy, demoqrLocation);
+                        QrCode newCode = new QrCode(sha256hex, hashedName, Integer.toString(score),  comments, ownedBy, qrLocation);
 
                         // Save the new QR code to the database
                         fdc.SaveQRCodeByID(newCode);
