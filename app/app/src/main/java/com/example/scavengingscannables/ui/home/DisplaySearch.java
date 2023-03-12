@@ -3,6 +3,8 @@ package com.example.scavengingscannables.ui.home;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,6 +18,9 @@ import com.example.scavengingscannables.Player;
 import com.example.scavengingscannables.QrCode;
 import com.example.scavengingscannables.R;
 
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -90,11 +95,8 @@ public class DisplaySearch extends AppCompatActivity {
                             public <T> void OnDataCallback(T data) {
                                 QrCode q = (QrCode)data;
                                 lowest_highest.put(qrcode,Integer.valueOf(q.getScore()));
-                                if(lowest_highest.size() == 1){
-                                    //
-                                }else{
-                                    List<Map.Entry<String, Integer>> list = new ArrayList<Map.Entry<String, Integer>>(lowest_highest.entrySet());
-                                    Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
+                                List<Map.Entry<String, Integer>> list = new ArrayList<Map.Entry<String, Integer>>(lowest_highest.entrySet());
+                                Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
                                         @Override
                                         public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
                                             return o1.getValue().compareTo(o2.getValue());
@@ -102,7 +104,7 @@ public class DisplaySearch extends AppCompatActivity {
                                     });
                                     lowest_id = list.get(0).getKey();
                                     highest_id = list.get((list.size())-1).getKey();
-                                }
+
                                 scores.add(q.getScore());
                                 t_score = 0;
                                 for (int i=0;i<scores.size();i++) {

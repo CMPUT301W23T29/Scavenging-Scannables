@@ -45,7 +45,7 @@ public class FindUserActivity extends AppCompatActivity {
     private ListView searchresult;
     private String target;
     FirestoreDatabaseController dbc = new FirestoreDatabaseController();
-    ArrayList<String> allusername;
+    ArrayList<String> allusername = new ArrayList<>();
     ArrayList<String> output = new ArrayList<>();
 
     ArrayAdapter<String> searchResultAdapter;
