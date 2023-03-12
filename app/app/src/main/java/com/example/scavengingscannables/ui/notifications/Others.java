@@ -2,9 +2,7 @@ package com.example.scavengingscannables.ui.notifications;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -14,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.scavengingscannables.FirestoreDatabaseCallback;
 import com.example.scavengingscannables.FirestoreDatabaseController;
 import com.example.scavengingscannables.Player;
-import com.example.scavengingscannables.QrCode;
 import com.example.scavengingscannables.R;
 
 import java.util.ArrayList;
@@ -37,7 +34,7 @@ public class Others extends AppCompatActivity {
         backButton = findViewById(R.id.button_others_back);
         ListView playerNamesView = findViewById(R.id.others_list);
         playerNamesList = new ArrayList<>();
-        ArrayAdapter<String> arrayAdapter=new ArrayAdapter<>(this, R.layout.playername,playerNamesList);
+        ArrayAdapter<String> arrayAdapter=new ArrayAdapter<>(this, R.layout.playername_item,playerNamesList);
         playerNamesView.setAdapter(arrayAdapter);
 
 

@@ -50,6 +50,7 @@ public class NotificationsFragment extends Fragment {
     private HashMap<String,Integer> lowest_highest = new HashMap<>();
     private ArrayList<String> qrcodes = new ArrayList<>();
     String username;
+    static String name;
     private Integer t_score = 0;
     private Integer t_scanned = 0;
     private ArrayList<String> scores = new ArrayList<>();
@@ -83,6 +84,7 @@ public class NotificationsFragment extends Fragment {
         usernameView = root.findViewById(R.id.user_name);
         username = sharedPref.getString("username", "ERROR NO USERNAME FOUND");
         usernameView.setText(username);
+        name = username;
         dbc.GetPlayerByUsername(username, new FirestoreDatabaseCallback() {
             @Override
             public <T> void OnDataCallback(T data) {
