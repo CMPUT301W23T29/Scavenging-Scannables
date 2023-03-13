@@ -109,8 +109,8 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
     private void scanExistingQRCode(QrCode qrcode) {
         // Get QR code using its id
         // Add the current user to its ownedBy list
-        Toast.makeText(a, username, Toast.LENGTH_LONG).show();
-//        qrcode.getOwnedBy().add(username);
+        qrcode.getOwnedBy().add(username);
+        fdc.SaveQRCodeByID(qrcode);
     }
 
     private void askLocationPermissions() {
