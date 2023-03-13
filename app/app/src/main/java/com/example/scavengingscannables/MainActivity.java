@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
             if (requestCode == CAMERA_PERMISSION_CODE) {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(this, ScannerActivity.class);
                     startActivity(intent);
                 } else {

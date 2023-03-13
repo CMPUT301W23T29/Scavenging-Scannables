@@ -1,5 +1,10 @@
 package com.example.scavengingscannables;
 
+import android.app.Activity;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+
 public class PlayerHandler implements FirestoreDatabaseCallback {
     String username;
 
@@ -9,17 +14,25 @@ public class PlayerHandler implements FirestoreDatabaseCallback {
 
     String codeID;
 
-    public PlayerHandler(String username, FirestoreDatabaseController fdc, String codeID) {
+    Activity activity;
+
+    public PlayerHandler(String username, FirestoreDatabaseController fdc, String codeID, Activity activity) {
         this.username = username;
         this.fdc = fdc;
         this.codeID = codeID;
+        this.activity = activity;
     }
 
     @Override
     public <T> void OnDataCallback(T data) {
         player = (Player) data;
-        player.AddQRCodeByID(codeID);
-        fdc.SavePlayerByUsername(player);
+        ArrayList<String> codeList = player.getScannedQRCodesID();
+        if (codeList.contains(codeID)) {
+            Toast.makeText(activity, "You have already scanned this QR code", Toast.LENGTH_LONG).show();
+        } else {
+            player.AddQRCodeByID(codeID);
+            fdc.SavePlayerByUsername(player);
+        }
     }
 
     @Override

@@ -68,7 +68,7 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
         scanExistingQRCode((QrCode) data);
 
         // Add QR code id to user's list of codes
-        ph = new PlayerHandler(username, fdc, hash);
+        ph = new PlayerHandler(username, fdc, hash, activity);
         fdc.GetPlayerByUsername(username, ph);
     }
 
@@ -82,7 +82,7 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
         scanNewQRCode();
 
         // Add QR code id to user's list of codes
-        ph = new PlayerHandler(username, fdc, hash);
+        ph = new PlayerHandler(username, fdc, hash, activity);
         fdc.GetPlayerByUsername(username, ph);
     }
 
@@ -111,7 +111,6 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
         // Create a QR code using the data we've generated
         QrCode newCode = new QrCode(hash, Integer.toString(score), hashedName,  comments, ownedBy, qrLocation);
 
-
         // Save the new QR code to the database
         fdc.SaveQRCodeByID(newCode);
     }
@@ -120,8 +119,11 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
     private void scanExistingQRCode(QrCode qrcode) {
         // Get QR code using its id
         // Add the current user to its ownedBy list
-        qrcode.getOwnedBy().add(username);
-        fdc.SaveQRCodeByID(qrcode);
+        ArrayList<String> ownedBy = qrcode.getOwnedBy();
+        if (!ownedBy.contains(username)) {
+            qrcode.getOwnedBy().add(username);
+            fdc.SaveQRCodeByID(qrcode);
+        }
     }
 
     private void askLocationPermissions() {
