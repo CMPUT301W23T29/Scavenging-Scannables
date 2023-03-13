@@ -24,6 +24,21 @@ public class SignupValidationUnitTest {
     }
 
     @Test
+    public void TestNameValidation(){
+        SignupValidator validator = new SignupValidator();
+        String name = "";
+        assertFalse(validator.IsValidName(name));
+        name = " ";
+        assertFalse(validator.IsValidName(name));
+        name = "a ";
+        assertFalse(validator.IsValidName(name));
+        name = " b";
+        assertFalse(validator.IsValidName(name));
+        name = "abc";
+        assertTrue(validator.IsValidName(name));
+    }
+
+    @Test
     public void TestEmailValidation(){
         SignupValidator validator = new SignupValidator();
         String email = "";
