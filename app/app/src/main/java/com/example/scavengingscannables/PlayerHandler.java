@@ -6,15 +6,15 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class PlayerHandler implements FirestoreDatabaseCallback {
-    String username;
+    private String username;
 
-    FirestoreDatabaseController fdc;
+    private FirestoreDatabaseController fdc;
 
-    Player player;
+    private Player player;
 
-    String codeID;
+    private String codeID;
 
-    Activity activity;
+    private Activity activity;
 
     public PlayerHandler(String username, FirestoreDatabaseController fdc, String codeID, Activity activity) {
         this.username = username;
