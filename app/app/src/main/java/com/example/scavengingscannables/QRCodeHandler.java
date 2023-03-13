@@ -40,7 +40,7 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
 
     double longitude;
 
-    Activity a;
+    Activity activity;
 
     String hash;
 
@@ -50,21 +50,26 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
 
     String username;
 
+    PlayerHandler ph;
 
-    public QRCodeHandler(Activity a, String hash, int score, FirestoreDatabaseController fdc) {
-       this.a = a;
+    public QRCodeHandler(Activity activity, String hash, int score, FirestoreDatabaseController fdc) {
+       this.activity = activity;
        this.hash = hash;
        this.score = score;
        this.fdc = fdc;
-       this.flpc =  LocationServices.getFusedLocationProviderClient(this.a);
+       this.flpc =  LocationServices.getFusedLocationProviderClient(this.activity);
 
-       SharedPreferences sharedPref = a.getSharedPreferences("account", Context.MODE_PRIVATE);
+       SharedPreferences sharedPref = activity.getSharedPreferences("account", Context.MODE_PRIVATE);
        username = sharedPref.getString("username", "ERROR NO USERNAME FOUND");
     }
 
     @Override
     public <T> void OnDataCallback(T data) {
         scanExistingQRCode((QrCode) data);
+
+        // Add QR code id to user's list of codes
+        ph = new PlayerHandler(username, fdc, hash);
+        fdc.GetPlayerByUsername(username, ph);
     }
 
     @Override
@@ -75,8 +80,13 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
     @Override
     public void OnDocumentDoesNotExist() {
         scanNewQRCode();
+
+        // Add QR code id to user's list of codes
+        ph = new PlayerHandler(username, fdc, hash);
+        fdc.GetPlayerByUsername(username, ph);
     }
 
+    // Create a new QR code if this one hasn't been scanned before
     private void scanNewQRCode() {
         // Ask the user if they want to store an image of the object they just scanned
         // Then, whether the user wants to store an image or not, we ask if they want to store the location of the object they just scanned
@@ -101,10 +111,12 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
         // Create a QR code using the data we've generated
         QrCode newCode = new QrCode(hash, Integer.toString(score), hashedName,  comments, ownedBy, qrLocation);
 
+
         // Save the new QR code to the database
         fdc.SaveQRCodeByID(newCode);
     }
 
+    // Add user to QR code's ownedBy list if the one scanned already exists
     private void scanExistingQRCode(QrCode qrcode) {
         // Get QR code using its id
         // Add the current user to its ownedBy list
@@ -114,7 +126,7 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
 
     private void askLocationPermissions() {
         // Here we ask the user if they want to store the object's location
-        new AlertDialog.Builder(a)
+        new AlertDialog.Builder(activity)
                 .setTitle("Do you want to store this code's location?")
 
                 // If the user wants to store the location, we set the "storeLocation" flag to true
@@ -122,7 +134,7 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         storeLocation = true;
-                        if (ActivityCompat.checkSelfPermission(a, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                        if (ActivityCompat.checkSelfPermission(activity, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 //                           getLocation();
                             flpc.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
                                 @Override
@@ -131,10 +143,9 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
                                     if (location != null) {
                                         try {
                                             // Initialize geoCoder
-                                            Geocoder geocoder = new Geocoder(a, Locale.getDefault());
+                                            Geocoder geocoder = new Geocoder(activity, Locale.getDefault());
                                             // Initialize address list
                                             List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-                                            Toast.makeText(a, addresses.get(0).getLatitude() + ", " + addresses.get(0).getLongitude(), Toast.LENGTH_LONG).show();
                                             // Store latitude and longitude
                                             latitude = addresses.get(0).getLatitude();
                                             longitude = addresses.get(0).getLongitude();
@@ -147,7 +158,7 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
                             });
                         }
                         else {
-                            ActivityCompat.requestPermissions(a, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
+                            ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
                         }
                     }
                 })
@@ -163,7 +174,7 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
                 .create().show();
     }
     private void askForPhoto() {
-        new AlertDialog.Builder(a)
+        new AlertDialog.Builder(activity)
                 .setTitle("Do you want to store an image of the object you just scanned?")
 
                 // If the user decides they want to store and image, we will launch their phone's camera application
@@ -173,10 +184,11 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         storePhoto = true;
+
                         // Launch camera activity
-                        Intent myIntent = new Intent(a, CameraActivity.class);
+                        Intent myIntent = new Intent(activity, CameraActivity.class);
 //                      myIntent.putExtra("key", value); //Optional parameters
-                        a.startActivity(myIntent);
+                        activity.startActivity(myIntent);
                         askLocationPermissions();
                     }
                 })
