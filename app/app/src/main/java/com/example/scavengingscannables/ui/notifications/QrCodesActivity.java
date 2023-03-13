@@ -76,6 +76,7 @@ public class QrCodesActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (deleteState == false) {
                     deleteState = true;
+
                     deleteButton.setText("Click Qrcode to delete");
                 }
                 else{
