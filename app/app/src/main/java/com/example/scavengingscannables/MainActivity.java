@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // tests adding qrcode to database
-        dbc.SaveQRCodeByID(new QrCode("123", "TESTNAME", "999", new HashMap<String, String>(), new ArrayList<String>(), new ArrayList<Double>()));
+        dbc.SaveQRCodeByID(new QrCode("123", "999", "TESTNAME", new HashMap<String, String>(), new ArrayList<String>(), new ArrayList<Double>()));
 
         // tests getting all usernames
         dbc.GetAllUsernames(new FirestoreDatabaseCallback() {
