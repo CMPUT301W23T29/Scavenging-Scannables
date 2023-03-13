@@ -21,6 +21,7 @@ import com.example.scavengingscannables.Player;
 import com.example.scavengingscannables.QrCode;
 import com.example.scavengingscannables.R;
 import com.example.scavengingscannables.databinding.FragmentProfileBinding;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -100,8 +101,22 @@ public class ProfileFragment extends Fragment {
                                             return o1.getValue().compareTo(o2.getValue());
                                         }
                                     });
-                                    lowestId = list.get(0).getKey();
-                                    highestId = list.get((list.size())-1).getKey();
+                                lowestId = list.get(0).getKey();
+                                dbc.GetQRCodeByID(lowestId, new FirestoreDatabaseCallback() {
+                                    @Override
+                                    public <T> void OnDataCallback(T data) {
+                                        QrCode ql = (QrCode)data;
+                                        Picasso.get().load(ql.getVisualLink()).into(lowest);
+                                    }
+                                });
+                                highestId = list.get((list.size())-1).getKey();
+                                dbc.GetQRCodeByID(highestId, new FirestoreDatabaseCallback() {
+                                    @Override
+                                    public <T> void OnDataCallback(T data) {
+                                        QrCode ql = (QrCode)data;
+                                        Picasso.get().load(ql.getVisualLink()).into(highest);
+                                    }
+                                });
 
                                 scores.add(q.getScore());
                                 tScore = 0;
