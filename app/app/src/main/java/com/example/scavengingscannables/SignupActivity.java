@@ -118,5 +118,6 @@ public class SignupActivity extends AppCompatActivity {
     private void SwitchToMainActivity(){
         Intent intent = new Intent(SignupActivity.this, MainActivity.class);
         startActivity(intent);
+        finish();
     }
 }
