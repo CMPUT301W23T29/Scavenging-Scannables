@@ -59,6 +59,8 @@ public class ScannerActivity extends AppCompatActivity {
 
     FusedLocationProviderClient flpc;
 
+    boolean codeExists;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,8 +90,12 @@ public class ScannerActivity extends AppCompatActivity {
                         // Tell the user what the score of the QR code they scanned was
                         Toast.makeText(ScannerActivity.this, "Your score is: " + score,Toast.LENGTH_SHORT).show();
 
-                        scanNewQRCode(sha256hex, score);
-
+                        if (codeExists) {
+                            scanNewQRCode(sha256hex, score);
+                        }
+                        else {
+                            scanExistingQRCode();
+                        }
                     }
                 });
             }
@@ -103,13 +109,13 @@ public class ScannerActivity extends AppCompatActivity {
         });
     }
 
-    private void scanNewQRCode(String sha256hex, int score) {
+    private void scanNewQRCode(String hash, int score) {
         // Ask the user if they want to store an image of the object they just scanned
         // Then, whether the user wants to store an image or not, we ask if they want to store the location of the object they just scanned
         askForPhoto();
 
         // Generate a name for the hash
-        String hashedName = namsys.generateName(sha256hex);
+        String hashedName = namsys.generateName(hash);
 
         // Create HashMap for comments, ArrayList for owners, and an ArrayList for locations
         HashMap<String, String> comments = new HashMap<String, String>();
@@ -123,12 +129,16 @@ public class ScannerActivity extends AppCompatActivity {
         }
 
         // Create a QR code using the data we've generated
-        QrCode newCode = new QrCode(sha256hex, Integer.toString(score), hashedName,  comments, ownedBy, qrLocation);
+        QrCode newCode = new QrCode(hash, Integer.toString(score), hashedName,  comments, ownedBy, qrLocation);
 
         // Save the new QR code to the database
         fdc.SaveQRCodeByID(newCode);
     }
 
+    private void scanExistingQRCode() {
+       // Get QR code using its id
+       // Add the current user to its ownedBy list
+    }
 
     private void askLocationPermissions() {
         // Here we ask the user if they want to store the object's location
@@ -141,7 +151,7 @@ public class ScannerActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         storeLocation = true;
                         if (ActivityCompat.checkSelfPermission(ScannerActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-//                                                            getLocation();
+//                           getLocation();
                             flpc.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Location> task) {
@@ -193,7 +203,7 @@ public class ScannerActivity extends AppCompatActivity {
                         storePhoto= true;
                         // Launch camera activity
                         Intent myIntent = new Intent(ScannerActivity.this, CameraActivity.class);
-//                                      myIntent.putExtra("key", value); //Optional parameters
+//                      myIntent.putExtra("key", value); //Optional parameters
                         ScannerActivity.this.startActivity(myIntent);
                         askLocationPermissions();
                     }
