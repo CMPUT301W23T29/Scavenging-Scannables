@@ -2,6 +2,9 @@ package com.example.scavengingscannables;
 
 import java.util.HashMap;
 
+/**
+ * Generates the readable name for scanned qr codes
+ */
 public class NamingSystem {
 
     public String generateName(String hash) {

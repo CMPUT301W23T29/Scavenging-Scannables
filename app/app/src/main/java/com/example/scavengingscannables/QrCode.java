@@ -3,6 +3,9 @@ package com.example.scavengingscannables;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Stores all the information about a scanned qr code
+ */
 public class QrCode {
     public void setQrId(String qrId) {
         this.qrId = qrId;

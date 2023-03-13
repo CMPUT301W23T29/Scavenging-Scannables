@@ -17,7 +17,9 @@ import com.example.scavengingscannables.QrCode;
 import com.example.scavengingscannables.R;
 import com.squareup.picasso.Picasso;
 
-
+/**
+ * Custom array adapter to show information about qr codes in ListViews
+ */
 public class QrCustomerArrayAdapter extends ArrayAdapter<QrCode>{
 
     private final ArrayList<QrCode> qrCodes;

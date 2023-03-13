@@ -2,6 +2,9 @@ package com.example.scavengingscannables;
 
 import java.util.ArrayList;
 
+/**
+ * Stores all the information about a player
+ */
 public class Player {
     private String username;
     private final ArrayList<String> scannedQRCodesID = new ArrayList<>();

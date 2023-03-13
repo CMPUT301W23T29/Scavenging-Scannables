@@ -24,6 +24,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Displays the clicked search result (other players profile)
+ */
 public class DisplaySearch extends AppCompatActivity {
     private  Button buttonBack;
     private  Button buttonViewQrCodes;

@@ -2,6 +2,9 @@ package com.example.scavengingscannables;
 
 import java.util.regex.Pattern;
 
+/**
+ * Class that validates inputs in SignupActivity
+ */
 public class SignupValidator {
     /**
      * Validates usernames

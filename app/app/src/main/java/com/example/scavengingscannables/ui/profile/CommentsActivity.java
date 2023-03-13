@@ -16,6 +16,9 @@ import com.example.scavengingscannables.R;
 
 import java.util.HashMap;
 
+/**
+ * Activity which shows all the comments for a qr code
+ */
 public class CommentsActivity extends AppCompatActivity {
 
     String QrCodeID;

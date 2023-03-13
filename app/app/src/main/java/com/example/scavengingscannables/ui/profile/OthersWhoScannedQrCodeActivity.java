@@ -17,6 +17,9 @@ import com.example.scavengingscannables.R;
 
 import java.util.ArrayList;
 
+/**
+ * List view of other players who have scanned the selected qr code
+ */
 public class OthersWhoScannedQrCodeActivity extends AppCompatActivity {
 
     String qrCodeID;

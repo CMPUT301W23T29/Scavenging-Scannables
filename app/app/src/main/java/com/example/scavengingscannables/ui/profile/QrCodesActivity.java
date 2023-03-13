@@ -20,6 +20,9 @@ import com.example.scavengingscannables.R;
 
 import java.util.ArrayList;
 
+/**
+ * Shows a list of qr codes, which includes add/delete functionality
+ */
 public class QrCodesActivity extends AppCompatActivity {
     Button backButton;
     Button deleteButton;

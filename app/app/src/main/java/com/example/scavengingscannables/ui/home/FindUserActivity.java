@@ -19,6 +19,9 @@ import com.example.scavengingscannables.R;
 
 import java.util.ArrayList;
 
+/**
+ * Allows user to search for other players
+ */
 public class FindUserActivity extends AppCompatActivity {
     private Button btnSearch;
     private Button btnBack;

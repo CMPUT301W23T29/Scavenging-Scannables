@@ -1,5 +1,8 @@
 package com.example.scavengingscannables.ui.profile;
 
+/**
+ * Class which holds information about each comment
+ */
 public class Comment {
     private String name;
     private String comment;

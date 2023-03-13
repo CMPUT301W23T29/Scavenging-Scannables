@@ -30,6 +30,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Fragment for the current player, shows information about the player and allows you to view their qr codes
+ */
 public class ProfileFragment extends Fragment {
 
     private FragmentProfileBinding binding;
