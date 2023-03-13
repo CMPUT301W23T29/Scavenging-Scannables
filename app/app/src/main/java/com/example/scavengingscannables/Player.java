@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Player {
     private String username;
-    private ArrayList<String> scannedQRCodesID = new ArrayList<>();
+    private final ArrayList<String> scannedQRCodesID = new ArrayList<>();
     private String firstName;
     private String lastName;
     private Long phoneNumber;
@@ -18,12 +18,21 @@ public class Player {
         this.email = email;
     }
 
+    // to allow firestore to save custom classes
     public Player(){}
 
+    /**
+     * Adds a QrCodeID to the player
+     * @param id id to add to the player
+     */
     public void AddQRCodeByID(String id){
         this.scannedQRCodesID.add(id);
     }
 
+    /**
+     * Removes a QrCodeID from the player
+     * @param id id to be removed
+     */
     public void RemoveQRCodeByID(String id){
         this.scannedQRCodesID.remove(id);
     }

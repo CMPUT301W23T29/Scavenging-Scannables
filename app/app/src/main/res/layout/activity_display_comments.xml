@@ -12,15 +12,6 @@
         android:layout_height="wrap_content"
         android:text="Back" />
 
-    <ListView
-        android:id="@+id/comments_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:choiceMode="singleChoice"
-        android:listSelector="#999999">
-
-    </ListView>
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -40,6 +31,16 @@
             android:layout_alignParentRight="true"
             android:text="Confirm" />
     </RelativeLayout>
+
+    <ListView
+        android:id="@+id/comments_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:choiceMode="singleChoice"
+        android:listSelector="#999999">
+
+    </ListView>
+
 
 
 

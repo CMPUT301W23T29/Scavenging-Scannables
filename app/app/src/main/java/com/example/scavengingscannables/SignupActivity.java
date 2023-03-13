@@ -1,11 +1,9 @@
 package com.example.scavengingscannables;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,9 +11,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.material.snackbar.Snackbar;
-
-public class LoginActivity extends AppCompatActivity {
+public class SignupActivity extends AppCompatActivity {
 
     Button signupButtonView;
     EditText usernameView;
@@ -24,7 +20,6 @@ public class LoginActivity extends AppCompatActivity {
     EditText emailView;
     EditText phoneNumberView;
 
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +28,6 @@ public class LoginActivity extends AppCompatActivity {
         // checks if current device has a registered account
         SharedPreferences sharedPref = getSharedPreferences("account", Context.MODE_PRIVATE);
         String username = sharedPref.getString("username", " ");
-        Log.d("LOG", username);
         dbc.CheckUsernameExists(username, new FirestoreDatabaseCallback() {
             // account exists in database
             @Override
@@ -43,7 +37,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void OnDocumentDoesNotExist() {
-                setContentView(R.layout.login_activity);
+                setContentView(R.layout.signup_activity);
                 // find all views
                 signupButtonView = findViewById(R.id.signup);
                 usernameView = findViewById(R.id.username);
@@ -70,23 +64,23 @@ public class LoginActivity extends AppCompatActivity {
                         SignupValidator validator = new SignupValidator();
                         // checks if inputs are valid
                         if (!validator.IsValidUsername(username)) {
-                            Toast.makeText(LoginActivity.this, "Invalid username!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignupActivity.this, "Invalid username!", Toast.LENGTH_SHORT).show();
                             return;
                         }
                         if (!validator.IsValidName(firstName)) {
-                            Toast.makeText(LoginActivity.this, "Invalid first name!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignupActivity.this, "Invalid first name!", Toast.LENGTH_SHORT).show();
                             return;
                         }
                         if (!validator.IsValidName(lastName)) {
-                            Toast.makeText(LoginActivity.this, "Invalid last name!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignupActivity.this, "Invalid last name!", Toast.LENGTH_SHORT).show();
                             return;
                         }
                         if (!validator.IsValidEmail(email)) {
-                            Toast.makeText(LoginActivity.this, "Invalid email!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignupActivity.this, "Invalid email!", Toast.LENGTH_SHORT).show();
                             return;
                         }
                         if (!validator.IsValidPhoneNumber(phoneNumber)) {
-                            Toast.makeText(LoginActivity.this, "Invalid phone number!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignupActivity.this, "Invalid phone number!", Toast.LENGTH_SHORT).show();
                             return;
                         }
                         // only allows creating if username does not exist in database
@@ -95,7 +89,7 @@ public class LoginActivity extends AppCompatActivity {
                             // username does exist, prevent signup
                             @Override
                             public void OnDocumentExists() {
-                                Toast.makeText(LoginActivity.this, username + " already exists!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SignupActivity.this, username + " already exists!", Toast.LENGTH_SHORT).show();
                             }
 
                             @Override
@@ -110,7 +104,7 @@ public class LoginActivity extends AppCompatActivity {
                                 editor.putString("username", username);
                                 editor.apply();
 
-                                Toast.makeText(LoginActivity.this, "Welcome to Scavenging Scannables, " + username + "!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SignupActivity.this, "Welcome to Scavenging Scannables, " + username + "!", Toast.LENGTH_SHORT).show();
                                 SwitchToMainActivity();
                             }
                         });
@@ -122,7 +116,7 @@ public class LoginActivity extends AppCompatActivity {
 
     // swap to main activity (home page)
     private void SwitchToMainActivity(){
-        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        Intent intent = new Intent(SignupActivity.this, MainActivity.class);
         startActivity(intent);
     }
 }

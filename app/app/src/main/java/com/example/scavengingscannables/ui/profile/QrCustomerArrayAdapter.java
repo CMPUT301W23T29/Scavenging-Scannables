@@ -1,27 +1,29 @@
-package com.example.scavengingscannables.ui.notifications;
+package com.example.scavengingscannables.ui.profile;
 
 import android.content.Intent;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import java.util.ArrayList;
 
+import java.util.ArrayList;
 import com.example.scavengingscannables.QrCode;
 import com.example.scavengingscannables.R;
-import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
 
 
 public class QrCustomerArrayAdapter extends ArrayAdapter<QrCode>{
 
-    private ArrayList<QrCode> qrCodes;
-    private Context context;
+    private final ArrayList<QrCode> qrCodes;
+    private final Context context;
+
+    private ImageView qrImage;
 
 
     public QrCustomerArrayAdapter(@NonNull Context context, ArrayList<QrCode> qrCodes) {
@@ -48,11 +50,6 @@ public class QrCustomerArrayAdapter extends ArrayAdapter<QrCode>{
         }
         QrCode qrcode = super.getItem(position);
 
-        //ImageView image = currentItemView.findViewById(R.id.codeImage);
-        //assert image != null;
-        //image.setImageResource(qrcode.getQrId());
-
-
         TextView name = currentItemView.findViewById(R.id.codeName);
         name.setText("Name: "+qrcode.getNameText());
 
@@ -67,8 +64,8 @@ public class QrCustomerArrayAdapter extends ArrayAdapter<QrCode>{
         comment.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 System.out.println("Comment Clicked");
-                Intent intent = new Intent(context,Comments.class);
-                intent.putExtra("QrCodeID", qrcode.getQrId());
+                Intent intent = new Intent(context, CommentsActivity.class);
+                intent.putExtra("QrCodeID", qrcode.getqrId());
                 context.startActivity(intent);
             }
         });
@@ -77,11 +74,15 @@ public class QrCustomerArrayAdapter extends ArrayAdapter<QrCode>{
         others.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 System.out.println("others Clicked");
-                Intent intent = new Intent(context,Others.class);
-                intent.putExtra("QrCodeID", qrcode.getQrId());
+                Intent intent = new Intent(context, OthersWhoScannedQrCodeActivity.class);
+                intent.putExtra("QrCodeID", qrcode.getqrId());
                 context.startActivity(intent);
             }
         });
+
+        // display image
+        qrImage = currentItemView.findViewById(R.id.codeImage);
+        Picasso.get().load(qrcode.getVisualLink()).into(qrImage);
 
         // then return the recyclable view
         return currentItemView;

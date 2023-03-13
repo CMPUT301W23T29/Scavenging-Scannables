@@ -1,44 +1,24 @@
-package com.example.scavengingscannables.ui.notifications;
+package com.example.scavengingscannables.ui.profile;
 
-
-import static android.content.ContentValues.TAG;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.scavengingscannables.FirestoreDatabaseCallback;
 import com.example.scavengingscannables.FirestoreDatabaseController;
-import com.example.scavengingscannables.MainActivity;
 import com.example.scavengingscannables.Player;
 import com.example.scavengingscannables.QrCode;
 import com.example.scavengingscannables.R;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.google.gson.Gson;
 
-import java.security.KeyStore;
 import java.util.ArrayList;
-import java.util.HashMap;
-
-import javax.annotation.Nullable;
 
 public class QrCodesActivity extends AppCompatActivity {
     Button backButton;
@@ -46,10 +26,8 @@ public class QrCodesActivity extends AppCompatActivity {
     Boolean deleteState = false;
     ArrayList<QrCode> qrCodes;
     String username;
-    FirebaseFirestore db;
     ListView qrCodesListView;
-    QrCustomerArrayAdapter QrAdapter;
-    Boolean confirm;
+    QrCustomerArrayAdapter qrAdapter;
     int pos;
 
     @SuppressLint("MissingInflatedId")
@@ -61,9 +39,9 @@ public class QrCodesActivity extends AppCompatActivity {
         username = intent.getStringExtra("username");
 
         backButton = findViewById(R.id.button_back);
-        QrAdapter = new QrCustomerArrayAdapter(this);
+        qrAdapter = new QrCustomerArrayAdapter(this);
         qrCodesListView = findViewById(R.id.qrcode_list);
-        qrCodesListView.setAdapter(QrAdapter);
+        qrCodesListView.setAdapter(qrAdapter);
         FirestoreDatabaseController dbc = new FirestoreDatabaseController();
         backButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -76,6 +54,7 @@ public class QrCodesActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (deleteState == false) {
                     deleteState = true;
+
                     deleteButton.setText("Click Qrcode to delete");
                 }
                 else{
@@ -90,20 +69,22 @@ public class QrCodesActivity extends AppCompatActivity {
         builder.setMessage("Do you want to delete ?");
         builder.setTitle("Warning !");
         builder.setCancelable(false);
-        builder.setPositiveButton("no", (DialogInterface.OnClickListener) (dialog, which) -> {
+        builder.setPositiveButton("no", (dialog, which) -> {
             dialog.cancel();
         });
 
-        builder.setNegativeButton("yes", (DialogInterface.OnClickListener) (dialog, which) -> {
-            QrCode qrCode = QrAdapter.getItem(pos);
-            QrAdapter.remove(qrCode);
+        builder.setNegativeButton("yes", (dialog, which) -> {
+            QrCode qrCode = qrAdapter.getItem(pos);
+            qrAdapter.remove(qrCode);
             dbc.GetPlayerByUsername(username, new FirestoreDatabaseCallback() {
                 @Override
                 public <T> void OnDataCallback(T data) {
                     Player p = (Player) data;
-                    p.RemoveQRCodeByID(qrCode.getQrId());
+                    p.RemoveQRCodeByID(qrCode.getqrId());
+                    qrCode.RemoveOwnedBy(username);
+                    dbc.SaveQRCodeByID(qrCode);
                     dbc.SavePlayerByUsername(p);
-                    QrAdapter.notifyDataSetChanged();
+                    qrAdapter.notifyDataSetChanged();
                 }
             });
         });
@@ -116,9 +97,9 @@ public class QrCodesActivity extends AppCompatActivity {
             @Override
             public <T> void OnDataCallback(T data) {
                 qrCodes = (ArrayList<QrCode>) data;
-                QrAdapter.clear();
+                qrAdapter.clear();
                 for (QrCode qrcode:qrCodes) {
-                    QrAdapter.add(qrcode);
+                    qrAdapter.add(qrcode);
                 }
             }
         });
