@@ -17,6 +17,9 @@ import com.google.zxing.Result;
 
 import java.nio.charset.StandardCharsets;
 
+/**
+ * This class represents the activity that launches the QR code scanner
+ */
 public class ScannerActivity extends AppCompatActivity {
     private CodeScanner mCodeScanner;
     private FirestoreDatabaseController fdc = new FirestoreDatabaseController();

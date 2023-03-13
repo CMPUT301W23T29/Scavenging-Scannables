@@ -9,6 +9,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import javax.annotation.Nullable;
 
+/**
+ * This class represents the activity launched when the system camera is launched
+ */
 public class CameraActivity extends AppCompatActivity {
 
     int CAMERA_REQUEST_CODE = 102;

@@ -9,6 +9,13 @@ import java.util.regex.Pattern;
  * Generates scores for the scanned qr codes
  */
 public class ScoringSystem {
+    /**
+     * This method generates the score
+     * @param hash
+     *      The hash that the system uses to generate a score
+     * @return score
+     *      The score assigned to the hash
+     */
     public int generateScore(String hash) {
         int score = 0;
 

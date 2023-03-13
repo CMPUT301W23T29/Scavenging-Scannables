@@ -6,7 +6,13 @@ import java.util.HashMap;
  * Generates the readable name for scanned qr codes
  */
 public class NamingSystem {
-
+    /**
+     * This method generates the name
+     * @param hash
+     *      The hash of the QR code
+     * @return name
+     *      The generated name of the QR code
+     */
     public String generateName(String hash) {
 
         if (hash.length() < 6) {
