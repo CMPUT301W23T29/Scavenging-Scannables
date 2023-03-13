@@ -15,6 +15,7 @@ import com.example.scavengingscannables.FirestoreDatabaseController;
 import com.example.scavengingscannables.Player;
 import com.example.scavengingscannables.QrCode;
 import com.example.scavengingscannables.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -32,6 +33,8 @@ public class DisplaySearch extends AppCompatActivity {
     private TextView totalScore;
     private String highestId;
     private String lowestId;
+    private ImageView lowestQR;
+    private ImageView highestQR;
     private final HashMap<String,Integer> lowestHighest = new HashMap<>();
     private ArrayList<String> qrCodes = new ArrayList<>();
     private Integer tScore = 0;
@@ -52,6 +55,8 @@ public class DisplaySearch extends AppCompatActivity {
         totalScanned = findViewById(R.id.display_codes_scanned);
         buttonBack = findViewById(R.id.display_back);
         buttonViewQrCodes = findViewById(R.id.view_qrCodes);
+        lowestQR = findViewById(R.id.display_lowest_qr);
+        highestQR = findViewById(R.id.display_highest_qr);
         Intent intent = getIntent();
         String str = intent.getStringExtra("user");
         name.setText(str);
@@ -96,7 +101,21 @@ public class DisplaySearch extends AppCompatActivity {
                                         }
                                     });
                                     lowestId = list.get(0).getKey();
+                                    dbc.GetQRCodeByID(lowestId, new FirestoreDatabaseCallback() {
+                                        @Override
+                                        public <T> void OnDataCallback(T data) {
+                                            QrCode ql = (QrCode)data;
+                                            Picasso.get().load(ql.getVisualLink()).into(lowestQR);
+                                        }
+                                    });
                                     highestId = list.get((list.size())-1).getKey();
+                                    dbc.GetQRCodeByID(highestId, new FirestoreDatabaseCallback() {
+                                        @Override
+                                        public <T> void OnDataCallback(T data) {
+                                            QrCode ql = (QrCode)data;
+                                            Picasso.get().load(ql.getVisualLink()).into(highestQR);
+                                        }
+                                    });
 
                                 scores.add(q.getScore());
                                 tScore = 0;
