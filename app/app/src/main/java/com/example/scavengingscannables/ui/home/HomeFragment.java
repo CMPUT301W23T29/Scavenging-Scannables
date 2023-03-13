@@ -14,6 +14,9 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.scavengingscannables.R;
 import com.example.scavengingscannables.databinding.FragmentHomeBinding;
 
+/**
+ * Home fragment, which will host the leaderboards in the future
+ */
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;

@@ -14,6 +14,9 @@ import com.example.scavengingscannables.R;
 
 import java.util.ArrayList;
 
+/**
+ * Custom array adapter which properly visualizes the comments in ListViews
+ */
 public class CommentCustomerArrayAdapter extends ArrayAdapter<Comment> {
     private final ArrayList<Comment> comments;
     private final Context context;

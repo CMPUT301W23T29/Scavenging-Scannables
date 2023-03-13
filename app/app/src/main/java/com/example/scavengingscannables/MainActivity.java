@@ -27,6 +27,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Main activity which is run after signup, creates the navigation menus to navigate between the fragments
+ */
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;

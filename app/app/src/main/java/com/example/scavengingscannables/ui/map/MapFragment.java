@@ -11,6 +11,9 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.scavengingscannables.databinding.FragmentMapBinding;
 
+/**
+ * Fragment for the map view to locate nearby qr codes in the future
+ */
 public class MapFragment extends Fragment {
 
     private FragmentMapBinding binding;

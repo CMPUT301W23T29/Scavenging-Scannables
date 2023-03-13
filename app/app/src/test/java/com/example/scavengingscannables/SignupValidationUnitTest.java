@@ -5,6 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/**
+ * Tests signup validation
+ */
 public class SignupValidationUnitTest {
 
     @Test
@@ -18,6 +21,21 @@ public class SignupValidationUnitTest {
         assertFalse(validator.IsValidUsername(username));
         username = "abc";
         assertTrue(validator.IsValidUsername(username));
+    }
+
+    @Test
+    public void TestNameValidation(){
+        SignupValidator validator = new SignupValidator();
+        String name = "";
+        assertFalse(validator.IsValidName(name));
+        name = " ";
+        assertFalse(validator.IsValidName(name));
+        name = "a ";
+        assertFalse(validator.IsValidName(name));
+        name = " b";
+        assertFalse(validator.IsValidName(name));
+        name = "abc";
+        assertTrue(validator.IsValidName(name));
     }
 
     @Test
