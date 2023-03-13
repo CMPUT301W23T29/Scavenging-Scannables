@@ -19,4 +19,30 @@ public class SignupValidationUnitTest {
         username = "abc";
         assertTrue(validator.IsValidUsername(username));
     }
+
+    @Test
+    public void TestEmailValidation(){
+        SignupValidator validator = new SignupValidator();
+        String email = "";
+        assertFalse(validator.IsValidEmail(email));
+        email = " @ .com";
+        assertFalse(validator.IsValidEmail(email));
+        email = "2 @com";
+        assertFalse(validator.IsValidEmail(email));
+        email = "2 @com ";
+        assertFalse(validator.IsValidEmail(email));
+        email = "abc@abc.com";
+        assertTrue(validator.IsValidEmail(email));
+    }
+
+    @Test
+    public void TestNumberValidation(){
+        SignupValidator validator = new SignupValidator();
+        Long number = 7809999999L;
+        assertTrue(validator.IsValidPhoneNumber(number));
+        number = 789999999L;
+        assertFalse(validator.IsValidPhoneNumber(number));
+        number = -7801234567L;
+        assertFalse(validator.IsValidPhoneNumber(number));
+    }
 }

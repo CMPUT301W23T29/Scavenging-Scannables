@@ -1,7 +1,8 @@
-package com.example.scavengingscannables.ui.notifications;
+package com.example.scavengingscannables.ui.profile;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -16,9 +17,9 @@ import com.example.scavengingscannables.R;
 
 import java.util.ArrayList;
 
-public class Others extends AppCompatActivity {
+public class OthersWhoScannedQrCodeActivity extends AppCompatActivity {
 
-    String QrCodeID;
+    String qrCodeID;
     Button backButton;
     ArrayList<String> playerNamesList;
 
@@ -28,7 +29,7 @@ public class Others extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_others);
         Intent intent = getIntent();
-        QrCodeID = intent.getStringExtra("QrCodeID");
+        qrCodeID = intent.getStringExtra("QrCodeID");
 
         FirestoreDatabaseController dbc = new FirestoreDatabaseController();
         backButton = findViewById(R.id.button_others_back);
@@ -48,13 +49,13 @@ public class Others extends AppCompatActivity {
             @Override
             public <T> void OnDataCallback(T data) {
                 ArrayList<String> usernames = (ArrayList<String>) data;
-                for (String userName : usernames){
-                    dbc.GetPlayerByUsername(userName, new FirestoreDatabaseCallback() {
+                for (String username : usernames){
+                    dbc.GetPlayerByUsername(username, new FirestoreDatabaseCallback() {
                         @Override
                         public <T> void OnDataCallback(T data) {
                             Player p = (Player)data;
-                            if (p.getScannedQRCodesID().contains(QrCodeID)){
-                                playerNamesList.add(userName);
+                            if (p.getScannedQRCodesID().contains(qrCodeID)){
+                                arrayAdapter.add(username);
                                 arrayAdapter.notifyDataSetChanged();
                             }
                         }

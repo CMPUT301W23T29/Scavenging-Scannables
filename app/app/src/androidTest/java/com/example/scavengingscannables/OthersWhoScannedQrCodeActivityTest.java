@@ -5,9 +5,8 @@ import android.widget.TextView;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
-import com.example.scavengingscannables.ui.notifications.Comments;
-import com.example.scavengingscannables.ui.notifications.Others;
-import com.example.scavengingscannables.ui.notifications.QrCodesActivity;
+import com.example.scavengingscannables.ui.profile.OthersWhoScannedQrCodeActivity;
+import com.example.scavengingscannables.ui.profile.QrCodesActivity;
 import com.robotium.solo.Solo;
 
 import org.junit.After;
@@ -15,7 +14,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
-public class OthersTest {
+public class OthersWhoScannedQrCodeActivityTest {
 
     private Solo solo;
     private TextView username;
@@ -28,18 +27,18 @@ public class OthersTest {
     @Test
     public void checkSwitch(){
         solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
-        solo.clickOnView(solo.getView(R.id.navigation_notifications));
+        solo.clickOnView(solo.getView(R.id.navigation_profile));
         solo.clickOnView(solo.getView(R.id.ViewQrCodes));
         solo.clickOnView(solo.getView(R.id.others));
-        solo.assertCurrentActivity("Wrong Activity", Others.class);
+        solo.assertCurrentActivity("Wrong Activity", OthersWhoScannedQrCodeActivity.class);
     }
     @Test
     public void checkBack() {
         solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
-        solo.clickOnView(solo.getView(R.id.navigation_notifications));
+        solo.clickOnView(solo.getView(R.id.navigation_profile));
         solo.clickOnView(solo.getView(R.id.ViewQrCodes));
         solo.clickOnView(solo.getView(R.id.others));
-        solo.assertCurrentActivity("Wrong Activity", Others.class);
+        solo.assertCurrentActivity("Wrong Activity", OthersWhoScannedQrCodeActivity.class);
         solo.clickOnView(solo.getView(R.id.button_back));
         solo.assertCurrentActivity("Wrong Activity", QrCodesActivity.class);
     }

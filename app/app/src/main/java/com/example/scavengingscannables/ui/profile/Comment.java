@@ -1,4 +1,4 @@
-package com.example.scavengingscannables.ui.notifications;
+package com.example.scavengingscannables.ui.profile;
 
 public class Comment {
     private String name;

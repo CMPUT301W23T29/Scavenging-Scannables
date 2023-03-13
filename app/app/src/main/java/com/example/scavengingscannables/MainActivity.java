@@ -2,7 +2,6 @@ package com.example.scavengingscannables;
 
 import android.Manifest;
 import android.app.AlertDialog;
-import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -24,7 +23,6 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.scavengingscannables.databinding.ActivityMainBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,9 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
 
-    private int CAMERA_PERMISSION_CODE = 1;
-    FloatingActionButton fab;
-
+    private final int CAMERA_PERMISSION_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +51,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // tests adding qrcode to database
-        dbc.SaveQRCodeByID(new QrCode("123", "999", "TESTNAME", new HashMap<String, String>(), new ArrayList<String>(), new ArrayList<Double>()));
+        QrCode qrCode = new QrCode("123", "999", "TESTNAME", new HashMap<String, String>(), new ArrayList<String>(), new ArrayList<Double>());
+        dbc.SaveQRCodeByID(qrCode);
 
         // tests getting all usernames
         dbc.GetAllUsernames(new FirestoreDatabaseCallback() {
@@ -70,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
+                R.id.navigation_home, R.id.navigation_map, R.id.navigation_profile)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
@@ -132,8 +129,4 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
-
-        //ertvregevwrtgjwkth
-
-
 }

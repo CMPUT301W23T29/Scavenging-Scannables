@@ -1,17 +1,13 @@
-package com.example.scavengingscannables.ui.notifications;
+package com.example.scavengingscannables.ui.profile;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,12 +17,10 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.scavengingscannables.FirestoreDatabaseCallback;
 import com.example.scavengingscannables.FirestoreDatabaseController;
-import com.example.scavengingscannables.MainActivity;
 import com.example.scavengingscannables.Player;
 import com.example.scavengingscannables.QrCode;
 import com.example.scavengingscannables.R;
-import com.example.scavengingscannables.databinding.FragmentNotificationsBinding;
-import com.google.gson.Gson;
+import com.example.scavengingscannables.databinding.FragmentProfileBinding;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -35,46 +29,45 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class NotificationsFragment extends Fragment {
+public class ProfileFragment extends Fragment {
 
-    private FragmentNotificationsBinding binding;
+    private FragmentProfileBinding binding;
     Button viewQrCodes;
     private TextView usernameView;
     private TextView phone;
-    private TextView total_scanned;
-    private TextView total_score;
+    private TextView totalScanned;
+    private TextView totalScore;
     private ImageView highest;
-    private String highest_id;
+    private String highestId;
     private ImageView lowest;
-    private String lowest_id;
-    private HashMap<String,Integer> lowest_highest = new HashMap<>();
-    private ArrayList<String> qrcodes = new ArrayList<>();
+    private String lowestId;
+    private final HashMap<String,Integer> lowestHighest = new HashMap<>();
+    private ArrayList<String> qrCodes = new ArrayList<>();
     String username;
     static String name;
-    private Integer t_score = 0;
-    private Integer t_scanned = 0;
-    private ArrayList<String> scores = new ArrayList<>();
-    private String user_phone;
+    private Integer tScore = 0;
+    private Integer tScanned = 0;
+    private final ArrayList<String> scores = new ArrayList<>();
+    private String userPhone;
     FirestoreDatabaseController dbc = new FirestoreDatabaseController();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        NotificationsViewModel notificationsViewModel =
-                new ViewModelProvider(this).get(NotificationsViewModel.class);
+        ProfileViewModel profileViewModel =
+                new ViewModelProvider(this).get(ProfileViewModel.class);
 
-        binding = FragmentNotificationsBinding.inflate(inflater, container, false);
+        binding = FragmentProfileBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        viewQrCodes = (Button)root.findViewById(R.id.ViewQrCodes);
-        phone = (TextView)root.findViewById(R.id.phone);
-        total_scanned = (TextView)root.findViewById(R.id.codes_scanned);
-        total_score = (TextView)root.findViewById(R.id.total_score);
-        highest = (ImageView)root.findViewById(R.id.n_image_highest_qr);
-        lowest = (ImageView)root.findViewById(R.id.n_image_lowest_qr);
+        viewQrCodes = root.findViewById(R.id.ViewQrCodes);
+        phone = root.findViewById(R.id.phone);
+        totalScanned = root.findViewById(R.id.codes_scanned);
+        totalScore = root.findViewById(R.id.total_score);
+        highest = root.findViewById(R.id.n_image_highest_qr);
+        lowest = root.findViewById(R.id.n_image_lowest_qr);
         viewQrCodes.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), QrCodesActivity.class);
-                Gson gson = new Gson();
                 intent.putExtra("username", username);
                 startActivity(intent);
             }
@@ -89,41 +82,41 @@ public class NotificationsFragment extends Fragment {
             @Override
             public <T> void OnDataCallback(T data) {
                 Player p = (Player)data;
-                user_phone = p.getPhoneNumber().toString();
-                phone.setText(user_phone);
-                qrcodes = p.getScannedQRCodesID();
-                if (qrcodes.size() > 0){
-                    for (int i=0;i<qrcodes.size();i++){
-                        String qrcode = qrcodes.get(i);
+                userPhone = p.getPhoneNumber().toString();
+                phone.setText(userPhone);
+                qrCodes = p.getScannedQRCodesID();
+                if (qrCodes.size() > 0){
+                    for (int i = 0; i< qrCodes.size(); i++){
+                        String qrcode = qrCodes.get(i);
                         dbc.GetQRCodeByID(qrcode, new FirestoreDatabaseCallback() {
                             @Override
                             public <T> void OnDataCallback(T data) {
                                 QrCode q = (QrCode)data;
-                                lowest_highest.put(qrcode,Integer.valueOf(q.getScore()));
-                                List<Map.Entry<String, Integer>> list = new ArrayList<Map.Entry<String, Integer>>(lowest_highest.entrySet());
+                                lowestHighest.put(qrcode,Integer.valueOf(q.getScore()));
+                                List<Map.Entry<String, Integer>> list = new ArrayList<Map.Entry<String, Integer>>(lowestHighest.entrySet());
                                 Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
                                         @Override
                                         public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
                                             return o1.getValue().compareTo(o2.getValue());
                                         }
                                     });
-                                    lowest_id = list.get(0).getKey();
-                                    highest_id = list.get((list.size())-1).getKey();
+                                    lowestId = list.get(0).getKey();
+                                    highestId = list.get((list.size())-1).getKey();
 
                                 scores.add(q.getScore());
-                                t_score = 0;
+                                tScore = 0;
                                 for (int i=0;i<scores.size();i++) {
-                                    t_score += Integer.parseInt(scores.get(i));
+                                    tScore += Integer.parseInt(scores.get(i));
                                 }
-                                total_score.setText(t_score.toString());
-                                t_scanned = scores.size();
-                                total_scanned.setText(t_scanned.toString());
+                                totalScore.setText(tScore.toString());
+                                tScanned = scores.size();
+                                totalScanned.setText(tScanned.toString());
                             }
                         });
                     }
                 }else {
-                    total_score.setText("0");
-                    total_scanned.setText("0");
+                    totalScore.setText("0");
+                    totalScanned.setText("0");
                 }
             }
         });

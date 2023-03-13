@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Scavenging Scannables</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">MyProfile</string>
+    <string name="title_dashboard">Map</string>
+    <string name="title_notifications">Profile</string>
     <string name="title_view_codes">View Qr Codes</string>
     <string name="title_sign_up">Welcome to Scavenging Scannables</string>
 </resources>
