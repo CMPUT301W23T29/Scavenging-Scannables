@@ -28,7 +28,6 @@ import java.util.List;
 import java.util.Locale;
 
 public class QRCodeHandler implements FirestoreDatabaseCallback {
-//    private FirestoreDatabaseController fdc = new FirestoreDatabaseController();
     private FirestoreDatabaseController fdc;
 
     private NamingSystem namsys = new NamingSystem();
