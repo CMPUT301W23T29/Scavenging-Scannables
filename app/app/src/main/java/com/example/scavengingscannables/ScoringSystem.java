@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Generates scores for the scanned qr codes
+ */
 public class ScoringSystem {
     public int generateScore(String hash) {
         int score = 0;

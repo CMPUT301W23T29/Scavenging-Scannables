@@ -11,6 +11,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+/**
+ * First screen that users sees, allows them to fill in profile information and create an account
+ */
 public class SignupActivity extends AppCompatActivity {
 
     Button signupButtonView;

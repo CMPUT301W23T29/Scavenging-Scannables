@@ -17,6 +17,9 @@ import com.example.scavengingscannables.ui.profile.QrCustomerArrayAdapter;
 
 import java.util.ArrayList;
 
+/**
+ * Lists qr codes from other players
+ */
 public class OthersQrCodesActivity extends AppCompatActivity {
     Button backButton;
     ArrayList<QrCode> qrCodes;
