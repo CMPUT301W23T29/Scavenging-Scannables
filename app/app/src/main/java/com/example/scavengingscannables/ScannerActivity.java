@@ -106,33 +106,7 @@ public class ScannerActivity extends AppCompatActivity {
     private void scanNewQRCode(String sha256hex, int score) {
         // Ask the user if they want to store an image of the object they just scanned
         // Then, whether the user wants to store an image or not, we ask if they want to store the location of the object they just scanned
-        new AlertDialog.Builder(ScannerActivity.this)
-                .setTitle("Do you want to store an image of the object you just scanned?")
-
-                // If the user decides they want to store and image, we will launch their phone's camera application
-                // We will also set the "storeCode" flag to true
-                // Then we ask if they want to store the location of where they scanned the code
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        storePhoto= true;
-                        // Launch camera activity
-                        Intent myIntent = new Intent(ScannerActivity.this, CameraActivity.class);
-//                                      myIntent.putExtra("key", value); //Optional parameters
-                        ScannerActivity.this.startActivity(myIntent);
-                        askLocationPermissions();
-                    }
-                })
-                // If the user decides they do not want to store the image, we will go straight to asking them if they want to store the location of where they scanned the image
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        storePhoto = false;
-                        dialog.dismiss();
-                        askLocationPermissions();
-                    }
-                })
-                .create().show();
+        askForPhoto();
 
         // Generate a name for the hash
         String hashedName = namsys.generateName(sha256hex);
@@ -154,6 +128,7 @@ public class ScannerActivity extends AppCompatActivity {
         // Save the new QR code to the database
         fdc.SaveQRCodeByID(newCode);
     }
+
 
     private void askLocationPermissions() {
         // Here we ask the user if they want to store the object's location
@@ -205,7 +180,35 @@ public class ScannerActivity extends AppCompatActivity {
                 })
                 .create().show();
     }
-    private void askForPhoto() {}
+    private void askForPhoto() {
+        new AlertDialog.Builder(ScannerActivity.this)
+                .setTitle("Do you want to store an image of the object you just scanned?")
+
+                // If the user decides they want to store and image, we will launch their phone's camera application
+                // We will also set the "storeCode" flag to true
+                // Then we ask if they want to store the location of where they scanned the code
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        storePhoto= true;
+                        // Launch camera activity
+                        Intent myIntent = new Intent(ScannerActivity.this, CameraActivity.class);
+//                                      myIntent.putExtra("key", value); //Optional parameters
+                        ScannerActivity.this.startActivity(myIntent);
+                        askLocationPermissions();
+                    }
+                })
+                // If the user decides they do not want to store the image, we will go straight to asking them if they want to store the location of where they scanned the image
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        storePhoto = false;
+                        dialog.dismiss();
+                        askLocationPermissions();
+                    }
+                })
+                .create().show();
+    }
 
     @Override
     protected void onResume() {
