@@ -6,22 +6,22 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import java.util.ArrayList;
-
 import com.example.scavengingscannables.QrCode;
 import com.example.scavengingscannables.R;
-import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
 
 
 public class QrCustomerArrayAdapter extends ArrayAdapter<QrCode>{
 
     private ArrayList<QrCode> qrCodes;
     private Context context;
+
+    private ImageView qrImage;
 
 
     public QrCustomerArrayAdapter(@NonNull Context context, ArrayList<QrCode> qrCodes) {
@@ -47,11 +47,6 @@ public class QrCustomerArrayAdapter extends ArrayAdapter<QrCode>{
 
         }
         QrCode qrcode = super.getItem(position);
-
-        //ImageView image = currentItemView.findViewById(R.id.codeImage);
-        //assert image != null;
-        //image.setImageResource(qrcode.getQrId());
-
 
         TextView name = currentItemView.findViewById(R.id.codeName);
         name.setText("Name: "+qrcode.getNameText());
@@ -82,6 +77,10 @@ public class QrCustomerArrayAdapter extends ArrayAdapter<QrCode>{
                 context.startActivity(intent);
             }
         });
+
+        // display image
+        qrImage = currentItemView.findViewById(R.id.codeImage);
+        Picasso.get().load(qrcode.getVisualLink()).into(qrImage);
 
         // then return the recyclable view
         return currentItemView;

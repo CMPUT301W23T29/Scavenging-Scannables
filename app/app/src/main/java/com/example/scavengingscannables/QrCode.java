@@ -36,7 +36,7 @@ public class QrCode {
     private void GenerateVisualLink() {
         String hash = this.qrId;
         String seed = hash.substring(0, this.qrId.getBytes().length);
-        String linkTemplate = "https://picsum.photos/" + seed + "/seed/200/";
+        String linkTemplate = "https://picsum.photos/seed/" + seed + "/200/";
         this.visualLink = linkTemplate;
     }
 
