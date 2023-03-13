@@ -1,7 +1,9 @@
 package com.example.scavengingscannables;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -9,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.CodeScannerView;
 import com.budiyev.android.codescanner.DecodeCallback;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.common.hash.Hashing;
 import com.google.zxing.Result;
 
@@ -20,12 +23,19 @@ public class ScannerActivity extends AppCompatActivity {
     private ScoringSystem scrsys = new ScoringSystem();
     private QRCodeHandler qrch;
 
+    private FloatingActionButton ScannerBackButton;
+
+
+
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.scanner);
 
         CodeScannerView scannerView = findViewById(R.id.scanner_view);
+        ScannerBackButton = findViewById(R.id.scanner_back_button);
+
         mCodeScanner = new CodeScanner(this, scannerView);
         mCodeScanner.setDecodeCallback(new DecodeCallback() {
             @Override
@@ -59,7 +69,16 @@ public class ScannerActivity extends AppCompatActivity {
                 mCodeScanner.startPreview();
             }
         });
+
+        ScannerBackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
+
+
 
     @Override
     protected void onResume() {
