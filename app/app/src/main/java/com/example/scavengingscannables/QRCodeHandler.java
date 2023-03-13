@@ -3,8 +3,10 @@ package com.example.scavengingscannables;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -35,13 +37,9 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
 
     private boolean storeLocation;
 
-    int CAMERA_REQUEST_CODE = 102;
-
     double latitude;
 
     double longitude;
-
-    boolean codeExists;
 
     Activity a;
 
@@ -51,29 +49,33 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
 
     FusedLocationProviderClient flpc;
 
+    String username;
+
+
     public QRCodeHandler(Activity a, String hash, int score, FirestoreDatabaseController fdc) {
        this.a = a;
        this.hash = hash;
        this.score = score;
        this.fdc = fdc;
        this.flpc =  LocationServices.getFusedLocationProviderClient(this.a);
+
+       SharedPreferences sharedPref = a.getSharedPreferences("account", Context.MODE_PRIVATE);
+       username = sharedPref.getString("username", "ERROR NO USERNAME FOUND");
     }
 
     @Override
     public <T> void OnDataCallback(T data) {
-//        FirestoreDatabaseCallback.super.OnDataCallback(data);
+        scanExistingQRCode((QrCode) data);
     }
 
     @Override
     public void OnDocumentExists() {
-//        FirestoreDatabaseCallback.super.OnDocumentExists();
-         Toast.makeText(a, "Exists", Toast.LENGTH_LONG).show();
+        fdc.GetQRCodeByID(hash, this);
     }
 
     @Override
     public void OnDocumentDoesNotExist() {
-//        FirestoreDatabaseCallback.super.OnDocumentDoesNotExist();
-        Toast.makeText(a, "Doesn't exist", Toast.LENGTH_LONG).show();
+        scanNewQRCode();
     }
 
     private void scanNewQRCode() {
@@ -85,8 +87,10 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
         String hashedName = namsys.generateName(hash);
 
         // Create HashMap for comments, ArrayList for owners, and an ArrayList for locations
+        // Add current user to list of owners
         HashMap<String, String> comments = new HashMap<String, String>();
         ArrayList<String> ownedBy = new ArrayList<>();
+        ownedBy.add(username);
 
         // Store location based on the user's choices
         ArrayList<Double> qrLocation = new ArrayList<>();
@@ -102,9 +106,11 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
         fdc.SaveQRCodeByID(newCode);
     }
 
-    private void scanExistingQRCode() {
+    private void scanExistingQRCode(QrCode qrcode) {
         // Get QR code using its id
         // Add the current user to its ownedBy list
+        Toast.makeText(a, username, Toast.LENGTH_LONG).show();
+//        qrcode.getOwnedBy().add(username);
     }
 
     private void askLocationPermissions() {
