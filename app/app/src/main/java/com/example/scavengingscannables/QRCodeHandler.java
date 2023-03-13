@@ -36,21 +36,21 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
 
     private boolean storeLocation;
 
-    double latitude;
+    private double latitude;
 
-    double longitude;
+    private double longitude;
 
-    Activity activity;
+    private Activity activity;
 
-    String hash;
+    private String hash;
 
-    int score;
+    private int score;
 
-    FusedLocationProviderClient flpc;
+    private FusedLocationProviderClient flpc;
 
-    String username;
+    private String username;
 
-    PlayerHandler ph;
+    private PlayerHandler ph;
 
     public QRCodeHandler(Activity activity, String hash, int score, FirestoreDatabaseController fdc) {
        this.activity = activity;
