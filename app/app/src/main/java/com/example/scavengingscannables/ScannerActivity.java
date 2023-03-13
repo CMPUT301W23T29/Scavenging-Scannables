@@ -82,13 +82,13 @@ public class ScannerActivity extends AppCompatActivity {
                                 .hashString(result.getText(), StandardCharsets.UTF_8)
                                 .toString();
 
-//                        fdc.CheckQRIDExists(sha256hex, );
-
                         // Generate a score for the hash
                         int score = scrsys.generateScore(sha256hex);
 
                         // Tell the user what the score of the QR code they scanned was
                         Toast.makeText(ScannerActivity.this, "Your score is: " + score,Toast.LENGTH_SHORT).show();
+
+//                        codeExists = fdc.CheckQRIDExists(sha256hex, );
 
                         if (codeExists) {
                             scanNewQRCode(sha256hex, score);
