@@ -3,8 +3,6 @@ package com.example.scavengingscannables.ui.home;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,9 +16,6 @@ import com.example.scavengingscannables.Player;
 import com.example.scavengingscannables.QrCode;
 import com.example.scavengingscannables.R;
 
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -29,36 +24,34 @@ import java.util.List;
 import java.util.Map;
 
 public class DisplaySearch extends AppCompatActivity {
-    private  Button btn_back;
-    private  Button button_viewQrCodes;
+    private  Button buttonBack;
+    private  Button buttonViewQrCodes;
     private TextView name;
     private TextView phone;
-    private TextView total_scanned;
-    private TextView total_score;
-    private ImageView highest;
-    private String highest_id;
-    private ImageView lowest;
-    private String lowest_id;
-    private HashMap<String,Integer> lowest_highest = new HashMap<>();
-    private ArrayList<String> qrcodes = new ArrayList<>();
-    private Integer t_score = 0;
-    private Integer t_scanned = 0;
-    private ArrayList<String> scores = new ArrayList<>();
-    private String user_phone;
-    private ArrayList<String> qrids = new ArrayList<>();
+    private TextView totalScanned;
+    private TextView totalScore;
+    private String highestId;
+    private String lowestId;
+    private final HashMap<String,Integer> lowestHighest = new HashMap<>();
+    private ArrayList<String> qrCodes = new ArrayList<>();
+    private Integer tScore = 0;
+    private Integer tScanned = 0;
+    private final ArrayList<String> scores = new ArrayList<>();
+    private String userPhone;
+    private ArrayList<String> qrIDs = new ArrayList<>();
     FirestoreDatabaseController dbc = new FirestoreDatabaseController();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_search);
-        name = (TextView) findViewById(R.id.display_user_name);
-        phone = (TextView) findViewById(R.id.display_phone);
-        total_score = (TextView) findViewById(R.id.display_total_score);
-        highest = (ImageView) findViewById(R.id.display_highest_qr);
-        lowest = (ImageView) findViewById(R.id.display_lowest_qr);
-        total_scanned = (TextView) findViewById(R.id.display_codes_scanned);
-        btn_back = (Button) findViewById(R.id.display_back);
-        button_viewQrCodes = (Button) findViewById(R.id.view_qrCodes);
+        name = findViewById(R.id.display_user_name);
+        phone = findViewById(R.id.display_phone);
+        totalScore = findViewById(R.id.display_total_score);
+        ImageView highest = findViewById(R.id.display_highest_qr);
+        ImageView lowest = findViewById(R.id.display_lowest_qr);
+        totalScanned = findViewById(R.id.display_codes_scanned);
+        buttonBack = findViewById(R.id.display_back);
+        buttonViewQrCodes = findViewById(R.id.view_qrCodes);
         Intent intent = getIntent();
         String str = intent.getStringExtra("user");
         name.setText(str);
@@ -66,8 +59,8 @@ public class DisplaySearch extends AppCompatActivity {
             @Override
             public <T> void OnDataCallback(T data) {
                 Player p = (Player)data;
-                user_phone = p.getPhoneNumber().toString();
-                phone.setText(user_phone);
+                userPhone = p.getPhoneNumber().toString();
+                phone.setText(userPhone);
                 Log.d("LOG", p.getEmail());
 
             }
@@ -76,60 +69,60 @@ public class DisplaySearch extends AppCompatActivity {
             @Override
             public <T> void OnDataCallback(T data) {
                 FirestoreDatabaseCallback.super.OnDataCallback(data);
-                qrids = (ArrayList<String>) data;
-                Log.d("QRCODE List", String.valueOf(qrids));
+                qrIDs = (ArrayList<String>) data;
+                Log.d("QRCODE List", String.valueOf(qrIDs));
             }
         });
         dbc.GetPlayerByUsername(str, new FirestoreDatabaseCallback() {
             @Override
             public <T> void OnDataCallback(T data) {
                 Player p = (Player)data;
-                user_phone = p.getPhoneNumber().toString();
-                phone.setText(user_phone);
-                qrcodes = p.getScannedQRCodesID();
-                if (qrcodes.size() > 0){
-                    for (int i=0;i<qrcodes.size();i++){
-                        String qrcode = qrcodes.get(i);
+                userPhone = p.getPhoneNumber().toString();
+                phone.setText(userPhone);
+                qrCodes = p.getScannedQRCodesID();
+                if (qrCodes.size() > 0){
+                    for (int i = 0; i< qrCodes.size(); i++){
+                        String qrcode = qrCodes.get(i);
                         dbc.GetQRCodeByID(qrcode, new FirestoreDatabaseCallback() {
                             @Override
                             public <T> void OnDataCallback(T data) {
                                 QrCode q = (QrCode)data;
-                                lowest_highest.put(qrcode,Integer.valueOf(q.getScore()));
-                                List<Map.Entry<String, Integer>> list = new ArrayList<Map.Entry<String, Integer>>(lowest_highest.entrySet());
+                                lowestHighest.put(qrcode,Integer.valueOf(q.getScore()));
+                                List<Map.Entry<String, Integer>> list = new ArrayList<Map.Entry<String, Integer>>(lowestHighest.entrySet());
                                 Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
                                         @Override
                                         public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
                                             return o1.getValue().compareTo(o2.getValue());
                                         }
                                     });
-                                    lowest_id = list.get(0).getKey();
-                                    highest_id = list.get((list.size())-1).getKey();
+                                    lowestId = list.get(0).getKey();
+                                    highestId = list.get((list.size())-1).getKey();
 
                                 scores.add(q.getScore());
-                                t_score = 0;
+                                tScore = 0;
                                 for (int i=0;i<scores.size();i++) {
-                                    t_score += Integer.parseInt(scores.get(i));
+                                    tScore += Integer.parseInt(scores.get(i));
                                 }
-                                total_score.setText(t_score.toString());
-                                t_scanned = scores.size();
-                                total_scanned.setText(t_scanned.toString());
+                                totalScore.setText(tScore.toString());
+                                tScanned = scores.size();
+                                totalScanned.setText(tScanned.toString());
                             }
                         });
                     }
                 }else {
-                    total_score.setText("0");
-                    total_scanned.setText("0");
+                    totalScore.setText("0");
+                    totalScanned.setText("0");
                 }
             }
         });
-        btn_back.setOnClickListener(new View.OnClickListener() {
+        buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
 
-        button_viewQrCodes.setOnClickListener(new View.OnClickListener() {
+        buttonViewQrCodes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(DisplaySearch.this, OthersQrCodesActivity.class);

@@ -41,11 +41,11 @@ import java.util.Locale;
 public class ScannerActivity extends AppCompatActivity {
     private CodeScanner mCodeScanner;
 
-    private FirestoreDatabaseController fdc = new FirestoreDatabaseController();
+    private final FirestoreDatabaseController fdc = new FirestoreDatabaseController();
 
-    private ScoringSystem scrsys = new ScoringSystem();
+    private final ScoringSystem scrsys = new ScoringSystem();
 
-    private NamingSystem namsys = new NamingSystem();
+    private final NamingSystem namsys = new NamingSystem();
 
     private boolean storePhoto;
 

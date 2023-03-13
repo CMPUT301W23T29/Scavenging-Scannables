@@ -1,6 +1,7 @@
-package com.example.scavengingscannables.ui.notifications;
+package com.example.scavengingscannables.ui.profile;
 
 import android.content.Intent;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import java.util.ArrayList;
 import com.example.scavengingscannables.QrCode;
 import com.example.scavengingscannables.R;
@@ -18,8 +20,8 @@ import com.squareup.picasso.Picasso;
 
 public class QrCustomerArrayAdapter extends ArrayAdapter<QrCode>{
 
-    private ArrayList<QrCode> qrCodes;
-    private Context context;
+    private final ArrayList<QrCode> qrCodes;
+    private final Context context;
 
     private ImageView qrImage;
 
@@ -62,8 +64,8 @@ public class QrCustomerArrayAdapter extends ArrayAdapter<QrCode>{
         comment.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 System.out.println("Comment Clicked");
-                Intent intent = new Intent(context,Comments.class);
-                intent.putExtra("QrCodeID", qrcode.getQrId());
+                Intent intent = new Intent(context, CommentsActivity.class);
+                intent.putExtra("QrCodeID", qrcode.getqrId());
                 context.startActivity(intent);
             }
         });
@@ -72,8 +74,8 @@ public class QrCustomerArrayAdapter extends ArrayAdapter<QrCode>{
         others.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 System.out.println("others Clicked");
-                Intent intent = new Intent(context,Others.class);
-                intent.putExtra("QrCodeID", qrcode.getQrId());
+                Intent intent = new Intent(context, OthersWhoScannedQrCodeActivity.class);
+                intent.putExtra("QrCodeID", qrcode.getqrId());
                 context.startActivity(intent);
             }
         });

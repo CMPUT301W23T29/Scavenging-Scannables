@@ -1,26 +1,23 @@
 package com.example.scavengingscannables;
 
-import android.location.Location;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class QrCode {
+    public void setQrId(String qrId) {
+        this.qrId = qrId;
+    }
 
     private String qrId;
-
     private String score;
     private String nameText;
     private HashMap<String,String> comments;
     private ArrayList<String> ownedBy;
-
     private String visualLink;
-
-
     //Currently set location to [x,y]
     private ArrayList<Double> location;
-    //private Location location;
 
+    // to allow firestore to save custom classes
     public QrCode(){}
 
     public QrCode(String qrId, String score, String nameText, HashMap<String, String> comments, ArrayList<String> ownedBy, ArrayList<Double> location) {
@@ -33,6 +30,9 @@ public class QrCode {
         GenerateVisualLink();
     }
 
+    /**
+     * Generates the Picsum link to the custom image for the qrcode
+     */
     private void GenerateVisualLink() {
         String hash = this.qrId;
         String seed = hash.substring(0, this.qrId.getBytes().length);
@@ -40,24 +40,23 @@ public class QrCode {
         this.visualLink = linkTemplate;
     }
 
-    public String getQrId() {
-        return qrId;
+    public String getqrId() {
+        return this.qrId;
     }
 
     public String getScore() {
-        return score;
+        return this.score;
     }
 
     public String getNameText() {
-        return nameText;
+        return this.nameText;
     }
     public String getVisualLink() {
-        return visualLink;
+        return this.visualLink;
     }
 
-    //public String getComment() {return comment;}
     public HashMap<String, String> getComments() {
-        return comments;
+        return this.comments;
     }
 
     public void setComments(HashMap<String, String> newComments) {
@@ -65,10 +64,26 @@ public class QrCode {
     }
 
     public ArrayList<String> getOwnedBy() {
-        return ownedBy;
+        return this.ownedBy;
     }
 
     public ArrayList<Double> getLocation() {
-        return location;
+        return this.location;
+    }
+
+    /**
+     * Adds a usernanme to the owned by section of a qrcode
+     * @param username username to be added
+     */
+    public void AddOwnedBy(String username){
+        this.ownedBy.add(username);
+    }
+
+    /**
+     * Removes a username from the qrcode's owned by
+     * @param username username to be removed
+     */
+    public void RemoveOwnedBy(String username){
+        this.ownedBy.remove(username);
     }
 }

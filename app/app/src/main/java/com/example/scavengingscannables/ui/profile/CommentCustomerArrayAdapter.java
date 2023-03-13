@@ -1,26 +1,22 @@
-package com.example.scavengingscannables.ui.notifications;
+package com.example.scavengingscannables.ui.profile;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.scavengingscannables.QrCode;
 import com.example.scavengingscannables.R;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class CommentCustomerArrayAdapter extends ArrayAdapter<Comment> {
-    private ArrayList<Comment> comments;
-    private Context context;
+    private final ArrayList<Comment> comments;
+    private final Context context;
 
     public CommentCustomerArrayAdapter(@NonNull Context context) {
         super(context, 0);

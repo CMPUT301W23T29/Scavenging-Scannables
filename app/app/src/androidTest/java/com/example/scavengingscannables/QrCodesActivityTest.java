@@ -1,30 +1,17 @@
 package com.example.scavengingscannables;
 
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
-import com.example.scavengingscannables.ui.home.DisplaySearch;
-import com.example.scavengingscannables.ui.home.FindUserActivity;
-import com.example.scavengingscannables.ui.home.HomeFragment;
-import com.example.scavengingscannables.ui.home.HomeViewModel;
-import com.example.scavengingscannables.ui.home.OthersQrCodesActivity;
-import com.example.scavengingscannables.ui.notifications.Comments;
-import com.example.scavengingscannables.ui.notifications.Others;
-import com.example.scavengingscannables.ui.notifications.QrCodesActivity;
+import com.example.scavengingscannables.ui.profile.QrCodesActivity;
 import com.robotium.solo.Solo;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-
-import java.util.ArrayList;
 
 public class QrCodesActivityTest {
     private Solo solo;
@@ -38,14 +25,14 @@ public class QrCodesActivityTest {
     @Test
     public void checkSwitch(){
         solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
-        solo.clickOnView(solo.getView(R.id.navigation_notifications));
+        solo.clickOnView(solo.getView(R.id.navigation_profile));
         solo.clickOnView(solo.getView(R.id.ViewQrCodes));
         solo.assertCurrentActivity("Wrong Activity", QrCodesActivity.class);
     }
     @Test
     public void checkBack() {
         solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
-        solo.clickOnView(solo.getView(R.id.navigation_notifications));
+        solo.clickOnView(solo.getView(R.id.navigation_profile));
         solo.clickOnView(solo.getView(R.id.ViewQrCodes));
         solo.assertCurrentActivity("Wrong Activity", QrCodesActivity.class);
         solo.clickOnView(solo.getView(R.id.button_back));
@@ -55,7 +42,7 @@ public class QrCodesActivityTest {
     @Test
     public void checkDelete() {
         solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
-        solo.clickOnView(solo.getView(R.id.navigation_notifications));
+        solo.clickOnView(solo.getView(R.id.navigation_profile));
         solo.clickOnView(solo.getView(R.id.ViewQrCodes));
         solo.clickOnView(solo.getView(R.id.button_delete));
         //ListView  myList = (ListView) solo.getView(R.id.qrcode_list,1);

@@ -1,20 +1,14 @@
 package com.example.scavengingscannables;
 
-import android.app.Activity;
-import android.app.Instrumentation;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
-import androidx.test.rule.ActivityTestRule$$ExternalSyntheticLambda0;
 
 import com.example.scavengingscannables.ui.home.DisplaySearch;
 import com.example.scavengingscannables.ui.home.FindUserActivity;
-import com.example.scavengingscannables.ui.home.HomeFragment;
-import com.example.scavengingscannables.ui.home.HomeViewModel;
 import com.example.scavengingscannables.ui.home.OthersQrCodesActivity;
-import com.example.scavengingscannables.ui.notifications.QrCodesActivity;
 import com.robotium.solo.Solo;
 
 import org.junit.After;
