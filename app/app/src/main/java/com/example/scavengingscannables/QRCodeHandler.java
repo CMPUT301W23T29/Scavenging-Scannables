@@ -27,6 +27,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * This class handles QR code operations asynchronously
+ */
 public class QRCodeHandler implements FirestoreDatabaseCallback {
     private FirestoreDatabaseController fdc;
 

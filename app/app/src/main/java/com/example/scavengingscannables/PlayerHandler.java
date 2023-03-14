@@ -5,6 +5,9 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+/**
+ * This class handles Player operations asynchronously
+ */
 public class PlayerHandler implements FirestoreDatabaseCallback {
     private String username;
 
