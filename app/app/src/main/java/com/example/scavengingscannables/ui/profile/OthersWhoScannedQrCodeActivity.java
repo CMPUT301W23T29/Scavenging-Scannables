@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -14,6 +15,8 @@ import com.example.scavengingscannables.FirestoreDatabaseCallback;
 import com.example.scavengingscannables.FirestoreDatabaseController;
 import com.example.scavengingscannables.Player;
 import com.example.scavengingscannables.R;
+import com.example.scavengingscannables.ui.home.DisplaySearch;
+import com.example.scavengingscannables.ui.home.OthersQrCodesActivity;
 
 import java.util.ArrayList;
 
@@ -65,6 +68,15 @@ public class OthersWhoScannedQrCodeActivity extends AppCompatActivity {
                     });
 
                 }
+            }
+        });
+
+        playerNamesView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(OthersWhoScannedQrCodeActivity.this, DisplaySearch.class);
+                intent.putExtra("user", arrayAdapter.getItem(i));
+                startActivity(intent);
             }
         });
 
