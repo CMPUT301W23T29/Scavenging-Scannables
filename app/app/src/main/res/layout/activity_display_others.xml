@@ -19,7 +19,7 @@
         android:gravity="center"
         android:textStyle="bold"
         android:textSize="20dp"
-        android:text="Other players who scanned this QrCode" />
+        android:text="Players who scanned this QrCode" />
 
     <ListView
         android:id="@+id/others_list"
