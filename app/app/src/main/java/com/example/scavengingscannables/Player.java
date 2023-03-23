@@ -12,13 +12,15 @@ public class Player {
     private String lastName;
     private Long phoneNumber;
     private String email;
+    private Boolean hide;
 
-    public Player(String username, String firstName, String lastName, Long phoneNumber, String email) {
+    public Player(String username, String firstName, String lastName, Long phoneNumber, String email, Boolean hide) {
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
         this.email = email;
+        this.hide = hide;
     }
 
     // to allow firestore to save custom classes
@@ -55,6 +57,10 @@ public class Player {
     public String getLastName() {
         return lastName;
     }
+
+    public Boolean getHide(){return hide;}
+
+    public void setHide(Boolean b){this.hide = b;}
 
     public Long getPhoneNumber() {
         return phoneNumber;

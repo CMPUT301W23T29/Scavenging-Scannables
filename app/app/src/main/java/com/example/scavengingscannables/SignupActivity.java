@@ -98,7 +98,8 @@ public class SignupActivity extends AppCompatActivity {
                             @Override
                             public void OnDocumentDoesNotExist() {
                                 // create new user and save to database
-                                Player newPlayer = new Player(username, firstName, lastName, finalPhoneNumber, email);
+                                Boolean hide =false;
+                                Player newPlayer = new Player(username, firstName, lastName, finalPhoneNumber, email, hide);
                                 dbc.SavePlayerByUsername(newPlayer);
 
                                 // saves username to local file for future logins

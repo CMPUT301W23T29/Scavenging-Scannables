@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.scavengingscannables.FirestoreDatabaseCallback;
 import com.example.scavengingscannables.FirestoreDatabaseController;
@@ -63,80 +64,117 @@ public class DisplaySearch extends AppCompatActivity {
         Intent intent = getIntent();
         String str = intent.getStringExtra("user");
         name.setText(str);
+
+        //If player hide their profile
         dbc.GetPlayerByUsername(str, new FirestoreDatabaseCallback() {
             @Override
             public <T> void OnDataCallback(T data) {
                 Player p = (Player)data;
-                userPhone = p.getPhoneNumber().toString();
-                phone.setText(userPhone);
-                Log.d("LOG", p.getEmail());
+                Boolean hide = p.getHide();
+                if (hide==true) {
+                    phone.setText("?");
+                    totalScanned.setText("?");
+                    totalScore.setText("?");
+                    lowestQR.setImageResource(R.drawable.ic_question_mark_black_24dp);
+                    highestQR.setImageResource(R.drawable.ic_question_mark_black_24dp);
+                    buttonViewQrCodes.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Toast.makeText(DisplaySearch.this, "This player hide the profile!", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+                else{
+                    dbc.GetPlayerByUsername(str, new FirestoreDatabaseCallback() {
+                        @Override
+                        public <T> void OnDataCallback(T data) {
+                            Player p = (Player)data;
+                            userPhone = p.getPhoneNumber().toString();
+                            phone.setText(userPhone);
+                            Log.d("LOG", p.getEmail());
 
-            }
-        });
-        dbc.GetAllQrCodeOfUser(str, new FirestoreDatabaseCallback() {
-            @Override
-            public <T> void OnDataCallback(T data) {
-                FirestoreDatabaseCallback.super.OnDataCallback(data);
-                qrIDs = (ArrayList<String>) data;
-                Log.d("QRCODE List", String.valueOf(qrIDs));
-            }
-        });
-        dbc.GetPlayerByUsername(str, new FirestoreDatabaseCallback() {
-            @Override
-            public <T> void OnDataCallback(T data) {
-                Player p = (Player)data;
-                userPhone = p.getPhoneNumber().toString();
-                phone.setText(userPhone);
-                qrCodes = p.getScannedQRCodesID();
-                if (qrCodes.size() > 0){
-                    for (int i = 0; i< qrCodes.size(); i++){
-                        String qrcode = qrCodes.get(i);
-                        dbc.GetQRCodeByID(qrcode, new FirestoreDatabaseCallback() {
-                            @Override
-                            public <T> void OnDataCallback(T data) {
-                                QrCode q = (QrCode)data;
-                                lowestHighest.put(qrcode,Integer.valueOf(q.getScore()));
-                                List<Map.Entry<String, Integer>> list = new ArrayList<Map.Entry<String, Integer>>(lowestHighest.entrySet());
-                                Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
-                                        @Override
-                                        public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
-                                            return o1.getValue().compareTo(o2.getValue());
-                                        }
-                                    });
-                                    lowestId = list.get(0).getKey();
-                                    dbc.GetQRCodeByID(lowestId, new FirestoreDatabaseCallback() {
+                        }
+                    });
+                    dbc.GetAllQrCodeOfUser(str, new FirestoreDatabaseCallback() {
+                        @Override
+                        public <T> void OnDataCallback(T data) {
+                            FirestoreDatabaseCallback.super.OnDataCallback(data);
+                            qrIDs = (ArrayList<String>) data;
+                            Log.d("QRCODE List", String.valueOf(qrIDs));
+                        }
+                    });
+                    dbc.GetPlayerByUsername(str, new FirestoreDatabaseCallback() {
+                        @Override
+                        public <T> void OnDataCallback(T data) {
+                            Player p = (Player)data;
+                            userPhone = p.getPhoneNumber().toString();
+                            phone.setText(userPhone);
+                            qrCodes = p.getScannedQRCodesID();
+                            if (qrCodes.size() > 0){
+                                for (int i = 0; i< qrCodes.size(); i++){
+                                    String qrcode = qrCodes.get(i);
+                                    dbc.GetQRCodeByID(qrcode, new FirestoreDatabaseCallback() {
                                         @Override
                                         public <T> void OnDataCallback(T data) {
-                                            QrCode ql = (QrCode)data;
-                                            Picasso.get().load(ql.getVisualLink()).into(lowestQR);
-                                        }
-                                    });
-                                    highestId = list.get((list.size())-1).getKey();
-                                    dbc.GetQRCodeByID(highestId, new FirestoreDatabaseCallback() {
-                                        @Override
-                                        public <T> void OnDataCallback(T data) {
-                                            QrCode ql = (QrCode)data;
-                                            Picasso.get().load(ql.getVisualLink()).into(highestQR);
-                                        }
-                                    });
+                                            QrCode q = (QrCode)data;
+                                            lowestHighest.put(qrcode,Integer.valueOf(q.getScore()));
+                                            List<Map.Entry<String, Integer>> list = new ArrayList<Map.Entry<String, Integer>>(lowestHighest.entrySet());
+                                            Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
+                                                @Override
+                                                public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
+                                                    return o1.getValue().compareTo(o2.getValue());
+                                                }
+                                            });
+                                            lowestId = list.get(0).getKey();
+                                            dbc.GetQRCodeByID(lowestId, new FirestoreDatabaseCallback() {
+                                                @Override
+                                                public <T> void OnDataCallback(T data) {
+                                                    QrCode ql = (QrCode)data;
+                                                    Picasso.get().load(ql.getVisualLink()).into(lowestQR);
+                                                }
+                                            });
+                                            highestId = list.get((list.size())-1).getKey();
+                                            dbc.GetQRCodeByID(highestId, new FirestoreDatabaseCallback() {
+                                                @Override
+                                                public <T> void OnDataCallback(T data) {
+                                                    QrCode ql = (QrCode)data;
+                                                    Picasso.get().load(ql.getVisualLink()).into(highestQR);
+                                                }
+                                            });
 
-                                scores.add(q.getScore());
-                                tScore = 0;
-                                for (int i=0;i<scores.size();i++) {
-                                    tScore += Integer.parseInt(scores.get(i));
+                                            scores.add(q.getScore());
+                                            tScore = 0;
+                                            for (int i=0;i<scores.size();i++) {
+                                                tScore += Integer.parseInt(scores.get(i));
+                                            }
+                                            totalScore.setText(tScore.toString());
+                                            tScanned = scores.size();
+                                            totalScanned.setText(tScanned.toString());
+                                        }
+                                    });
                                 }
-                                totalScore.setText(tScore.toString());
-                                tScanned = scores.size();
-                                totalScanned.setText(tScanned.toString());
+                            }else {
+                                totalScore.setText("0");
+                                totalScanned.setText("0");
                             }
-                        });
-                    }
-                }else {
-                    totalScore.setText("0");
-                    totalScanned.setText("0");
+                        }
+                    });
+
+                    buttonViewQrCodes.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(DisplaySearch.this, OthersQrCodesActivity.class);
+                            intent.putExtra("other",str);
+                            startActivity(intent);
+                        }
+                    });
+
                 }
             }
         });
+
+
+
         buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -144,13 +182,5 @@ public class DisplaySearch extends AppCompatActivity {
             }
         });
 
-        buttonViewQrCodes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(DisplaySearch.this, OthersQrCodesActivity.class);
-                intent.putExtra("other",str);
-                startActivity(intent);
-            }
-        });
     }
 }

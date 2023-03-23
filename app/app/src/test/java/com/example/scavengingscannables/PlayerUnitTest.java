@@ -12,7 +12,8 @@ public class PlayerUnitTest {
         String lastName = "Last";
         Long phoneNumber = 7801234567L;
         String email = "abc@abc.com";
-        player = new Player(username, firstName, lastName, phoneNumber, email);
+        Boolean hide = false;
+        player = new Player(username, firstName, lastName, phoneNumber, email, hide);
     }
 
     @Test
