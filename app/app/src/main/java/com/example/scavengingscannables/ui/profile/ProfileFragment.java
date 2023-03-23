@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -37,6 +38,8 @@ public class ProfileFragment extends Fragment {
 
     private FragmentProfileBinding binding;
     Button viewQrCodes;
+
+    Switch hideProfile;
     private TextView usernameView;
     private TextView phone;
     private TextView totalScanned;
@@ -64,6 +67,7 @@ public class ProfileFragment extends Fragment {
         View root = binding.getRoot();
 
         viewQrCodes = root.findViewById(R.id.ViewQrCodes);
+        hideProfile = root.findViewById(R.id.hide);
         phone = root.findViewById(R.id.phone);
         totalScanned = root.findViewById(R.id.codes_scanned);
         totalScore = root.findViewById(R.id.total_score);
@@ -82,6 +86,38 @@ public class ProfileFragment extends Fragment {
         username = sharedPref.getString("username", "ERROR NO USERNAME FOUND");
         usernameView.setText(username);
         name = username;
+
+        //Change the hideProfile switch to the state in database
+        dbc.GetPlayerByUsername(username, new FirestoreDatabaseCallback() {
+            @Override
+            public <T> void OnDataCallback(T data) {
+                Player p = (Player)data;
+                Boolean b = p.getHide();
+                hideProfile.setChecked(b);
+            }
+        });
+
+
+        hideProfile.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                dbc.GetPlayerByUsername(username, new FirestoreDatabaseCallback() {
+                    @Override
+                    public <T> void OnDataCallback(T data) {
+                        Player p = (Player)data;
+                        if (hideProfile.isChecked()) {
+                            p.setHide(true);
+                        }
+                        else{
+                            p.setHide(false);
+                        }
+                        dbc.SavePlayerByUsername(p);
+                    }
+                });
+
+            }
+        });
+
+
         dbc.GetPlayerByUsername(username, new FirestoreDatabaseCallback() {
             @Override
             public <T> void OnDataCallback(T data) {
