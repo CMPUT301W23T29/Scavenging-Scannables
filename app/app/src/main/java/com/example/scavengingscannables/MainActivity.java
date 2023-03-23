@@ -10,6 +10,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.scavengingscannables.FirestoreDatabaseCallback;
+import com.example.scavengingscannables.FirestoreDatabaseController;
+import com.example.scavengingscannables.Player;
+import com.example.scavengingscannables.QrCode;
+import com.example.scavengingscannables.ScannerActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
@@ -26,6 +31,13 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 /**
  * Main activity which is run after signup, creates the navigation menus to navigate between the fragments
@@ -92,6 +104,10 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        // Adds map to Display
+
+
     }
 
     // Function to request camera permission from user
