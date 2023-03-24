@@ -85,7 +85,7 @@ public class QrCodesActivity extends AppCompatActivity {
                     Player p = (Player) data;
                     p.RemoveQRCodeByID(qrCode.getqrId());
                     qrCode.RemoveOwnedBy(username);
-                    dbc.SaveQRCodeByID(qrCode);
+                    dbc.SaveQRCodeByID(qrCode, this);
                     dbc.SavePlayerByUsername(p);
                     qrAdapter.notifyDataSetChanged();
                 }
