@@ -45,20 +45,20 @@ public class FirestoreDatabaseController{
         String qrCodeIDString = qrcode.getqrId();
 
         db.collection(QRCODE_COLLECTION_NAME)
-          .document(qrCodeIDString)
-          .set(qrcode)
-          .addOnSuccessListener(new OnSuccessListener<Void>() {
-              @Override
-              public void onSuccess(Void unused) {
-                  Log.d("LOG", "successfully saved " + qrCodeIDString);
-              }
-          })
-          .addOnFailureListener(new OnFailureListener() {
-              @Override
-              public void onFailure(@NonNull Exception e) {
-                  Log.d("LOG", "could not save " + qrCodeIDString);
-              }
-          });
+                .document(qrCodeIDString)
+                .set(qrcode)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Log.d("LOG", "successfully saved " + qrCodeIDString);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("LOG", "could not save " + qrCodeIDString);
+                    }
+                });
     }
 
     /**

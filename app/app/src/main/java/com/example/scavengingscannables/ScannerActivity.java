@@ -1,11 +1,19 @@
 package com.example.scavengingscannables;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import com.budiyev.android.codescanner.CodeScanner;
@@ -25,16 +33,40 @@ public class ScannerActivity extends AppCompatActivity {
     private FirestoreDatabaseController fdc = new FirestoreDatabaseController();
     private ScoringSystem scrsys = new ScoringSystem();
     private QRCodeHandler qrch;
-
+    private int score;
+    private String sha256hex;
+    private Bitmap image;
     private FloatingActionButton ScannerBackButton;
-
-
 
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.scanner);
+
+        ActivityResultLauncher<Intent> someActivityResultLauncher =  registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        if (result.getResultCode() == Activity.RESULT_OK) {
+
+                            // Get image from camera activity
+                            Intent data = result.getData();
+                            image = (Bitmap) data.getExtras().get("data");
+                            System.out.println(image.toString());
+
+                            // Create new QRCodeHandler to handle our QR code
+                            qrch = new QRCodeHandler(ScannerActivity.this, sha256hex, score, fdc, image);
+
+                            // Tell the user what the score of the QR code they scanned was
+                            Toast.makeText(ScannerActivity.this, "Your score is: " + score,Toast.LENGTH_SHORT).show();
+
+                            fdc.CheckQRIDExists(sha256hex, qrch);
+                        }
+                    }
+                }
+        );
 
         CodeScannerView scannerView = findViewById(R.id.scanner_view);
         ScannerBackButton = findViewById(R.id.scanner_back_button);
@@ -48,19 +80,15 @@ public class ScannerActivity extends AppCompatActivity {
                     public void run() {
 
                         // Generate a SHA-256 hash of the QR code text
-                        String sha256hex = Hashing.sha256()
+                        sha256hex = Hashing.sha256()
                                 .hashString(result.getText(), StandardCharsets.UTF_8)
                                 .toString();
 
                         // Generate a score for the hash
-                        int score = scrsys.generateScore(sha256hex);
+                        score = scrsys.generateScore(sha256hex);
 
-                        qrch = new QRCodeHandler(ScannerActivity.this, sha256hex, score, fdc);
-
-                        // Tell the user what the score of the QR code they scanned was
-                        Toast.makeText(ScannerActivity.this, "Your score is: " + score,Toast.LENGTH_SHORT).show();
-
-                        fdc.CheckQRIDExists(sha256hex, qrch);
+                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        someActivityResultLauncher.launch(intent);
                     }
                 });
             }
@@ -80,8 +108,6 @@ public class ScannerActivity extends AppCompatActivity {
             }
         });
     }
-
-
 
     @Override
     protected void onResume() {

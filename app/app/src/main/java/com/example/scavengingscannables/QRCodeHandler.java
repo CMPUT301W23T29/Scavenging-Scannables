@@ -8,9 +8,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.util.Base64;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -21,6 +24,8 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,6 +50,8 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
 
     private Activity activity;
 
+    private Bitmap image;
+
     private String hash;
 
     private int score;
@@ -55,12 +62,13 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
 
     private PlayerHandler ph;
 
-    public QRCodeHandler(Activity activity, String hash, int score, FirestoreDatabaseController fdc) {
+    public QRCodeHandler(Activity activity, String hash, int score, FirestoreDatabaseController fdc, Bitmap image) {
        this.activity = activity;
        this.hash = hash;
        this.score = score;
        this.fdc = fdc;
        this.flpc =  LocationServices.getFusedLocationProviderClient(this.activity);
+       this.image = image;
 
        SharedPreferences sharedPref = activity.getSharedPreferences("account", Context.MODE_PRIVATE);
        username = sharedPref.getString("username", "ERROR NO USERNAME FOUND");
@@ -93,7 +101,15 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
     private void scanNewQRCode() {
         // Ask the user if they want to store an image of the object they just scanned
         // Then, whether the user wants to store an image or not, we ask if they want to store the location of the object they just scanned
-        askForPhoto();
+//        askForPhoto();
+
+        // Compress bitmap into JPEG
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        image.compress(Bitmap.CompressFormat.JPEG,50,baos);
+        byte []  b = baos.toByteArray();
+        String temp = Base64.encodeToString(b, Base64.DEFAULT);
+
+        System.out.println("Byte string: " + temp);
 
         // Generate a name for the hash
         String hashedName = namsys.generateName(hash);
