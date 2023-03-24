@@ -131,7 +131,7 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
         QrCode newCode = new QrCode(hash, Integer.toString(score), hashedName,  comments, ownedBy, qrLocation);
 
         // Save the new QR code to the database
-        fdc.SaveQRCodeByID(newCode, this);
+        fdc.SaveQRCodeByID(newCode);
     }
 
     // Add user to QR code's ownedBy list if the one scanned already exists
@@ -141,7 +141,7 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
         ArrayList<String> ownedBy = qrcode.getOwnedBy();
         if (!ownedBy.contains(username)) {
             qrcode.getOwnedBy().add(username);
-            fdc.SaveQRCodeByID(qrcode, this);
+            fdc.SaveQRCodeByID(qrcode);
         }
     }
 
