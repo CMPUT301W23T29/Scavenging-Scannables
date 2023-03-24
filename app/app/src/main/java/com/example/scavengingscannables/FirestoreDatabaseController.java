@@ -51,7 +51,6 @@ public class FirestoreDatabaseController{
               @Override
               public void onSuccess(Void unused) {
                   Log.d("LOG", "successfully saved " + qrCodeIDString);
-                  callback.OnSaveSuccess();
               }
           })
           .addOnFailureListener(new OnFailureListener() {

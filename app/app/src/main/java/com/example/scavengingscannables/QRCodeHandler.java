@@ -97,23 +97,19 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
         fdc.GetPlayerByUsername(username, ph);
     }
 
-    @Override
-    public void OnSaveSuccess() {
-        System.out.println("hilarfnbuiyrwaebfuyawrebuflawerbfuawyilefbawlfbyyuoaewbfeuoywabfoaweuyfbhawefouvtyaewvbfuy");
-    }
-
     // Create a new QR code if this one hasn't been scanned before
     private void scanNewQRCode() {
         // Ask the user if they want to store an image of the object they just scanned
         // Then, whether the user wants to store an image or not, we ask if they want to store the location of the object they just scanned
 //        askForPhoto();
 
+        // Compress bitmap into JPEG
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         image.compress(Bitmap.CompressFormat.JPEG,50,baos);
         byte []  b = baos.toByteArray();
         String temp = Base64.encodeToString(b, Base64.DEFAULT);
 
-        System.out.println(temp);
+        System.out.println("Byte string: " + temp);
 
         // Generate a name for the hash
         String hashedName = namsys.generateName(hash);
@@ -132,14 +128,10 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
         }
 
         // Create a QR code using the data we've generated
-        QrCode newCode = new QrCode(hash, Integer.toString(score), temp,  comments, ownedBy, qrLocation);
+        QrCode newCode = new QrCode(hash, Integer.toString(score), hashedName,  comments, ownedBy, qrLocation);
 
         // Save the new QR code to the database
         fdc.SaveQRCodeByID(newCode, this);
-
-        System.out.println(activity.getClass());
-        Log.d("Tag", "scanNewQRCode: ");
-        Toast.makeText(activity, activity.toString(),Toast.LENGTH_SHORT).show();
     }
 
     // Add user to QR code's ownedBy list if the one scanned already exists

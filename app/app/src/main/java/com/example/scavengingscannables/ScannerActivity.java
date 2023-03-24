@@ -33,16 +33,10 @@ public class ScannerActivity extends AppCompatActivity {
     private FirestoreDatabaseController fdc = new FirestoreDatabaseController();
     private ScoringSystem scrsys = new ScoringSystem();
     private QRCodeHandler qrch;
-
     private int score;
     private String sha256hex;
-
     private Bitmap image;
-
     private FloatingActionButton ScannerBackButton;
-
-
-
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -50,20 +44,19 @@ public class ScannerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.scanner);
 
-
         ActivityResultLauncher<Intent> someActivityResultLauncher =  registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
                     @Override
                     public void onActivityResult(ActivityResult result) {
-                        System.out.println("Hello");
                         if (result.getResultCode() == Activity.RESULT_OK) {
-                            Intent data = result.getData();
 
+                            // Get image from camera activity
+                            Intent data = result.getData();
                             image = (Bitmap) data.getExtras().get("data");
                             System.out.println(image.toString());
 
-
+                            // Create new QRCodeHandler to handle our QR code
                             qrch = new QRCodeHandler(ScannerActivity.this, sha256hex, score, fdc, image);
 
                             // Tell the user what the score of the QR code they scanned was
@@ -96,7 +89,6 @@ public class ScannerActivity extends AppCompatActivity {
 
                         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                         someActivityResultLauncher.launch(intent);
-
                     }
                 });
             }
@@ -116,8 +108,6 @@ public class ScannerActivity extends AppCompatActivity {
             }
         });
     }
-
-
 
     @Override
     protected void onResume() {

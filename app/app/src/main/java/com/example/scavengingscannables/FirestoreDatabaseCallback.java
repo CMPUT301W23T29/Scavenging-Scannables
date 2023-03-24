@@ -10,6 +10,4 @@ public interface FirestoreDatabaseCallback {
 
     default void OnDocumentDoesNotExist(){}
 
-    default void OnSaveSuccess() {}
-
 }
