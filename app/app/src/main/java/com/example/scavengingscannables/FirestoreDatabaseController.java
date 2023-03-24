@@ -37,6 +37,10 @@ public class FirestoreDatabaseController{
         });
     }
 
+    /**
+     * Saves a QrCode into the database, overwrites any existing qrcode of the same ID (same qrcode)
+     * @param qrcode qrcode to be saved
+     */
     public void SaveQRCodeByID(@NonNull QrCode qrcode){
         String qrCodeIDString = qrcode.getqrId();
 
