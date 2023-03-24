@@ -1,6 +1,5 @@
 package com.example.scavengingscannables;
 
-import org.checkerframework.checker.units.qual.A;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -17,7 +16,7 @@ public class QrCodeUnitTest {
         HashMap<String, String> comments = new HashMap<>();
         ArrayList<String> ownedBy = new ArrayList<>();
         ArrayList<Double> location = new ArrayList<>();
-        this.qrCode = new QrCode(id, score, name, comments, ownedBy, location);
+        this.qrCode = new QrCode(id, score, name, comments, ownedBy, location, qrCodeImageLocationInfoList);
     }
 
     @Test

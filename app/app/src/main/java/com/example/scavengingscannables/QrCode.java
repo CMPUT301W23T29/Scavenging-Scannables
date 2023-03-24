@@ -17,19 +17,18 @@ public class QrCode {
     private HashMap<String,String> comments;
     private ArrayList<String> ownedBy;
     private String visualLink;
-    //Currently set location to [x,y]
-    private ArrayList<Double> location;
+    private ArrayList<QRCodeImageLocationInfo> qrCodeImageLocationInfoList;
 
     // to allow firestore to save custom classes
     public QrCode(){}
 
-    public QrCode(String qrId, String score, String nameText, HashMap<String, String> comments, ArrayList<String> ownedBy, ArrayList<Double> location) {
+    public QrCode(String qrId, String score, String nameText, HashMap<String, String> comments, ArrayList<String> ownedBy, ArrayList<QRCodeImageLocationInfo> qrCodeImageLocationInfoList) {
         this.qrId = qrId;
         this.score = score;
         this.nameText = nameText;
         this.comments = comments;
         this.ownedBy = ownedBy;
-        this.location = location;
+        this.qrCodeImageLocationInfoList = qrCodeImageLocationInfoList;
         GenerateVisualLink();
     }
 
@@ -70,8 +69,8 @@ public class QrCode {
         return this.ownedBy;
     }
 
-    public ArrayList<Double> getLocation() {
-        return this.location;
+    public ArrayList<QRCodeImageLocationInfo> getQrCodeImageLocationInfoList() {
+        return qrCodeImageLocationInfoList;
     }
 
     /**

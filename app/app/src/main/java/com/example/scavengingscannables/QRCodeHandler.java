@@ -13,18 +13,18 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.util.Base64;
-import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.Priority;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.GeoPoint;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -90,7 +90,7 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
 
     @Override
     public void OnDocumentDoesNotExist() {
-        scanNewQRCode();
+        askLocationPermissions();
 
         // Add QR code id to user's list of codes
         ph = new PlayerHandler(username, fdc, hash, activity);
@@ -103,14 +103,6 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
         // Then, whether the user wants to store an image or not, we ask if they want to store the location of the object they just scanned
 //        askForPhoto();
 
-        // Compress bitmap into JPEG
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        image.compress(Bitmap.CompressFormat.JPEG,50,baos);
-        byte []  b = baos.toByteArray();
-        String temp = Base64.encodeToString(b, Base64.DEFAULT);
-
-        System.out.println("Byte string: " + temp);
-
         // Generate a name for the hash
         String hashedName = namsys.generateName(hash);
 
@@ -121,14 +113,20 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
         ownedBy.add(username);
 
         // Store location based on the user's choices
-        ArrayList<Double> qrLocation = new ArrayList<>();
+        GeoPoint qrLocation;
         if (storeLocation) {
-            qrLocation.add(latitude);
-            qrLocation.add(longitude);
+            qrLocation = new GeoPoint(latitude, longitude);
+        }else{
+            qrLocation = new GeoPoint(0, 0);
         }
 
+        // creates QRCodeImageLocationInfo and saves the image and location
+        QRCodeImageLocationInfo qrCodeImageLocationInfo = new QRCodeImageLocationInfo(image, qrLocation, storePhoto, storeLocation);
+        ArrayList<QRCodeImageLocationInfo> qrCodeImageLocationInfoList = new ArrayList<>();
+        qrCodeImageLocationInfoList.add(qrCodeImageLocationInfo);
+
         // Create a QR code using the data we've generated
-        QrCode newCode = new QrCode(hash, Integer.toString(score), hashedName,  comments, ownedBy, qrLocation);
+        QrCode newCode = new QrCode(hash, Integer.toString(score), hashedName,  comments, ownedBy, qrCodeImageLocationInfoList);
 
         // Save the new QR code to the database
         fdc.SaveQRCodeByID(newCode);
@@ -157,24 +155,12 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
                         storeLocation = true;
                         if (ActivityCompat.checkSelfPermission(activity, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 //                           getLocation();
-                            flpc.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+                            flpc.getCurrentLocation(Priority.PRIORITY_BALANCED_POWER_ACCURACY, null).addOnSuccessListener(new OnSuccessListener<Location>() {
                                 @Override
-                                public void onComplete(@NonNull Task<Location> task) {
-                                    Location location = task.getResult();
-                                    if (location != null) {
-                                        try {
-                                            // Initialize geoCoder
-                                            Geocoder geocoder = new Geocoder(activity, Locale.getDefault());
-                                            // Initialize address list
-                                            List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-                                            // Store latitude and longitude
-                                            latitude = addresses.get(0).getLatitude();
-                                            longitude = addresses.get(0).getLongitude();
-
-                                        } catch (IOException e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
+                                public void onSuccess(Location location) {
+                                    latitude = location.getLatitude();
+                                    longitude = location.getLongitude();
+                                    scanNewQRCode();
                                 }
                             });
                         }
@@ -190,6 +176,7 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
                     public void onClick(DialogInterface dialog, int which) {
                         storeLocation = false;
                         dialog.dismiss();
+                        scanNewQRCode();
                     }
                 })
                 .create().show();

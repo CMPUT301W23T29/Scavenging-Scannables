@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // tests adding qrcode to database
-        QrCode qrCode = new QrCode("123", "999", "TESTNAME", new HashMap<String, String>(), new ArrayList<String>(), new ArrayList<Double>());
+        QrCode qrCode = new QrCode("123", "999", "TESTNAME", new HashMap<String, String>(), new ArrayList<String>(), new ArrayList<QRCodeImageLocationInfo>());
         dbc.SaveQRCodeByID(qrCode);
 
         // tests getting all usernames
