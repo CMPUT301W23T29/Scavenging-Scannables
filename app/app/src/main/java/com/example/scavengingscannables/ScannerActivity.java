@@ -2,6 +2,8 @@ package com.example.scavengingscannables;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -37,6 +39,8 @@ public class ScannerActivity extends AppCompatActivity {
     private String sha256hex;
     private Bitmap image;
     private FloatingActionButton ScannerBackButton;
+
+    private boolean storePhoto;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -88,9 +92,13 @@ public class ScannerActivity extends AppCompatActivity {
                         // Tell the user what the score of the QR code they scanned was
                         Toast.makeText(ScannerActivity.this, "Your score is: " + score,Toast.LENGTH_SHORT).show();
 
-                        // Start the activity that launches the camera
-                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                        someActivityResultLauncher.launch(intent);
+                        askForPhoto();
+
+                        if (storePhoto == true) {
+                            // Start the activity that launches the camera
+                            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                            someActivityResultLauncher.launch(intent);
+                        }
                     }
                 });
             }
@@ -121,5 +129,37 @@ public class ScannerActivity extends AppCompatActivity {
     protected void onPause() {
         mCodeScanner.releaseResources();
         super.onPause();
+    }
+
+
+    private void askForPhoto() {
+        new AlertDialog.Builder(ScannerActivity.this)
+                .setTitle("Do you want to store an image of the object you just scanned?")
+
+                // If the user decides they want to store and image, we will launch their phone's camera application
+                // We will also set the "storeCode" flag to true
+                // Then we ask if they want to store the location of where they scanned the code
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        storePhoto = true;
+
+                        // Launch camera activity
+                        Intent myIntent = new Intent(ScannerActivity.this, CameraActivity.class);
+//                      myIntent.putExtra("key", value); //Optional parameters
+                        ScannerActivity.this.startActivity(myIntent);
+//                        askLocationPermissions();
+                    }
+                })
+                // If the user decides they do not want to store the image, we will go straight to asking them if they want to store the location of where they scanned the image
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        storePhoto = false;
+                        dialog.dismiss();
+//                        askLocationPermissions();
+                    }
+                })
+                .create().show();
     }
 }
