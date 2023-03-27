@@ -50,18 +50,18 @@ public class QRCodeImageLocationInfo {
     }
 
     public String getImageBase64() {
-        return imageBase64;
+        return this.imageBase64;
     }
 
     public GeoPoint getImageLocation() {
-        return imageLocation;
+        return this.imageLocation;
     }
 
-    public Boolean getImagePrivate() {
-        return isImagePrivate;
+    public Boolean getIsImagePrivate() {
+        return this.isImagePrivate;
     }
 
-    public Boolean getLocationPrivate() {
-        return isLocationPrivate;
+    public Boolean getIsLocationPrivate() {
+        return this.isLocationPrivate;
     }
 }

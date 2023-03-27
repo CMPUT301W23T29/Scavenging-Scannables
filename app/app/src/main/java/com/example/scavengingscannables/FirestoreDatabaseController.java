@@ -12,6 +12,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+
 import java.util.ArrayList;
 
 /**
@@ -179,5 +180,24 @@ public class FirestoreDatabaseController{
                 }
             }
         });
+    }
+
+    /**
+     * Gets all qrcodes in database, but calls the callback for each qrcode one at a time (used to populate map)
+     * @param callback callback function where each qrcode is passed into
+     */
+    public void GetAllQRCodesOneByOne(FirestoreDatabaseCallback callback){
+        db.collection(QRCODE_COLLECTION_NAME).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for (DocumentSnapshot documentSnapshot:queryDocumentSnapshots.getDocuments()) {
+                    callback.OnDataCallback(documentSnapshot.toObject(QrCode.class));
+                }
+            }
+        });
+    }
+
+    public static void testMethod(){
+
     }
 }
