@@ -15,9 +15,16 @@ import android.widget.Toast;
 
 import com.example.scavengingscannables.FirestoreDatabaseCallback;
 import com.example.scavengingscannables.FirestoreDatabaseController;
+import com.example.scavengingscannables.Player;
+import com.example.scavengingscannables.QrCode;
 import com.example.scavengingscannables.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Allows user to search for other players
@@ -28,6 +35,8 @@ public class FindUserActivity extends AppCompatActivity {
     private EditText searchInput;
     private ListView searchResult;
     private String target;
+    private final HashMap<String,Integer> lowestHighest = new HashMap<>();
+    private ArrayList<String> qrCodes = new ArrayList<>();
     FirestoreDatabaseController dbc = new FirestoreDatabaseController();
     ArrayList<String> allUsernames = new ArrayList<>();
     ArrayList<String> output = new ArrayList<>();
@@ -48,11 +57,61 @@ public class FindUserActivity extends AppCompatActivity {
             public <T> void OnDataCallback(T data) {
                 allUsernames = (ArrayList<String>) data;
                 Log.d("SEARCH", String.valueOf(allUsernames));
+                for (int i = 0; i < allUsernames.size(); i++) {
+                    int finalI = i;
+                    int finalI1 = i;
+                    dbc.GetPlayerByUsername(allUsernames.get(i), new FirestoreDatabaseCallback() {
+                        @Override
+                        public <T> void OnDataCallback(T data) {
+                            Player p = (Player) data;
+                            qrCodes = p.getScannedQRCodesID();
+                            if (qrCodes.size() > 0) {
+                                for (int h = 0; h < qrCodes.size(); h++) {
+                                    String qrcode = qrCodes.get(h);
+                                    dbc.GetQRCodeByID(qrcode, new FirestoreDatabaseCallback() {
+                                        @Override
+                                        public <T> void OnDataCallback(T data) {
+                                            QrCode q = (QrCode) data;
+                                            if(q != null){
+                                                lowestHighest.put(allUsernames.get(finalI1), Integer.valueOf(q.getScore()));
+                                                List<Map.Entry<String, Integer>> list = new ArrayList<Map.Entry<String, Integer>>(lowestHighest.entrySet());
+                                                Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
+                                                    @Override
+                                                    public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
+                                                        return o1.getValue().compareTo(o2.getValue());
+                                                    }
+                                                });
+                                                if(list.size() <= 10){
+                                                    output.clear();
+                                                    searchResult.setAdapter(searchResultAdapter);
+                                                    searchResultAdapter.clear();
+                                                    output.add("Top10");
+                                                    for(int j=1; j<list.size();j++){
+                                                        output.add(String.valueOf(list.get(list.size()-j).getKey()));
+                                                    }
+                                                }else{
+                                                    output.clear();
+                                                    searchResult.setAdapter(searchResultAdapter);
+                                                    searchResultAdapter.clear();
+                                                    output.add("Top10");
+                                                    for(int j=1; j<list.size();j++) {
+                                                        output.add(String.valueOf(list.get(list.size()-j).getKey()));
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    });
+                                }
+                            }
+                        }
+                    });
+                }
             }
         });
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                output.clear();
                 searchResult.setAdapter(searchResultAdapter);
                 searchResultAdapter.clear();
                 String input = searchInput.getText().toString();
