@@ -44,10 +44,6 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
 
     private boolean storeLocation;
 
-    private double latitude;
-
-    private double longitude;
-
     private Activity activity;
 
     private Bitmap image;
@@ -56,19 +52,19 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
 
     private int score;
 
-    private FusedLocationProviderClient flpc;
-
     private String username;
 
     private PlayerHandler ph;
 
-    public QRCodeHandler(Activity activity, String hash, int score, FirestoreDatabaseController fdc, Bitmap image) {
+    private HashMap<String, Double> locationMap;
+
+    public QRCodeHandler(Activity activity, String hash, int score, FirestoreDatabaseController fdc, HashMap<String, Double> locationMap, Bitmap image) {
        this.activity = activity;
        this.hash = hash;
        this.score = score;
        this.fdc = fdc;
-       this.flpc =  LocationServices.getFusedLocationProviderClient(this.activity);
        this.image = image;
+       this.locationMap = locationMap;
 
        SharedPreferences sharedPref = activity.getSharedPreferences("account", Context.MODE_PRIVATE);
        username = sharedPref.getString("username", "ERROR NO USERNAME FOUND");
@@ -93,7 +89,7 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
     // If the QR code doesn't exist
     @Override
     public void OnDocumentDoesNotExist() {
-        askLocationPermissions();
+        createNewQRCode();
 
         // Add QR code id to user's list of codes
         ph = new PlayerHandler(username, fdc, hash, activity);
@@ -105,6 +101,7 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
         // Ask the user if they want to store an image of the object they just scanned
         // Then, whether the user wants to store an image or not, we ask if they want to store the location of the object they just scanned
 //        askForPhoto();
+        System.out.println("Hello");
 
         // Generate a name for the hash
         String hashedName = namsys.generateName(hash);
@@ -116,14 +113,14 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
         ownedBy.add(username);
 
         // Store location based on the user's choices
-        GeoPoint qrLocation;
-        if (storeLocation) {
-            qrLocation = new GeoPoint(latitude, longitude);
-        }else{
-            qrLocation = new GeoPoint(0, 0);
-        }
+        GeoPoint qrLocation = new GeoPoint(locationMap.get("latitude"), locationMap.get("longitude"));
 
-        // creates QRCodeImageLocationInfo and saves the image and location
+//        if (storeLocation) {
+//            qrLocation = new GeoPoint(latitude, longitude);
+//        }else{
+//            qrLocation = new GeoPoint(0, 0);
+//        }
+
         QRCodeImageLocationInfo qrCodeImageLocationInfo = new QRCodeImageLocationInfo(image, qrLocation, storePhoto, storeLocation);
         ArrayList<QRCodeImageLocationInfo> qrCodeImageLocationInfoList = new ArrayList<>();
         qrCodeImageLocationInfoList.add(qrCodeImageLocationInfo);
@@ -146,42 +143,4 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
         }
     }
 
-    private void askLocationPermissions() {
-        // Here we ask the user if they want to store the object's location
-        new AlertDialog.Builder(activity)
-                .setTitle("Do you want to store this code's location?")
-
-                // If the user wants to store the location, we set the "storeLocation" flag to true
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        storeLocation = true;
-                        if (ActivityCompat.checkSelfPermission(activity, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-//                           getLocation();
-                            flpc.getCurrentLocation(Priority.PRIORITY_BALANCED_POWER_ACCURACY, null).addOnSuccessListener(new OnSuccessListener<Location>() {
-                                @Override
-                                public void onSuccess(Location location) {
-                                    latitude = location.getLatitude();
-                                    longitude = location.getLongitude();
-                                    createNewQRCode();
-                                }
-                            });
-                        }
-                        else {
-                            ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
-                        }
-                    }
-                })
-
-                // If the user does not want to store the location, we set the "storeLocation" flag to false
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        storeLocation = false;
-                        dialog.dismiss();
-                        createNewQRCode();
-                    }
-                })
-                .create().show();
-    }
 }
