@@ -4,8 +4,10 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.location.Location;
@@ -49,11 +51,9 @@ public class ScannerActivity extends AppCompatActivity {
     private String sha256hex;
     private Bitmap image = null;
     private FloatingActionButton ScannerBackButton;
-    private boolean storePhoto;
-    private boolean storeLocation;
     private HashMap<String, Double> locationMap = new HashMap<>();
     private FusedLocationProviderClient flpc;
-
+    private String username;
     ActivityResultLauncher<Intent> someActivityResultLauncher =  registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
@@ -68,7 +68,7 @@ public class ScannerActivity extends AppCompatActivity {
 
                         // Create new QRCodeHandler to handle our QR code
                         // Pass in everything we'll need to create a new QR code and save it to the database
-                        qrch = new QRCodeHandler(ScannerActivity.this, sha256hex, score, fdc, locationMap, image);
+                        qrch = new QRCodeHandler(ScannerActivity.this, sha256hex, score, fdc, locationMap, image, username);
 
                         fdc.CheckQRIDExists(sha256hex, qrch);
                     }
@@ -82,8 +82,8 @@ public class ScannerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.scanner);
         flpc = LocationServices.getFusedLocationProviderClient(ScannerActivity.this);
-
-
+        SharedPreferences sharedPref = ScannerActivity.this.getSharedPreferences("account", Context.MODE_PRIVATE);
+        username = sharedPref.getString("username", "ERROR NO USERNAME FOUND");
 
         CodeScannerView scannerView = findViewById(R.id.scanner_view);
         ScannerBackButton = findViewById(R.id.scanner_back_button);
@@ -95,7 +95,6 @@ public class ScannerActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-
                         // Generate a SHA-256 hash of the QR code text
                         sha256hex = Hashing.sha256()
                                 .hashString(result.getText(), StandardCharsets.UTF_8)
@@ -141,7 +140,6 @@ public class ScannerActivity extends AppCompatActivity {
         super.onPause();
     }
 
-
     private void askForPhoto() {
         new AlertDialog.Builder(ScannerActivity.this)
                 .setTitle("Do you want to store an image of the object you just scanned?")
@@ -152,14 +150,6 @@ public class ScannerActivity extends AppCompatActivity {
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        storePhoto = true;
-
-                        // Launch camera activity
-//                        Intent myIntent = new Intent(ScannerActivity.this, CameraActivity.class);
-//                      myIntent.putExtra("key", value); //Optional parameters
-//                        ScannerActivity.this.startActivity(myIntent);
-//                        askLocationPermissions();
-
                             // Start the activity that launches the camera
                             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                             someActivityResultLauncher.launch(intent);
@@ -169,14 +159,12 @@ public class ScannerActivity extends AppCompatActivity {
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        storePhoto = false;
                         dialog.dismiss();
-//                        askLocationPermissions();
-
                         // Create new QRCodeHandler to handle our QR code
-                        // Pass in everything we'll need to create a new QR code and save it to the database
-                        qrch = new QRCodeHandler(ScannerActivity.this, sha256hex, score, fdc, locationMap, image);
+                        // Pass in everything we would need to potentially create a new QR code and save it to the database
+                        qrch = new QRCodeHandler(ScannerActivity.this, sha256hex, score, fdc, locationMap, image, username);
 
+                        // Check if the QR code we scanned already exists in the database
                         fdc.CheckQRIDExists(sha256hex, qrch);
                     }
                 })
@@ -191,7 +179,6 @@ public class ScannerActivity extends AppCompatActivity {
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        storeLocation = true;
                         if (ActivityCompat.checkSelfPermission(ScannerActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 //                           getLocation();
                             flpc.getCurrentLocation(Priority.PRIORITY_BALANCED_POWER_ACCURACY, null).addOnSuccessListener(new OnSuccessListener<Location>() {
@@ -212,7 +199,6 @@ public class ScannerActivity extends AppCompatActivity {
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        storeLocation = false;
                         locationMap.put("latitude", 0.0);
                         locationMap.put("longitude", 0.0);
                         dialog.dismiss();

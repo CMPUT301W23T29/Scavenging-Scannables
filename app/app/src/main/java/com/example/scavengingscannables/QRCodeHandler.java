@@ -40,10 +40,6 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
 
     private NamingSystem namsys = new NamingSystem();
 
-    private boolean storePhoto;
-
-    private boolean storeLocation;
-
     private Activity activity;
 
     private Bitmap image;
@@ -52,22 +48,24 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
 
     private int score;
 
+    private boolean storePhoto;
+
+    private boolean storeLocation;
+
     private String username;
 
     private PlayerHandler ph;
 
     private HashMap<String, Double> locationMap;
 
-    public QRCodeHandler(Activity activity, String hash, int score, FirestoreDatabaseController fdc, HashMap<String, Double> locationMap, Bitmap image) {
+    public QRCodeHandler(Activity activity, String hash, int score, FirestoreDatabaseController fdc, HashMap<String, Double> locationMap, Bitmap image, String username) {
        this.activity = activity;
        this.hash = hash;
        this.score = score;
        this.fdc = fdc;
        this.image = image;
        this.locationMap = locationMap;
-
-       SharedPreferences sharedPref = activity.getSharedPreferences("account", Context.MODE_PRIVATE);
-       username = sharedPref.getString("username", "ERROR NO USERNAME FOUND");
+       this.username = username;
     }
 
     // When the existing QR code is retrieved or the player is retrieved
@@ -100,8 +98,6 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
     private void createNewQRCode() {
         // Ask the user if they want to store an image of the object they just scanned
         // Then, whether the user wants to store an image or not, we ask if they want to store the location of the object they just scanned
-//        askForPhoto();
-        System.out.println("Hello");
 
         // Generate a name for the hash
         String hashedName = namsys.generateName(hash);
@@ -112,14 +108,18 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
         ArrayList<String> ownedBy = new ArrayList<>();
         ownedBy.add(username);
 
-        // Store location based on the user's choices
+        // Store location
         GeoPoint qrLocation = new GeoPoint(locationMap.get("latitude"), locationMap.get("longitude"));
 
-//        if (storeLocation) {
-//            qrLocation = new GeoPoint(latitude, longitude);
-//        }else{
-//            qrLocation = new GeoPoint(0, 0);
-//        }
+        // If there is no image, we'll set storePhoto to false
+        if (image == null) {
+            storePhoto = false;
+        }
+
+        //  If the user decided not to store a location, we'll set storeLocation to false
+        if (locationMap.get("latitude") == 0 && locationMap.get("longitude") == 0) {
+            storeLocation = false;
+        }
 
         QRCodeImageLocationInfo qrCodeImageLocationInfo = new QRCodeImageLocationInfo(image, qrLocation, storePhoto, storeLocation);
         ArrayList<QRCodeImageLocationInfo> qrCodeImageLocationInfoList = new ArrayList<>();
