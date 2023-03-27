@@ -116,7 +116,6 @@ public class MainActivity extends AppCompatActivity{
         }
     }
 
-    // This is more of the camera permissions code. We'll make this comment more descriptive later.
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);

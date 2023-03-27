@@ -74,20 +74,23 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
        username = sharedPref.getString("username", "ERROR NO USERNAME FOUND");
     }
 
+    // When the existing QR code is retrieved or the player is retrieved
     @Override
     public <T> void OnDataCallback(T data) {
-        scanExistingQRCode((QrCode) data);
+        editExistingQRCode((QrCode) data);
 
         // Add QR code id to user's list of codes
         ph = new PlayerHandler(username, fdc, hash, activity);
         fdc.GetPlayerByUsername(username, ph);
     }
 
+    // If the QR code exists
     @Override
     public void OnDocumentExists() {
         fdc.GetQRCodeByID(hash, this);
     }
 
+    // If the QR code doesn't exist
     @Override
     public void OnDocumentDoesNotExist() {
         askLocationPermissions();
@@ -98,7 +101,7 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
     }
 
     // Create a new QR code if this one hasn't been scanned before
-    private void scanNewQRCode() {
+    private void createNewQRCode() {
         // Ask the user if they want to store an image of the object they just scanned
         // Then, whether the user wants to store an image or not, we ask if they want to store the location of the object they just scanned
 //        askForPhoto();
@@ -133,7 +136,7 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
     }
 
     // Add user to QR code's ownedBy list if the one scanned already exists
-    private void scanExistingQRCode(QrCode qrcode) {
+    private void editExistingQRCode(QrCode qrcode) {
         // Get QR code using its id
         // Add the current user to its ownedBy list
         ArrayList<String> ownedBy = qrcode.getOwnedBy();
@@ -160,7 +163,7 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
                                 public void onSuccess(Location location) {
                                     latitude = location.getLatitude();
                                     longitude = location.getLongitude();
-                                    scanNewQRCode();
+                                    createNewQRCode();
                                 }
                             });
                         }
@@ -176,7 +179,7 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
                     public void onClick(DialogInterface dialog, int which) {
                         storeLocation = false;
                         dialog.dismiss();
-                        scanNewQRCode();
+                        createNewQRCode();
                     }
                 })
                 .create().show();

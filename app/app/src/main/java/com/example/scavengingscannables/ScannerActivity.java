@@ -51,16 +51,14 @@ public class ScannerActivity extends AppCompatActivity {
                     public void onActivityResult(ActivityResult result) {
                         if (result.getResultCode() == Activity.RESULT_OK) {
 
-                            // Get image from camera activity
+                            // Get the image from the camera activity
                             Intent data = result.getData();
                             image = (Bitmap) data.getExtras().get("data");
                             System.out.println(image.toString());
 
                             // Create new QRCodeHandler to handle our QR code
+                            // Pass in everything we'll need to create a new QR code and save it to the database
                             qrch = new QRCodeHandler(ScannerActivity.this, sha256hex, score, fdc, image);
-
-                            // Tell the user what the score of the QR code they scanned was
-                            Toast.makeText(ScannerActivity.this, "Your score is: " + score,Toast.LENGTH_SHORT).show();
 
                             fdc.CheckQRIDExists(sha256hex, qrch);
                         }
@@ -87,6 +85,10 @@ public class ScannerActivity extends AppCompatActivity {
                         // Generate a score for the hash
                         score = scrsys.generateScore(sha256hex);
 
+                        // Tell the user what the score of the QR code they scanned was
+                        Toast.makeText(ScannerActivity.this, "Your score is: " + score,Toast.LENGTH_SHORT).show();
+
+                        // Start the activity that launches the camera
                         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                         someActivityResultLauncher.launch(intent);
                     }
