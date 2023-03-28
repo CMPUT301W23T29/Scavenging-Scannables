@@ -74,6 +74,14 @@ public class QrCode {
     }
 
     /**
+     * Adds another QrCodeImageLocation to the current qr code
+     * @param info info to be added
+     */
+    public void AddQRCodeImageLocationInfo(QRCodeImageLocationInfo info) {
+        this.qrCodeImageLocationInfoList.add(info);
+    }
+
+    /**
      * Adds a usernanme to the owned by section of a qrcode
      * @param username username to be added
      */
