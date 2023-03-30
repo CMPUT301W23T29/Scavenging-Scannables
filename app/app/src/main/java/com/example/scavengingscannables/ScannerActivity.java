@@ -140,13 +140,14 @@ public class ScannerActivity extends AppCompatActivity {
         super.onPause();
     }
 
+    /**
+     * Asks the user whether or not they want to store a picture of the code they scanned
+     */
     private void askForPhoto() {
         new AlertDialog.Builder(ScannerActivity.this)
                 .setTitle("Do you want to store an image of the object you just scanned?")
 
                 // If the user decides they want to store and image, we will launch their phone's camera application
-                // We will also set the "storeCode" flag to true
-                // Then we ask if they want to store the location of where they scanned the code
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -155,7 +156,7 @@ public class ScannerActivity extends AppCompatActivity {
                             someActivityResultLauncher.launch(intent);
                     }
                 })
-                // If the user decides they do not want to store the image, we will go straight to asking them if they want to store the location of where they scanned the image
+                // If the user decides they do not want to store the image
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -170,12 +171,15 @@ public class ScannerActivity extends AppCompatActivity {
                 })
                 .create().show();
     }
+
+    /**
+     * Asks the user if they want to store location of the QR code they scanned
+     */
     private void askLocationPermissions() {
         // Here we ask the user if they want to store the object's location
         new AlertDialog.Builder(ScannerActivity.this)
                 .setTitle("Do you want to store this code's location?")
 
-                // If the user wants to store the location, we set the "storeLocation" flag to true
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

@@ -94,7 +94,9 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
         fdc.GetPlayerByUsername(username, ph);
     }
 
-    // Create a new QR code if this one hasn't been scanned before
+    /**
+     * Creates a new QR code object using all the information about the real life QR code the user has scanned
+     */
     private void createNewQRCode() {
         // Ask the user if they want to store an image of the object they just scanned
         // Then, whether the user wants to store an image or not, we ask if they want to store the location of the object they just scanned
@@ -132,7 +134,10 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
         fdc.SaveQRCodeByID(newCode);
     }
 
-    // Add user to QR code's ownedBy list if the one scanned already exists
+    /**
+     * Edits an existing QR code object by adding the current user to the QR code's list of players who have scanned it
+     * @param qrcode the QR code to edit
+     */
     private void editExistingQRCode(QrCode qrcode) {
         // Get QR code using its id
         // Add the current user to its ownedBy list
