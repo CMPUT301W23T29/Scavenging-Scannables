@@ -1,6 +1,7 @@
 package com.example.scavengingscannables.ui.map;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.location.Location;
@@ -25,6 +26,7 @@ import com.example.scavengingscannables.QRCodeImageLocationInfo;
 import com.example.scavengingscannables.QrCode;
 import com.example.scavengingscannables.R;
 import com.example.scavengingscannables.databinding.FragmentMapBinding;
+import com.example.scavengingscannables.ui.profile.QrCodesActivity;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.Priority;
@@ -180,5 +182,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         // change to load individual qr code in future
         QrCode qrCode = (QrCode) marker.getTag();
         Log.d("LOG", qrCode.getNameText());
+        Intent intent = new Intent(getActivity(), DetailQrCode.class);
+        intent.putExtra("qrID", qrCode.getqrId());
+        startActivity(intent);
     }
 }
