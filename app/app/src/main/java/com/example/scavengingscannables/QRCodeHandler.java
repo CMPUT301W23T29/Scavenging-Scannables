@@ -48,9 +48,9 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
 
     private int score;
 
-    private boolean storePhoto;
+    private boolean storePhoto = true;
 
-    private boolean storeLocation;
+    private boolean storeLocation = true;
 
     private String username;
 
@@ -139,6 +139,11 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
      * @param qrcode the QR code to edit
      */
     private void editExistingQRCode(QrCode qrcode) {
+        GeoPoint qrLocation = new GeoPoint(locationMap.get("latitude"), locationMap.get("longitude"));
+
+        QRCodeImageLocationInfo qrCodeImageLocationInfo = new QRCodeImageLocationInfo(image, qrLocation, storePhoto, storeLocation);
+        qrcode.AddQRCodeImageLocationInfo(qrCodeImageLocationInfo);
+
         // Get QR code using its id
         // Add the current user to its ownedBy list
         ArrayList<String> ownedBy = qrcode.getOwnedBy();
