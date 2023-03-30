@@ -97,7 +97,6 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-
         hideProfile.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 dbc.GetPlayerByUsername(username, new FirestoreDatabaseCallback() {

@@ -13,14 +13,20 @@ public class Player {
     private Long phoneNumber;
     private String email;
     private Boolean hide;
+    private String highest;
+    private String lowest;
+    private String total;
 
-    public Player(String username, String firstName, String lastName, Long phoneNumber, String email, Boolean hide) {
+    public Player(String username, String firstName, String lastName, Long phoneNumber, String email, Boolean hide, String highest, String lowest,String total) {
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.hide = hide;
+        this.highest = highest;
+        this.lowest = lowest;
+        this.total = total;
     }
 
     // to allow firestore to save custom classes
@@ -61,6 +67,12 @@ public class Player {
     public Boolean getHide(){return hide;}
 
     public void setHide(Boolean b){this.hide = b;}
+    public void setHighest(String hid){this.highest = hid;};
+    public String getHighest(){return highest;};
+    public void setLowest(String lid){this.lowest = lid;};
+    public String getLowest(){return lowest;};
+    public void setTotal(String tota){this.total = tota;};
+    public String getTotal(){return total;};
 
     public Long getPhoneNumber() {
         return phoneNumber;
