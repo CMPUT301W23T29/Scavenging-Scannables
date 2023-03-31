@@ -172,4 +172,15 @@
         app:layout_constraintTop_toBottomOf="@+id/ViewQrCodes"
         app:layout_constraintVertical_bias="0.082" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_qr_code_scanner_24dp"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="530dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
