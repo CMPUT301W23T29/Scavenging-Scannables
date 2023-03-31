@@ -38,6 +38,7 @@ public class Player {
      */
     public void AddQRCodeByID(String id){
         this.scannedQRCodesID.add(id);
+
     }
 
     /**
