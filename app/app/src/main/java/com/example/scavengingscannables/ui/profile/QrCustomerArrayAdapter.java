@@ -1,7 +1,6 @@
 package com.example.scavengingscannables.ui.profile;
 
 import android.content.Intent;
-import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -60,6 +59,7 @@ public class QrCustomerArrayAdapter extends ArrayAdapter<QrCode>{
 
         TextView comment = currentItemView.findViewById(R.id.comment);
         TextView others = currentItemView.findViewById(R.id.others);
+        TextView location = currentItemView.findViewById(R.id.location_info);
 
 
         //Click comment to see comment of others
@@ -77,6 +77,15 @@ public class QrCustomerArrayAdapter extends ArrayAdapter<QrCode>{
             public void onClick(View v) {
                 System.out.println("others Clicked");
                 Intent intent = new Intent(context, OthersWhoScannedQrCodeActivity.class);
+                intent.putExtra("QrCodeID", qrcode.getqrId());
+                context.startActivity(intent);
+            }
+        });
+
+        location.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                System.out.println("location Clicked");
+                Intent intent = new Intent(context, LocationInfoActivity.class);
                 intent.putExtra("QrCodeID", qrcode.getqrId());
                 context.startActivity(intent);
             }
