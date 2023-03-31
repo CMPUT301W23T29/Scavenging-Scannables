@@ -48,9 +48,9 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
 
     private int score;
 
-    private boolean storePhoto = true;
+    private boolean storePhoto = false;
 
-    private boolean storeLocation = true;
+    private boolean storeLocation = false;
 
     private String username;
 
@@ -115,12 +115,12 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
 
         // If there is no image, we'll set storePhoto to false
         if (image == null) {
-            storePhoto = false;
+            storePhoto = true;
         }
 
         //  If the user decided not to store a location, we'll set storeLocation to false
         if (locationMap.get("latitude") == 0 && locationMap.get("longitude") == 0) {
-            storeLocation = false;
+            storeLocation = true;
         }
 
         QRCodeImageLocationInfo qrCodeImageLocationInfo = new QRCodeImageLocationInfo(image, qrLocation, storePhoto, storeLocation);
@@ -141,12 +141,12 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
     private void editExistingQRCode(QrCode qrcode) {
         // If there is no image, we'll set storePhoto to false
         if (image == null) {
-            storePhoto = false;
+            storePhoto = true;
         }
 
         //  If the user decided not to store a location, we'll set storeLocation to false
         if (locationMap.get("latitude") == 0 && locationMap.get("longitude") == 0) {
-            storeLocation = false;
+            storeLocation = true;
         }
 
         GeoPoint qrLocation = new GeoPoint(locationMap.get("latitude"), locationMap.get("longitude"));
