@@ -22,29 +22,12 @@
         android:text="Search"
         app:layout_constraintStart_toEndOf="@+id/search_box_input"
         app:layout_constraintTop_toTopOf="parent" />
-    <Button
-        android:id="@+id/top_total"
-        android:layout_width="200sp"
-        android:layout_height="50dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginLeft="-410sp"
-        android:textSize="10dp"
-        android:text="Top10(Total Score)"/>
-    <Button
-        android:id="@+id/top_highest"
-        android:layout_width="200sp"
-        android:layout_height="50dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginLeft="10sp"
-        android:textSize="10dp"
-        android:text="Top10(Highest Score)"/>
-
     <ListView
         android:id="@+id/search_result_list"
         android:layout_width="match_parent"
         android:layout_height="600dp"
         android:layout_marginLeft="-410sp"
-        android:layout_marginTop="100dp" />
+        android:layout_marginTop="50dp" />
 
     <Button
         android:id="@+id/search_back_button"
