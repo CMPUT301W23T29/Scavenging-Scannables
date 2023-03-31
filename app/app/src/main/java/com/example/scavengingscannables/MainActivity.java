@@ -74,59 +74,7 @@ public class MainActivity extends AppCompatActivity{
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-
-        // Attach QR scanner activity to FloatingActionButton
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Check for camera permission. If it has been granted, show confirmation. If not, request permission for it
-                if (ContextCompat.checkSelfPermission(MainActivity.this,
-                        Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(MainActivity.this, "You have already granted this permission!",
-                            Toast.LENGTH_SHORT).show();
-                } else {
-                    requestCameraPermission();
-                }
-            }
-        });
     }
 
-    // Function to request camera permission from user
-    private void requestCameraPermission() {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
-            new AlertDialog.Builder(this)
-                    .setTitle("Permission needed")
-                    .setMessage("Permission is needed because of this and")
-                    .setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            ActivityCompat.requestPermissions(MainActivity.this, new String[] {Manifest.permission.CAMERA}, CAMERA_PERMISSION_CODE);
-                        }
-                    })
-                    .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    })
-                    .create().show();
-        } else {
-            ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.CAMERA}, CAMERA_PERMISSION_CODE);
-        }
-    }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == CAMERA_PERMISSION_CODE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                    Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(this, ScannerActivity.class);
-                startActivity(intent);
-            } else {
-                Toast.makeText(this, "Permission not granted", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
 }
