@@ -139,6 +139,16 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
      * @param qrcode the QR code to edit
      */
     private void editExistingQRCode(QrCode qrcode) {
+        // If there is no image, we'll set storePhoto to false
+        if (image == null) {
+            storePhoto = false;
+        }
+
+        //  If the user decided not to store a location, we'll set storeLocation to false
+        if (locationMap.get("latitude") == 0 && locationMap.get("longitude") == 0) {
+            storeLocation = false;
+        }
+
         GeoPoint qrLocation = new GeoPoint(locationMap.get("latitude"), locationMap.get("longitude"));
 
         QRCodeImageLocationInfo qrCodeImageLocationInfo = new QRCodeImageLocationInfo(image, qrLocation, storePhoto, storeLocation);
