@@ -61,13 +61,13 @@ public class LocationArrayAdapter extends ArrayAdapter<QRCodeImageLocationInfo> 
         }
 
 
-
         // display image
+        photo = currentItemView.findViewById(R.id.photo);
         if(CurrentLocation.getIsImagePrivate()){
             photo.setImageResource(R.drawable.ic_question_mark_black_24dp);
         }
         else {
-            photo = currentItemView.findViewById(R.id.photo);
+
             photo.setImageBitmap(CurrentLocation.convertBase64ToImage());
         }
 

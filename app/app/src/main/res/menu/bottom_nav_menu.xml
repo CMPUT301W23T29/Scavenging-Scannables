@@ -3,16 +3,16 @@
 
     <item
         android:id="@+id/navigation_home"
-        android:icon="@drawable/ic_home_black_24dp"
-        android:title="@string/title_home" />
+        android:icon="@drawable/vector_global"
+        android:title="" />
 
     <item
         android:id="@+id/navigation_map"
-        android:icon="@drawable/ic_dashboard_black_24dp"
-        android:title="@string/title_dashboard" />
+        android:icon="@drawable/vector_map"
+        android:title="" />
     <item
         android:id="@+id/navigation_profile"
-        android:icon="@android:drawable/ic_search_category_default"
-        android:title="@string/title_notifications" />
+        android:icon="@drawable/vector_profile"
+        android:title="" />
 
 </menu>
