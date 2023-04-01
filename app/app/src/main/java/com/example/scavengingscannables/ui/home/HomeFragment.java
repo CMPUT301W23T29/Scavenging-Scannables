@@ -64,8 +64,6 @@ public class HomeFragment extends Fragment {
     ArrayList<String> output1 = new ArrayList<>();
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        HomeViewModel homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         btnSearch = root.findViewById(R.id.search_button1);
