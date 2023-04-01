@@ -15,4 +15,8 @@
         android:icon="@drawable/vector_profile"
         android:title="" />
 
+    <item
+        android:id="@+id/scanner"
+        android:icon="@drawable/ic_qr_code_scanner_24dp"
+        android:title="" />
 </menu>
