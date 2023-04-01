@@ -86,7 +86,6 @@ public class ScannerActivity extends AppCompatActivity {
         username = sharedPref.getString("username", "ERROR NO USERNAME FOUND");
 
         CodeScannerView scannerView = findViewById(R.id.scanner_view);
-        ScannerBackButton = findViewById(R.id.scanner_back_button);
 
         mCodeScanner = new CodeScanner(this, scannerView);
         mCodeScanner.setDecodeCallback(new DecodeCallback() {
