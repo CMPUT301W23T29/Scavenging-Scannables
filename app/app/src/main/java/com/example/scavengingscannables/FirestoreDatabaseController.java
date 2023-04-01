@@ -196,8 +196,4 @@ public class FirestoreDatabaseController{
             }
         });
     }
-
-    public static void testMethod(){
-
-    }
 }
