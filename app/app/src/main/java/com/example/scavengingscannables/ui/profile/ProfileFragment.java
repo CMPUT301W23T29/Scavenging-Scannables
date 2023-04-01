@@ -29,9 +29,7 @@ import com.example.scavengingscannables.MainActivity;
 import com.example.scavengingscannables.Player;
 import com.example.scavengingscannables.QrCode;
 import com.example.scavengingscannables.R;
-import com.example.scavengingscannables.ScannerActivity;
 import com.example.scavengingscannables.databinding.FragmentProfileBinding;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
