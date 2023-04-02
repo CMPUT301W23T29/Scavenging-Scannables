@@ -10,12 +10,17 @@
     android:gravity="center_horizontal">
 
     <SearchView
+        android:id="@+id/search_bar"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:background="@drawable/search_bar_rounded"></SearchView>
+        android:background="@drawable/search_bar_rounded"
+        android:iconifiedByDefault="false"
+        android:queryBackground="@null"
+        android:queryHint="Search for players" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </LinearLayout>
