@@ -56,8 +56,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        MapViewModel mapViewModel =
-                new ViewModelProvider(this).get(MapViewModel.class);
 
         binding = FragmentMapBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -150,7 +148,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
                 if (qrCode.getQrCodeImageLocationInfoList() != null) {
                     for (QRCodeImageLocationInfo qrCodeImageLocationInfo : qrCode.getQrCodeImageLocationInfoList()) {
                         if (qrCodeImageLocationInfo != null) {
-                            Log.d("LOG", qrCode.getqrId());
                             if (!qrCodeImageLocationInfo.getIsLocationPrivate()) {
                                 GeoPoint qrGeopoint = qrCodeImageLocationInfo.getImageLocation();
                                 LatLng qrLatLng = new LatLng(qrGeopoint.getLatitude(), qrGeopoint.getLongitude());

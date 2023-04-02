@@ -22,6 +22,9 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.scavengingscannables.FirestoreDatabaseCallback;
 import com.example.scavengingscannables.FirestoreDatabaseController;
@@ -67,28 +70,22 @@ public class ProfileFragment extends Fragment {
     FirestoreDatabaseController dbc = new FirestoreDatabaseController();
     private final int CAMERA_PERMISSION_CODE = 1;
 
+    private ArrayList<QrCode> playerQRCodes = new ArrayList<>();
+    private RecyclerView recyclerView;
+    private ProfileQRCodeAdapter profileQRCodeAdapter;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        ProfileViewModel profileViewModel =
-                new ViewModelProvider(this).get(ProfileViewModel.class);
 
         binding = FragmentProfileBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        viewQrCodes = root.findViewById(R.id.ViewQrCodes);
         hideProfile = root.findViewById(R.id.hide);
         phone = root.findViewById(R.id.phone);
         totalScanned = root.findViewById(R.id.codes_scanned);
         totalScore = root.findViewById(R.id.total_score);
         highest = root.findViewById(R.id.n_image_highest_qr);
         lowest = root.findViewById(R.id.n_image_lowest_qr);
-        viewQrCodes.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), QrCodesActivity.class);
-                intent.putExtra("username", username);
-                startActivity(intent);
-            }
-        });
 
         SharedPreferences sharedPref = getActivity().getSharedPreferences("account", Context.MODE_PRIVATE);
         usernameView = root.findViewById(R.id.user_name);
@@ -125,6 +122,13 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        this.recyclerView = root.findViewById(R.id.profile_recycler_view);
+        this.profileQRCodeAdapter = new ProfileQRCodeAdapter(this.playerQRCodes, username);
+
+        this.recyclerView.setAdapter(profileQRCodeAdapter);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 5);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(gridLayoutManager);
 
         dbc.GetPlayerByUsername(username, new FirestoreDatabaseCallback() {
             @Override
@@ -133,53 +137,50 @@ public class ProfileFragment extends Fragment {
                 userPhone = p.getPhoneNumber().toString();
                 phone.setText(userPhone);
                 qrCodes = p.getScannedQRCodesID();
-                if (qrCodes.size() > 0){
-                    for (int i = 0; i< qrCodes.size(); i++){
-                        String qrcode = qrCodes.get(i);
-                        dbc.GetQRCodeByID(qrcode, new FirestoreDatabaseCallback() {
-                            @Override
-                            public <T> void OnDataCallback(T data) {
-                                QrCode q = (QrCode)data;
-                                lowestHighest.put(qrcode,Integer.valueOf(q.getScore()));
-                                List<Map.Entry<String, Integer>> list = new ArrayList<Map.Entry<String, Integer>>(lowestHighest.entrySet());
-                                Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
-                                        @Override
-                                        public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
-                                            return o1.getValue().compareTo(o2.getValue());
-                                        }
-                                    });
-                                lowestId = list.get(0).getKey();
-                                dbc.GetQRCodeByID(lowestId, new FirestoreDatabaseCallback() {
-                                    @Override
-                                    public <T> void OnDataCallback(T data) {
-                                        QrCode ql = (QrCode)data;
-                                        Picasso.get().load(ql.getVisualLink()).into(lowest);
-                                    }
-                                });
-                                highestId = list.get((list.size())-1).getKey();
-                                dbc.GetQRCodeByID(highestId, new FirestoreDatabaseCallback() {
-                                    @Override
-                                    public <T> void OnDataCallback(T data) {
-                                        QrCode ql = (QrCode)data;
-                                        Picasso.get().load(ql.getVisualLink()).into(highest);
-                                    }
-                                });
 
-                                scores.add(q.getScore());
-                                tScore = 0;
-                                for (int i=0;i<scores.size();i++) {
-                                    tScore += Integer.parseInt(scores.get(i));
-                                }
-                                totalScore.setText(tScore.toString());
-                                tScanned = scores.size();
-                                totalScanned.setText(tScanned.toString());
+                dbc.GetAllQrCodeOfUserOneByOne(username, new FirestoreDatabaseCallback() {
+                    @Override
+                    public <T> void OnDataCallback(T data) {
+                        QrCode qrCode = (QrCode) data;
+
+                        playerQRCodes.add(qrCode);
+                        profileQRCodeAdapter.notifyDataSetChanged();
+
+                        lowestHighest.put(qrCode.getqrId(),Integer.valueOf(qrCode.getScore()));
+                        List<Map.Entry<String, Integer>> list = new ArrayList<Map.Entry<String, Integer>>(lowestHighest.entrySet());
+                        Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
+                            @Override
+                            public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
+                                return o1.getValue().compareTo(o2.getValue());
                             }
                         });
+                        lowestId = list.get(0).getKey();
+                        dbc.GetQRCodeByID(lowestId, new FirestoreDatabaseCallback() {
+                            @Override
+                            public <T> void OnDataCallback(T data) {
+                                QrCode ql = (QrCode)data;
+                                Picasso.get().load(ql.getVisualLink()).into(lowest);
+                            }
+                        });
+                        highestId = list.get((list.size())-1).getKey();
+                        dbc.GetQRCodeByID(highestId, new FirestoreDatabaseCallback() {
+                            @Override
+                            public <T> void OnDataCallback(T data) {
+                                QrCode ql = (QrCode)data;
+                                Picasso.get().load(ql.getVisualLink()).into(highest);
+                            }
+                        });
+
+                        scores.add(qrCode.getScore());
+                        tScore = 0;
+                        for (int i=0;i<scores.size();i++) {
+                            tScore += Integer.parseInt(scores.get(i));
+                        }
+                        totalScore.setText(tScore.toString());
+                        tScanned = scores.size();
+                        totalScanned.setText(tScanned.toString());
                     }
-                }else {
-                    totalScore.setText("0");
-                    totalScanned.setText("0");
-                }
+                });
             }
         });
         return root;

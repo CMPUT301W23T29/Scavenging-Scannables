@@ -5,4 +5,7 @@
     <string name="title_notifications">Profile</string>
     <string name="title_view_codes">View Qr Codes</string>
     <string name="title_sign_up">Welcome to Scavenging Scannables</string>
+    <string name="image">Image</string>
+    <string name="start_scan">Start scan</string>
+
 </resources>

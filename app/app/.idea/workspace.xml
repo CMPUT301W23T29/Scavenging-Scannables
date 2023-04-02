@@ -10,26 +10,93 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5a6dc418-099c-421b-923e-a73ecd0df46b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/NamingSystem.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/map/DetailQRCodeCommentAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/map/DetailQRCodeCommentFragment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/map/DetailQRCodeImageAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/map/DetailQRCodeImagesFragment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/map/DetailQRCodeOthersFragment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/profile/ProfileQRCodeAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/rounded_50dp.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/vector_comments.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/vector_eye.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/vector_medal.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/vector_photo.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/vector_ranking.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/vector_send.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/layout/detail_qrcode_comment_layout.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/layout/detail_qrcode_comments.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/layout/detail_qrcode_locations.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/layout/detail_qrcode_locations_adapter_layout.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/layout/detail_qrcode_others.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/layout/profile_qrcode_layout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ScannerActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ScannerActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ScoringSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ScoringSystem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/FirestoreDatabaseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/FirestoreDatabaseController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/NamingSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/NamingSystem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/QrCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/QrCode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/map/DetailQrCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/map/DetailQrCode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/profile/ProfileFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/profile/ProfileFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_show_qrcode.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_show_qrcode.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_profile.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_profile.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/search_result_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/search_result_layout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values/strings.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[/Users/mrunalkorde/.android/avd/Pixel_2_API_TiramisuPrivacySandbox.avd]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\90sou\.android\avd\Pixel_XL_API_33.avd]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
     </projectState>
   </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Scavenging Scannables" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Scavenging Scannables" type="f1a62948:ProjectNode" />
+                <item name="app" type="2d1252cf:ModuleNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Scavenging Scannables" type="f1a62948:ProjectNode" />
+                <item name="app" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Scavenging Scannables" type="f1a62948:ProjectNode" />
+                <item name="app" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="other" type="c8890929:TasksNode$1" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="resourceFile" />
         <option value="Class" />
+        <option value="layoutResourceFile" />
       </list>
     </option>
   </component>
@@ -38,6 +105,9 @@
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="2MimsamLFXxuY4XZeTKoXQRc1Bi" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -50,8 +120,9 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.cidr.known.project.marker": "true",
+    "android-custom-viewD:/Scavenging-Scannables/app/app/src/main/java/com/example/scavengingscannables/ui/map/WrapContentViewPager.java_SELECTED": "WrapContentViewPager",
     "cidr.known.project.marker": "true",
-    "last_opened_file_path": "/Users/mrunalkorde/Documents/GitHub/Scavenging-Scannables/app/app",
+    "last_opened_file_path": "D:/Scavenging-Scannables/app/app",
     "memory.settings.postsync.last.time.stamp": "1678359591955"
   }
 }]]></component>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
     <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/vector_global"
@@ -10,6 +11,20 @@
         android:id="@+id/navigation_map"
         android:icon="@drawable/vector_map"
         android:title="" />
+
+    <item
+
+        android:id="@null"
+        android:icon="@null"
+        android:title=""
+        android:enabled="false">
+    </item>
+
+    <item
+        android:id="@+id/navigation_search"
+        android:icon="@drawable/vector_search"
+        android:title="" />
+
     <item
         android:id="@+id/navigation_profile"
         android:icon="@drawable/vector_profile"
