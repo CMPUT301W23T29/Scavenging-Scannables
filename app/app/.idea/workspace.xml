@@ -10,26 +10,71 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5a6dc418-099c-421b-923e-a73ecd0df46b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/NamingSystem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ScannerActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ScannerActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ScoringSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ScoringSystem.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/search_result_rounded.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/layout/search_result_layout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/home/HomeFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/home/HomeFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/search/SearchFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/search/SearchFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/search/SearchResultAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/search/SearchResultAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/search_bar_rounded.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/drawable/search_bar_rounded.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_home.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_home.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_search.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_search.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[/Users/mrunalkorde/.android/avd/Pixel_2_API_TiramisuPrivacySandbox.avd]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\90sou\.android\avd\Pixel_XL_API_33.avd]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
     </projectState>
   </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Scavenging Scannables" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Scavenging Scannables" type="f1a62948:ProjectNode" />
+                <item name="app" type="2d1252cf:ModuleNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Scavenging Scannables" type="f1a62948:ProjectNode" />
+                <item name="app" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Scavenging Scannables" type="f1a62948:ProjectNode" />
+                <item name="app" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="other" type="c8890929:TasksNode$1" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="layoutResourceFile" />
+        <option value="resourceFile" />
       </list>
     </option>
   </component>
@@ -45,16 +90,16 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "cidr.known.project.marker": "true",
-    "last_opened_file_path": "/Users/mrunalkorde/Documents/GitHub/Scavenging-Scannables/app/app",
-    "memory.settings.postsync.last.time.stamp": "1678359591955"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Scavenging-Scannables/app/app&quot;,
+    &quot;memory.settings.postsync.last.time.stamp&quot;: &quot;1678359591955&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App">
       <module name="Scavenging_Scannables.app.main" />
