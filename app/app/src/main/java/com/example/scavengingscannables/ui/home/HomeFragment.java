@@ -58,7 +58,6 @@ public class HomeFragment extends Fragment {
     private final HashMap<String,Integer> lowestHighest = new HashMap<>();
     private final HashMap<String,Integer> lowestHighest1 = new HashMap<>();
     private ArrayList<String> qrCodes = new ArrayList<>();
-    private Button btnSearch;
     ArrayAdapter<String> searchResultAdapter;
     ArrayList<String> output = new ArrayList<>();
     ArrayList<String> output1 = new ArrayList<>();
@@ -66,7 +65,6 @@ public class HomeFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        btnSearch = root.findViewById(R.id.search_button1);
         changeTop10 = root.findViewById(R.id.switch_top10);
         top10 = root.findViewById(R.id.top10);
         nameTop10 = root.findViewById(R.id.name_top10);
@@ -127,12 +125,6 @@ public class HomeFragment extends Fragment {
                 target = output1.get(i);
                 Intent intent = new Intent(getActivity(), DisplaySearch.class);
                 intent.putExtra("user",target);
-                startActivity(intent);
-            }
-        });
-        btnSearch.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), FindUserActivity.class);
                 startActivity(intent);
             }
         });

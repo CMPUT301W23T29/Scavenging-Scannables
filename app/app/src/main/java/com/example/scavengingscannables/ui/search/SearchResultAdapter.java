@@ -1,6 +1,7 @@
 package com.example.scavengingscannables.ui.search;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.scavengingscannables.Player;
 import com.example.scavengingscannables.R;
+import com.example.scavengingscannables.ui.home.DisplaySearch;
+import com.example.scavengingscannables.ui.home.FindUserActivity;
 
 import java.util.ArrayList;
 
@@ -27,7 +30,15 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
 
         public ViewHolder(View view){
             super(view);
-            textView = view.findViewById(R.id.playername_text);
+            textView = view.findViewById(R.id.search_result_text);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(view.getContext(), DisplaySearch.class);
+                    intent.putExtra("user", textView.getText());
+                    view.getContext().startActivity(intent);
+                }
+            });
         }
 
         public TextView getTextView(){
@@ -38,7 +49,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.playername_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.search_result_layout, parent, false);
         return new ViewHolder(view);
     }
 

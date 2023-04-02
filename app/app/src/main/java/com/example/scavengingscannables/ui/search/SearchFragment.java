@@ -1,9 +1,11 @@
 package com.example.scavengingscannables.ui.search;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
@@ -11,6 +13,7 @@ import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.scavengingscannables.FirestoreDatabaseCallback;
@@ -48,8 +51,12 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
 
         searchResultView = root.findViewById(R.id.recycler_view);
         searchResultAdapter = new SearchResultAdapter(this.searchResults);
+
         searchResultView.setAdapter(searchResultAdapter);
-        searchResultView.lay
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        searchResultView.setLayoutManager(linearLayoutManager);
+
+        searchView.setQuery("", false);
 
         return root;
     }
@@ -67,18 +74,29 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
 
     @Override
     public boolean onQueryTextChange(String s) {
-        this.searchResults.clear();
-        for (String username: this.usernames) {
-            if (username.contains(s)){
-                this.searchResults.add(username);
-            }
-        }
-        this.searchResultAdapter.notifyDataSetChanged();
+        this.updateSearchMatches(s);
         return false;
     }
 
     @Override
     public <T> void OnDataCallback(T data) {
         this.usernames = (ArrayList<String>) data;
+    }
+
+    private void updateSearchMatches(String s){
+        this.searchResults.clear();
+        if (!s.equals("")) {
+            for (String username : this.usernames) {
+                if (username.contains(s)) {
+                    this.searchResults.add(username);
+                }
+            }
+        }
+        // removes current user
+        SharedPreferences sharedPref = getActivity().getSharedPreferences("account", Context.MODE_PRIVATE);
+        String username = sharedPref.getString("username", " ");
+        searchResults.remove(username);
+        this.searchResultAdapter.notifyDataSetChanged();
+        Log.d("LOG", "DSADSASA" + s);
     }
 }
