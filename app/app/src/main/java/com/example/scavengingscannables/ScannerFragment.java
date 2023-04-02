@@ -1,7 +1,6 @@
 package com.example.scavengingscannables;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -13,8 +12,9 @@ import android.graphics.Bitmap;
 import android.location.Location;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
@@ -22,8 +22,10 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 
 import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.CodeScannerView;
@@ -37,23 +39,22 @@ import com.google.common.hash.Hashing;
 import com.google.zxing.Result;
 
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.HashMap;
 
-/**
- * This class represents the activity that launches the QR code scanner
- */
-public class ScannerActivity extends AppCompatActivity {
+public class ScannerFragment extends Fragment implements FirestoreDatabaseCallback {
     private CodeScanner mCodeScanner;
+    private int CAMERA_PERMISSION_CODE = 1;
     private FirestoreDatabaseController fdc = new FirestoreDatabaseController();
     private ScoringSystem scrsys = new ScoringSystem();
     private QRCodeHandler qrch;
     private int score;
     private String sha256hex;
     private Bitmap image = null;
-    private FloatingActionButton ScannerBackButton;
     private HashMap<String, Double> locationMap = new HashMap<>();
     private FusedLocationProviderClient flpc;
     private String username;
+    private Player player;
     ActivityResultLauncher<Intent> someActivityResultLauncher =  registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
@@ -68,7 +69,7 @@ public class ScannerActivity extends AppCompatActivity {
 
                         // Create new QRCodeHandler to handle our QR code
                         // Pass in everything we'll need to create a new QR code and save it to the database
-                        qrch = new QRCodeHandler(ScannerActivity.this, sha256hex, score, fdc, locationMap, image, username);
+                        qrch = new QRCodeHandler(getActivity(), sha256hex, score, fdc, locationMap, image, username);
 
                         fdc.CheckQRIDExists(sha256hex, qrch);
                     }
@@ -76,25 +77,26 @@ public class ScannerActivity extends AppCompatActivity {
             }
     );
 
-    @SuppressLint("MissingInflatedId")
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.scanner);
-        flpc = LocationServices.getFusedLocationProviderClient(ScannerActivity.this);
-        SharedPreferences sharedPref = ScannerActivity.this.getSharedPreferences("account", Context.MODE_PRIVATE);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        final Activity activity = getActivity();
+
+        flpc = LocationServices.getFusedLocationProviderClient(getActivity());
+        SharedPreferences sharedPref = getActivity().getSharedPreferences("account", Context.MODE_PRIVATE);
         username = sharedPref.getString("username", "ERROR NO USERNAME FOUND");
 
-        CodeScannerView scannerView = findViewById(R.id.scanner_view);
-        ScannerBackButton = findViewById(R.id.scanner_back_button);
-
-        mCodeScanner = new CodeScanner(this, scannerView);
+        View root = inflater.inflate(R.layout.scanner, container, false);
+        CodeScannerView scannerView = root.findViewById(R.id.scanner_view);
+        mCodeScanner = new CodeScanner(activity, scannerView);
         mCodeScanner.setDecodeCallback(new DecodeCallback() {
             @Override
             public void onDecoded(@NonNull final Result result) {
-                runOnUiThread(new Runnable() {
+                activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        Toast.makeText(activity, result.getText(), Toast.LENGTH_SHORT).show();
                         // Generate a SHA-256 hash of the QR code text
                         sha256hex = Hashing.sha256()
                                 .hashString(result.getText(), StandardCharsets.UTF_8)
@@ -103,16 +105,11 @@ public class ScannerActivity extends AppCompatActivity {
                         // Generate a score for the hash
                         score = scrsys.generateScore(sha256hex);
 
-                        // Tell the user what the score of the QR code they scanned was
-                        Toast.makeText(ScannerActivity.this, "Your score is: " + score,Toast.LENGTH_SHORT).show();
-
-                        askForPhoto();
-                        askLocationPermissions();
+                        fdc.GetPlayerByUsername(username, ScannerFragment.this);
                     }
                 });
             }
         });
-
         scannerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -120,40 +117,92 @@ public class ScannerActivity extends AppCompatActivity {
             }
         });
 
-        ScannerBackButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+        if (ContextCompat.checkSelfPermission(getActivity(),
+                Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(getActivity(), "You have already granted this permission!",
+                    Toast.LENGTH_SHORT).show();
+        } else {
+            requestCameraPermission();
+        }
+        return root;
+    }
+
+    // Function to request camera permission from user
+    private void requestCameraPermission() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.CAMERA)) {
+            new AlertDialog.Builder(getActivity())
+                    .setTitle("Permission needed")
+                    .setMessage("Permission is needed because of this and")
+                    .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            ActivityCompat.requestPermissions(getActivity(), new String[] {Manifest.permission.CAMERA}, CAMERA_PERMISSION_CODE);
+                        }
+                    })
+                    .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    })
+                    .create().show();
+        } else {
+            requestPermissions(new String[] {Manifest.permission.CAMERA}, CAMERA_PERMISSION_CODE);
+        }
     }
 
     @Override
-    protected void onResume() {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    @Override
+    public void onResume() {
         super.onResume();
         mCodeScanner.startPreview();
     }
 
     @Override
-    protected void onPause() {
+    public void onPause() {
         mCodeScanner.releaseResources();
         super.onPause();
     }
 
-    /**
-     * Asks the user whether or not they want to store a picture of the code they scanned
-     */
+    @Override
+    public <T> void OnDataCallback(T data) {
+        player = (Player) data;
+        ArrayList<String> codeList = player.getScannedQRCodesID();
+        if (codeList.contains(sha256hex)) {
+            Toast.makeText(getActivity(), "You have already scanned this QR code", Toast.LENGTH_LONG).show();
+        } else {
+            // Tell the user what the score of the QR code they scanned was
+            Toast.makeText(getActivity(), "Your score is: " + score,Toast.LENGTH_SHORT).show();
+
+            player.AddQRCodeByID(sha256hex);
+            fdc.SavePlayerByUsername(player);
+
+            askForPhoto();
+            askLocationPermissions();
+        }
+    }
+
+    @Override
+    public void OnDocumentExists() {}
+
+    @Override
+    public void OnDocumentDoesNotExist() {}
+
     private void askForPhoto() {
-        new AlertDialog.Builder(ScannerActivity.this)
+        new AlertDialog.Builder(getActivity())
                 .setTitle("Do you want to store an image of the object you just scanned?")
 
                 // If the user decides they want to store and image, we will launch their phone's camera application
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                            // Start the activity that launches the camera
-                            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                            someActivityResultLauncher.launch(intent);
+                        // Start the activity that launches the camera
+                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        someActivityResultLauncher.launch(intent);
                     }
                 })
                 // If the user decides they do not want to store the image
@@ -163,7 +212,7 @@ public class ScannerActivity extends AppCompatActivity {
                         dialog.dismiss();
                         // Create new QRCodeHandler to handle our QR code
                         // Pass in everything we would need to potentially create a new QR code and save it to the database
-                        qrch = new QRCodeHandler(ScannerActivity.this, sha256hex, score, fdc, locationMap, image, username);
+                        qrch = new QRCodeHandler(getActivity(), sha256hex, score, fdc, locationMap, image, username);
 
                         // Check if the QR code we scanned already exists in the database
                         fdc.CheckQRIDExists(sha256hex, qrch);
@@ -172,18 +221,15 @@ public class ScannerActivity extends AppCompatActivity {
                 .create().show();
     }
 
-    /**
-     * Asks the user if they want to store location of the QR code they scanned
-     */
     private void askLocationPermissions() {
         // Here we ask the user if they want to store the object's location
-        new AlertDialog.Builder(ScannerActivity.this)
+        new AlertDialog.Builder(getActivity())
                 .setTitle("Do you want to store this code's location?")
 
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if (ActivityCompat.checkSelfPermission(ScannerActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 //                           getLocation();
                             flpc.getCurrentLocation(Priority.PRIORITY_BALANCED_POWER_ACCURACY, null).addOnSuccessListener(new OnSuccessListener<Location>() {
                                 @Override
@@ -194,7 +240,7 @@ public class ScannerActivity extends AppCompatActivity {
                             });
                         }
                         else {
-                            ActivityCompat.requestPermissions(ScannerActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
+                            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
                         }
                     }
                 })

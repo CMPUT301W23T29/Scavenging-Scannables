@@ -13,12 +13,9 @@
         android:title="" />
 
     <item
-
-        android:id="@null"
-        android:icon="@null"
-        android:title=""
-        android:enabled="false">
-    </item>
+        android:id="@+id/scanner"
+        android:icon="@drawable/ic_qr_code_scanner_24dp"
+        android:title="" />
 
     <item
         android:id="@+id/navigation_search"
@@ -29,6 +26,4 @@
         android:id="@+id/navigation_profile"
         android:icon="@drawable/vector_profile"
         android:title="" />
-
-
 </menu>

@@ -32,9 +32,7 @@ import com.example.scavengingscannables.MainActivity;
 import com.example.scavengingscannables.Player;
 import com.example.scavengingscannables.QrCode;
 import com.example.scavengingscannables.R;
-import com.example.scavengingscannables.ScannerActivity;
 import com.example.scavengingscannables.databinding.FragmentProfileBinding;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -185,63 +183,7 @@ public class ProfileFragment extends Fragment {
                 });
             }
         });
-
-        FloatingActionButton fab = root.findViewById(R.id.fab);
-        // Attach QR scanner activity to FloatingActionButton
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Check for camera permission. If it has been granted, show confirmation. If not, request permission for it
-                if (ContextCompat.checkSelfPermission(getActivity(),
-                        Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(getActivity(), "You have already granted this permission!",
-                            Toast.LENGTH_SHORT).show();
-                } else {
-                    requestCameraPermission();
-                }
-            }
-        });
-
         return root;
-    }
-
-    // Function to request camera permission from user
-    private void requestCameraPermission() {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.CAMERA)) {
-            new AlertDialog.Builder(getActivity())
-                    .setTitle("Permission needed")
-                    .setMessage("Permission is needed because of this and")
-                    .setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            ActivityCompat.requestPermissions(getActivity(), new String[] {Manifest.permission.CAMERA}, CAMERA_PERMISSION_CODE);
-                        }
-                    })
-                    .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    })
-                    .create().show();
-        } else {
-            requestPermissions(new String[] {Manifest.permission.CAMERA}, CAMERA_PERMISSION_CODE);
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        Toast.makeText(getActivity(), "Hello2", Toast.LENGTH_SHORT).show();
-        if (requestCode == CAMERA_PERMISSION_CODE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(getActivity(), "Permission Granted", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getActivity(), ScannerActivity.class);
-                startActivity(intent);
-            } else {
-                Toast.makeText(getActivity(), "Permission not granted", Toast.LENGTH_SHORT).show();
-            }
-        }
     }
 
     @Override

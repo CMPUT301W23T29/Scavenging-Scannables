@@ -60,10 +60,6 @@
             android:label="@string/app_name">
         </activity>
         <activity
-            android:name=".ScannerActivity">
-
-        </activity>
-        <activity
             android:name=".ui.map.DetailQrCode"
 
             android:label="@string/app_name">

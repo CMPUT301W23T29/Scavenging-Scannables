@@ -28,4 +28,10 @@
         android:name="com.example.scavengingscannables.ui.profile.ProfileFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/scanner"
+        android:name="com.example.scavengingscannables.ScannerFragment"
+        android:label="Scanner"
+        tools:layout="@layout/scanner" />
 </navigation>
