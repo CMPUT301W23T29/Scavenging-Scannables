@@ -88,6 +88,29 @@ public class FirestoreDatabaseController{
     }
 
     /**
+     * Gets all QrCodes of a player one at a time
+     * @param username username of the player to query
+     * @param callback callback function where each qrcode is passed into
+     */
+    public void GetAllQrCodeOfUserOneByOne(String username, FirestoreDatabaseCallback callback){
+        GetPlayerByUsername(username, new FirestoreDatabaseCallback() {
+            @Override
+            public <T> void OnDataCallback(T data) {
+                Player player = (Player)data;
+                ArrayList<String> scannedIDs = player.getScannedQRCodesID();
+                for (String id:scannedIDs) {
+                    GetQRCodeByID(id, new FirestoreDatabaseCallback() {
+                        @Override
+                        public <T> void OnDataCallback(T data) {
+                            callback.OnDataCallback((QrCode) data);
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    /**
      * Gets a player from their username from the databse
      * @param username username of the player to get
      * @param callback callback function where the player object is passed into

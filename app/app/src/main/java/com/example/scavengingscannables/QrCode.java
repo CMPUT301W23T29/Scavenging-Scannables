@@ -38,7 +38,8 @@ public class QrCode {
     private void GenerateVisualLink() {
         String hash = this.qrId;
         String seed = hash.substring(0, this.qrId.getBytes().length);
-        String linkTemplate = "https://robohash.org/" + seed + "/?set=set4";
+        String set = String.valueOf((Character.codePointAt(seed, 0) % 4) + 1);
+        String linkTemplate = "https://robohash.org/" + seed + "/?set=set" + set;
         this.visualLink = linkTemplate;
     }
 
