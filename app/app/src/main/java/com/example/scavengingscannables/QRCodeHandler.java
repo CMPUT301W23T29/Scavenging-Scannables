@@ -74,8 +74,8 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
         editExistingQRCode((QrCode) data);
 
         // Add QR code id to user's list of codes
-        ph = new PlayerHandler(username, fdc, hash, activity);
-        fdc.GetPlayerByUsername(username, ph);
+//        ph = new PlayerHandler(username, fdc, hash, activity);
+//        fdc.GetPlayerByUsername(username, ph);
     }
 
     // If the QR code exists
@@ -90,8 +90,8 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
         createNewQRCode();
 
         // Add QR code id to user's list of codes
-        ph = new PlayerHandler(username, fdc, hash, activity);
-        fdc.GetPlayerByUsername(username, ph);
+//        ph = new PlayerHandler(username, fdc, hash, activity);
+//        fdc.GetPlayerByUsername(username, ph);
     }
 
     /**

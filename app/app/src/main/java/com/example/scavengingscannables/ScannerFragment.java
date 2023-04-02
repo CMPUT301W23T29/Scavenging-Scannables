@@ -39,9 +39,10 @@ import com.google.common.hash.Hashing;
 import com.google.zxing.Result;
 
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.HashMap;
 
-public class ScannerFragment extends Fragment {
+public class ScannerFragment extends Fragment implements FirestoreDatabaseCallback {
     private CodeScanner mCodeScanner;
     private int CAMERA_PERMISSION_CODE = 1;
     private FirestoreDatabaseController fdc = new FirestoreDatabaseController();
@@ -53,6 +54,7 @@ public class ScannerFragment extends Fragment {
     private HashMap<String, Double> locationMap = new HashMap<>();
     private FusedLocationProviderClient flpc;
     private String username;
+    private Player player;
     ActivityResultLauncher<Intent> someActivityResultLauncher =  registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
@@ -103,11 +105,7 @@ public class ScannerFragment extends Fragment {
                         // Generate a score for the hash
                         score = scrsys.generateScore(sha256hex);
 
-                        // Tell the user what the score of the QR code they scanned was
-                        Toast.makeText(getActivity(), "Your score is: " + score,Toast.LENGTH_SHORT).show();
-
-                        askForPhoto();
-                        askLocationPermissions();
+                        fdc.GetPlayerByUsername(username, ScannerFragment.this);
                     }
                 });
             }
@@ -169,6 +167,30 @@ public class ScannerFragment extends Fragment {
         mCodeScanner.releaseResources();
         super.onPause();
     }
+
+    @Override
+    public <T> void OnDataCallback(T data) {
+        player = (Player) data;
+        ArrayList<String> codeList = player.getScannedQRCodesID();
+        if (codeList.contains(sha256hex)) {
+            Toast.makeText(getActivity(), "You have already scanned this QR code", Toast.LENGTH_LONG).show();
+        } else {
+            // Tell the user what the score of the QR code they scanned was
+            Toast.makeText(getActivity(), "Your score is: " + score,Toast.LENGTH_SHORT).show();
+
+            player.AddQRCodeByID(sha256hex);
+            fdc.SavePlayerByUsername(player);
+
+            askForPhoto();
+            askLocationPermissions();
+        }
+    }
+
+    @Override
+    public void OnDocumentExists() {}
+
+    @Override
+    public void OnDocumentDoesNotExist() {}
 
     private void askForPhoto() {
         new AlertDialog.Builder(getActivity())
