@@ -49,6 +49,8 @@
             android:layout_marginTop="8dp"
             android:layout_marginRight="8dp"
             tools:itemCount="10"
+            android:nestedScrollingEnabled="false"
+            app:fastScrollEnabled="false"
             tools:listitem="@layout/top10_leaderboard_adapter_layout" />
 
         <com.google.android.material.divider.MaterialDivider
@@ -236,6 +238,8 @@
             android:layout_marginTop="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginBottom="100dp"
+            android:nestedScrollingEnabled="false"
+            app:fastScrollEnabled="false"
             tools:itemCount="10"
             tools:listitem="@layout/top10_qrcode_leaderboard_adapter_layout" />
     </RelativeLayout>
