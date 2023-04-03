@@ -47,8 +47,7 @@ public class QRCodeImageLocationInfo {
     // don't change this method to getImage, will give an error because firestore tries to serialize a bitmap
     public Bitmap convertBase64ToImage(){
         byte [] encodeByte = Base64.decode(this.imageBase64, Base64.DEFAULT);
-        Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
-        return bitmap;
+        return BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
     }
 
     public String getImageBase64() {

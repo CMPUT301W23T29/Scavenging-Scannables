@@ -34,7 +34,6 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.Priority;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.common.hash.Hashing;
 import com.google.zxing.Result;
 
@@ -44,14 +43,14 @@ import java.util.HashMap;
 
 public class ScannerFragment extends Fragment implements FirestoreDatabaseCallback {
     private CodeScanner mCodeScanner;
-    private int CAMERA_PERMISSION_CODE = 1;
-    private FirestoreDatabaseController fdc = new FirestoreDatabaseController();
-    private ScoringSystem scrsys = new ScoringSystem();
+    private final int CAMERA_PERMISSION_CODE = 1;
+    private final FirestoreDatabaseController fdc = new FirestoreDatabaseController();
+    private final ScoringSystem scrsys = new ScoringSystem();
     private QRCodeHandler qrch;
     private int score;
     private String sha256hex;
     private Bitmap image = null;
-    private HashMap<String, Double> locationMap = new HashMap<>();
+    private final HashMap<String, Double> locationMap = new HashMap<>();
     private FusedLocationProviderClient flpc;
     private String username;
     private Player player;
@@ -218,6 +217,17 @@ public class ScannerFragment extends Fragment implements FirestoreDatabaseCallba
                         fdc.CheckQRIDExists(sha256hex, qrch);
                     }
                 })
+                .setOnCancelListener(new DialogInterface.OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface dialogInterface) {
+                        // Create new QRCodeHandler to handle our QR code
+                        // Pass in everything we would need to potentially create a new QR code and save it to the database
+                        qrch = new QRCodeHandler(getActivity(), sha256hex, score, fdc, locationMap, image, username);
+
+                        // Check if the QR code we scanned already exists in the database
+                        fdc.CheckQRIDExists(sha256hex, qrch);
+                    }
+                })
                 .create().show();
     }
 
@@ -252,6 +262,12 @@ public class ScannerFragment extends Fragment implements FirestoreDatabaseCallba
                         locationMap.put("latitude", 0.0);
                         locationMap.put("longitude", 0.0);
                         dialog.dismiss();
+                    }
+                }).setOnCancelListener(new DialogInterface.OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface dialogInterface) {
+                        locationMap.put("latitude", 0.0);
+                        locationMap.put("longitude", 0.0);
                     }
                 })
                 .create().show();

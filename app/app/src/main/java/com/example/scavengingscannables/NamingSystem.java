@@ -146,8 +146,7 @@ public class NamingSystem {
             String fifthCharValue = material.get(Character.toString(firstSixChars.charAt(4)));
             String sixthCharValue = noun.get(Character.toString(firstSixChars.charAt(5)));
 
-            String name = firstCharValue + " " + secondCharValue + " " + thirdCharValue + " " + fourthCharValue + " " + fifthCharValue + " " + sixthCharValue;
-            return name;
+            return firstCharValue + " " + secondCharValue + " " + thirdCharValue + " " + fourthCharValue + " " + fifthCharValue + " " + sixthCharValue;
         } catch (Exception e) {
             System.err.println("Error generating name: " + e.getMessage());
             return "";

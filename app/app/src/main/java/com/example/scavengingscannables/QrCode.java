@@ -39,8 +39,7 @@ public class QrCode {
         String hash = this.qrId;
         String seed = hash.substring(0, this.qrId.getBytes().length);
         String set = String.valueOf((Character.codePointAt(seed, 0) % 4) + 1);
-        String linkTemplate = "https://robohash.org/" + seed + "/?set=set" + set;
-        this.visualLink = linkTemplate;
+        this.visualLink = "https://robohash.org/" + seed + "/?set=set" + set;
     }
 
     public String getqrId() {

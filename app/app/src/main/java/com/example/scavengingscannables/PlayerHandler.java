@@ -9,15 +9,13 @@ import java.util.ArrayList;
  * This class handles Player operations asynchronously
  */
 public class PlayerHandler implements FirestoreDatabaseCallback {
-    private String username;
+    private final String username;
 
-    private FirestoreDatabaseController fdc;
+    private final FirestoreDatabaseController fdc;
 
-    private Player player;
+    private final String codeID;
 
-    private String codeID;
-
-    private Activity activity;
+    private final Activity activity;
 
     public PlayerHandler(String username, FirestoreDatabaseController fdc, String codeID, Activity activity) {
         this.username = username;
@@ -28,7 +26,7 @@ public class PlayerHandler implements FirestoreDatabaseCallback {
 
     @Override
     public <T> void OnDataCallback(T data) {
-        player = (Player) data;
+        Player player = (Player) data;
         ArrayList<String> codeList = player.getScannedQRCodesID();
         if (codeList.contains(codeID)) {
             Toast.makeText(activity, "You have already scanned this QR code", Toast.LENGTH_LONG).show();

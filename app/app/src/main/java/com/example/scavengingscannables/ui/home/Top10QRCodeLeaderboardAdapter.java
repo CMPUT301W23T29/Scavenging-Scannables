@@ -10,17 +10,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.scavengingscannables.Player;
 import com.example.scavengingscannables.QrCode;
 import com.example.scavengingscannables.R;
 import com.example.scavengingscannables.ui.map.DetailQrCode;
-import com.example.scavengingscannables.ui.profile.OtherPlayerProfileActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 public class Top10QRCodeLeaderboardAdapter extends RecyclerView.Adapter<Top10QRCodeLeaderboardAdapter.ViewHolder>{
-    private ArrayList<QrCode> qrCodes;
+    private final ArrayList<QrCode> qrCodes;
 
     public Top10QRCodeLeaderboardAdapter(ArrayList<QrCode> qrCodes){
         this.qrCodes = qrCodes;

@@ -1,62 +1,38 @@
 package com.example.scavengingscannables;
 
-import android.Manifest;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.location.Address;
-import android.location.Geocoder;
-import android.location.Location;
-import android.util.Base64;
 
-import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.Priority;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.GeoPoint;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
 
 /**
  * This class handles QR code operations asynchronously
  */
 public class QRCodeHandler implements FirestoreDatabaseCallback {
-    private FirestoreDatabaseController fdc;
+    private final FirestoreDatabaseController fdc;
 
-    private NamingSystem namsys = new NamingSystem();
+    private final NamingSystem namsys = new NamingSystem();
 
-    private Activity activity;
+    private final Activity activity;
 
-    private Bitmap image;
+    private final Bitmap image;
 
-    private String hash;
+    private final String hash;
 
-    private int score;
+    private final int score;
 
     private boolean storePhoto = false;
 
     private boolean storeLocation = false;
 
-    private String username;
+    private final String username;
 
     private PlayerHandler ph;
 
-    private HashMap<String, Double> locationMap;
+    private final HashMap<String, Double> locationMap;
 
     public QRCodeHandler(Activity activity, String hash, int score, FirestoreDatabaseController fdc, HashMap<String, Double> locationMap, Bitmap image, String username) {
        this.activity = activity;
@@ -74,8 +50,6 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
         editExistingQRCode((QrCode) data);
 
         // Add QR code id to user's list of codes
-//        ph = new PlayerHandler(username, fdc, hash, activity);
-//        fdc.GetPlayerByUsername(username, ph);
     }
 
     // If the QR code exists
@@ -90,8 +64,6 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
         createNewQRCode();
 
         // Add QR code id to user's list of codes
-//        ph = new PlayerHandler(username, fdc, hash, activity);
-//        fdc.GetPlayerByUsername(username, ph);
     }
 
     /**

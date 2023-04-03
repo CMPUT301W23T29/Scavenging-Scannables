@@ -3,11 +3,12 @@ package com.example.scavengingscannables;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class QrCodeUnitTest {
-    private QrCode qrCode;
+    private final QrCode qrCode;
 
     QrCodeUnitTest(){
         String id = "70e0f1ade11debb6732029c267095e092b5b43ff271d4f8d9158cb004322f38b";
@@ -15,10 +16,9 @@ public class QrCodeUnitTest {
         String name = "Trustworthy Blue Omani Penguins Learning Soccer";
         HashMap<String, String> comments = new HashMap<>();
         ArrayList<String> ownedBy = new ArrayList<>();
-        ArrayList<Double> location = new ArrayList<>();
-        this.qrCode = new QrCode(id, score, name, comments, ownedBy, location, qrCodeImageLocationInfoList);
+        ArrayList<QRCodeImageLocationInfo> qrCodeImageLocationInfoList = new ArrayList<>();
+        this.qrCode = new QrCode(id, score, name, comments, ownedBy, qrCodeImageLocationInfoList);
     }
-
     @Test
     public void TestGetSCore(){
         Assertions.assertEquals("54", qrCode.getScore());
@@ -40,18 +40,13 @@ public class QrCodeUnitTest {
     }
 
     @Test
-    public void TestGetLocation(){
-        Assertions.assertEquals(new ArrayList<Double>(), qrCode.getLocation());
-    }
-
-    @Test
     public void TestGetOwnedBy(){
         Assertions.assertEquals(new ArrayList<String>(), qrCode.getOwnedBy());
     }
 
     @Test
     public void TestGetVisualLink(){
-        Assertions.assertEquals("https://picsum.photos/seed/70e0f1ade11debb6732029c267095e092b5b43ff271d4f8d9158cb004322f38b/200/", qrCode.getVisualLink());
+        Assertions.assertEquals("https://robohash.org/70e0f1ade11debb6732029c267095e092b5b43ff271d4f8d9158cb004322f38b/?set=set4", qrCode.getVisualLink());
     }
 
     @Test

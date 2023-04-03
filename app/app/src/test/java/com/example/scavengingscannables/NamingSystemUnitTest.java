@@ -8,9 +8,9 @@ public class NamingSystemUnitTest {
     @Test
     public void TestNamingSystem(){
         NamingSystem ns = new NamingSystem();
-        String name = ns.generateName("70e0f1ade11debb6732029c267095e092b5b43ff271d4f8d9158cb004322f38b");
-        Assertions.assertEquals("Trustworthy Blue Omani Penguins Learning Soccer", name);
+        String name = ns.generateName("18e90a9749f0b2c8e409cd498a9b3e39b26a27a9d18da1fe8809c618010ad60d");
+        Assertions.assertEquals("Clever Petite Gray Japanese Plastic Crocodile", name);
         name = ns.generateName("012345");
-        Assertions.assertEquals("Edgy Red Canadian Lions Singing Archery", name);
+        Assertions.assertEquals("Edgy Tiny Yellow Danish Wood Kangaroo", name);
     }
 }

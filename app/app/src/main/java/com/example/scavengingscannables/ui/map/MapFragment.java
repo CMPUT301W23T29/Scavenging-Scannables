@@ -3,7 +3,6 @@ package com.example.scavengingscannables.ui.map;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,12 +12,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.LongDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.example.scavengingscannables.FirestoreDatabaseCallback;
 import com.example.scavengingscannables.FirestoreDatabaseController;
@@ -26,7 +23,6 @@ import com.example.scavengingscannables.QRCodeImageLocationInfo;
 import com.example.scavengingscannables.QrCode;
 import com.example.scavengingscannables.R;
 import com.example.scavengingscannables.databinding.FragmentMapBinding;
-import com.example.scavengingscannables.ui.profile.QrCodesActivity;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.Priority;
@@ -34,17 +30,13 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.GeoPoint;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
-
-import java.util.ArrayList;
 
 /**
  * Fragment for the map view to locate nearby qr codes in the future
@@ -81,7 +73,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         binding = null;
     }
 
-    class MapCustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter{
+    class MapCustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
         private Boolean hasImage;
 
         public MapCustomInfoWindowAdapter() {
@@ -93,7 +85,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         public View getInfoContents(@NonNull Marker marker) {
             View infoView = getLayoutInflater().inflate(R.layout.map_custom_info_window_content, null);
             QrCode qrCode = (QrCode) marker.getTag();
-            if (!hasImage){
+            if (!hasImage) {
                 Picasso.get().load(qrCode.getVisualLink()).placeholder(R.drawable.ic_question_mark_black_24dp).into(((ImageView) infoView.findViewById(R.id.info_window_image)), new Callback() {
                     @Override
                     public void onSuccess() {
@@ -106,7 +98,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
                         System.out.println(e);
                     }
                 });
-            }else{
+            } else {
                 Picasso.get().load(qrCode.getVisualLink()).into(((ImageView) infoView.findViewById(R.id.info_window_image)));
             }
             ((TextView) infoView.findViewById(R.id.info_window_title)).setText(marker.getTitle());
@@ -127,6 +119,16 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
 
         // gets current location and zooms into map
         // sometimes has a problem where doesn't zoom right away after granting permissions
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
         fusedLocationProviderClient.getCurrentLocation(Priority.PRIORITY_BALANCED_POWER_ACCURACY, null).addOnSuccessListener(new OnSuccessListener<Location>() {
             @Override
             public void onSuccess(Location location) {

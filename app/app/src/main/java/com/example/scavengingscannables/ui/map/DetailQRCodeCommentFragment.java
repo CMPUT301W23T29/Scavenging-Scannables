@@ -19,8 +19,6 @@ import com.example.scavengingscannables.FirestoreDatabaseController;
 import com.example.scavengingscannables.QrCode;
 import com.example.scavengingscannables.R;
 import com.example.scavengingscannables.databinding.DetailQrcodeCommentsBinding;
-import com.example.scavengingscannables.databinding.DetailQrcodeLocationsBinding;
-import com.example.scavengingscannables.databinding.FragmentProfileBinding;
 import com.example.scavengingscannables.ui.profile.Comment;
 
 import java.util.ArrayList;

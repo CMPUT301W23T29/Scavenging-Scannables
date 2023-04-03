@@ -21,12 +21,6 @@
         android:theme="@style/Theme.ScavengingScannables"
         tools:targetApi="31">
         <activity
-            android:name=".ui.home.DisplaySearch"
-            android:exported="false" />
-        <activity
-            android:name=".ui.home.FindUserActivity"
-            android:exported="false" />
-        <activity
             android:name=".MainActivity"
             android:label="@string/app_name" />
         <activity
@@ -40,26 +34,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.profile.QrCodesActivity"
-
-            android:label="@string/app_name">
-        </activity>
-        <activity
-            android:name=".ui.home.OthersQrCodesActivity"
-
-            android:label="@string/app_name">
-        </activity>
-        <activity
-            android:name=".ui.profile.CommentsActivity"
-
-            android:label="@string/app_name">
-        </activity>
-        <activity
-            android:name=".ui.profile.OthersWhoScannedQrCodeActivity"
-
-            android:label="@string/app_name">
-        </activity>
-        <activity
             android:name=".ui.map.DetailQrCode"
 
             android:label="@string/app_name">
@@ -67,12 +41,6 @@
         </activity>
         <activity
             android:name=".ui.profile.OtherPlayerProfileActivity"
-
-            android:label="@string/app_name">
-
-        </activity>
-        <activity
-            android:name=".ui.profile.LocationInfoActivity"
 
             android:label="@string/app_name">
 

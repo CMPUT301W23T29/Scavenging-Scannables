@@ -16,7 +16,7 @@ import com.example.scavengingscannables.ui.profile.OtherPlayerProfileActivity;
 import java.util.ArrayList;
 
 public class Top10LeaderboardAdapter extends RecyclerView.Adapter<Top10LeaderboardAdapter.ViewHolder> {
-    private ArrayList<Player> players;
+    private final ArrayList<Player> players;
 
     public Top10LeaderboardAdapter(ArrayList<Player> players){
         this.players = players;
@@ -64,7 +64,7 @@ public class Top10LeaderboardAdapter extends RecyclerView.Adapter<Top10Leaderboa
 
     @Override
     public void onBindViewHolder(Top10LeaderboardAdapter.ViewHolder viewHolder, int position) {
-        viewHolder.getPositionText().setText("#" + String.valueOf(position + 1));
+        viewHolder.getPositionText().setText("#" + (position + 1));
         viewHolder.getNameText().setText(this.players.get(position).getUsername());
         viewHolder.getScoreText().setText(this.players.get(position).getTotal());
     }

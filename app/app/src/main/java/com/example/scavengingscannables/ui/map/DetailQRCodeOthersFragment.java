@@ -1,19 +1,15 @@
 package com.example.scavengingscannables.ui.map;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.scavengingscannables.QrCode;
 import com.example.scavengingscannables.R;
-import com.example.scavengingscannables.databinding.DetailQrcodeLocationsBinding;
 import com.example.scavengingscannables.databinding.DetailQrcodeOthersBinding;
 import com.example.scavengingscannables.ui.search.SearchResultAdapter;
 

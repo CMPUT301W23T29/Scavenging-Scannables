@@ -5,10 +5,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
@@ -19,20 +17,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.scavengingscannables.FirestoreDatabaseCallback;
 import com.example.scavengingscannables.FirestoreDatabaseController;
 import com.example.scavengingscannables.R;
-import com.example.scavengingscannables.databinding.FragmentMapBinding;
 import com.example.scavengingscannables.databinding.FragmentSearchBinding;
 
-import org.checkerframework.checker.units.qual.A;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 public class SearchFragment extends Fragment implements SearchView.OnQueryTextListener, FirestoreDatabaseCallback{
     private FragmentSearchBinding binding;
     private ArrayList<String> usernames = new ArrayList<>();
-    private ArrayList<String> searchResults = new ArrayList<>();
-    private RecyclerView searchResultView;
+    private final ArrayList<String> searchResults = new ArrayList<>();
     private SearchResultAdapter searchResultAdapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -49,7 +41,7 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
         SearchView searchView = root.findViewById(R.id.search_bar);
         searchView.setOnQueryTextListener(this);
 
-        searchResultView = root.findViewById(R.id.recycler_view);
+        RecyclerView searchResultView = root.findViewById(R.id.recycler_view);
         searchResultAdapter = new SearchResultAdapter(this.searchResults);
 
         searchResultView.setAdapter(searchResultAdapter);
