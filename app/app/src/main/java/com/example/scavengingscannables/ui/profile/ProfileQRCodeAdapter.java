@@ -18,7 +18,7 @@ import com.example.scavengingscannables.FirestoreDatabaseController;
 import com.example.scavengingscannables.Player;
 import com.example.scavengingscannables.QRCode;
 import com.example.scavengingscannables.R;
-import com.example.scavengingscannables.ui.map.DetailQrCode;
+import com.example.scavengingscannables.ui.map.DetailQRCode;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.squareup.picasso.Picasso;
 
@@ -60,7 +60,7 @@ public class ProfileQRCodeAdapter extends RecyclerView.Adapter<ProfileQRCodeAdap
         viewHolder.getImageView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), DetailQrCode.class);
+                Intent intent = new Intent(view.getContext(), DetailQRCode.class);
                 intent.putExtra("qrID", qrCode.getqrId());
                 view.getContext().startActivity(intent);
             }

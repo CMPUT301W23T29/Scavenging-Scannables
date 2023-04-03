@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.scavengingscannables.QRCode;
 import com.example.scavengingscannables.R;
-import com.example.scavengingscannables.ui.map.DetailQrCode;
+import com.example.scavengingscannables.ui.map.DetailQRCode;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -43,7 +43,7 @@ public class Top10QRCodeLeaderboardAdapter extends RecyclerView.Adapter<Top10QRC
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(view.getContext(), DetailQrCode.class);
+                    Intent intent = new Intent(view.getContext(), DetailQRCode.class);
                     intent.putExtra("qrID", qrID);
                     view.getContext().startActivity(intent);
                 }

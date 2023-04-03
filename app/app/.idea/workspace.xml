@@ -104,27 +104,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ApkExportedModule": "Scavenging_Scannables.app",
-    "ExportApk.ApkPathForScavenging_Scannables.app": "D:\\Scavenging-Scannables\\app\\app",
-    "PROJECT_TRUSTED_KEY": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "android-custom-viewD:/Scavenging-Scannables/app/app/src/main/java/com/example/scavengingscannables/ui/map/WrapContentViewPager.java_SELECTED": "WrapContentViewPager",
-    "cidr.known.project.marker": "true",
-    "com.google.services.firebase.aqiPopupShown": "true",
-    "last_opened_file_path": "D:/Scavenging-Scannables/app/app",
-    "memory.settings.postsync.last.time.stamp": "1678359591955",
-    "run.code.analysis.last.selected.profile": "pProject Default"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ApkExportedModule&quot;: &quot;Scavenging_Scannables.app&quot;,
+    &quot;ExportApk.ApkPathForScavenging_Scannables.app&quot;: &quot;D:\\Scavenging-Scannables\\app\\app&quot;,
+    &quot;PROJECT_TRUSTED_KEY&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;android-custom-viewD:/Scavenging-Scannables/app/app/src/main/java/com/example/scavengingscannables/ui/map/WrapContentViewPager.java_SELECTED&quot;: &quot;WrapContentViewPager&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;com.google.services.firebase.aqiPopupShown&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Scavenging-Scannables/app/app&quot;,
+    &quot;memory.settings.postsync.last.time.stamp&quot;: &quot;1678359591955&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;
   },
-  "keyToStringList": {
-    "ExportApk.BuildVariants": [
-      "release"
+  &quot;keyToStringList&quot;: {
+    &quot;ExportApk.BuildVariants&quot;: [
+      &quot;release&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Android App.app">
     <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App">
       <module name="Scavenging_Scannables.app.main" />
