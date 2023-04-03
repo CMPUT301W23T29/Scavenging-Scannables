@@ -99,9 +99,9 @@ public class SignupActivity extends AppCompatActivity {
                             public void OnDocumentDoesNotExist() {
                                 // create new user and save to database
                                 Boolean hide =false;
-                                String highest = "default";
-                                String lowest = "default";
-                                String total = "";
+                                String highest = "";
+                                String lowest = "";
+                                String total = "0";
                                 Player newPlayer = new Player(username, firstName, lastName, finalPhoneNumber, email, hide,highest,lowest,total);
                                 dbc.SavePlayerByUsername(newPlayer);
 
