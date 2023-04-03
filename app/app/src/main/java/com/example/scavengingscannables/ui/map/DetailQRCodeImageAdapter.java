@@ -15,6 +15,9 @@ import com.google.firebase.firestore.GeoPoint;
 
 import java.util.ArrayList;
 
+/**
+ * Adapter for qrcode image locations
+ */
 public class DetailQRCodeImageAdapter extends RecyclerView.Adapter<DetailQRCodeImageAdapter.ViewHolder>{
     private final ArrayList<QRCodeImageLocationInfo> qrCodeImageLocationInfos;
 

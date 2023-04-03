@@ -24,7 +24,9 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-
+/**
+ * Allows to open and view individual qr codes
+ */
 public class DetailQrCode extends AppCompatActivity {
 
     String id;

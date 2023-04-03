@@ -39,7 +39,7 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 /**
- * Fragment for the map view to locate nearby qr codes in the future
+ * Fragment for the map view to locate nearby qr codes
  */
 public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener, GoogleMap.OnInfoWindowClickListener {
     private GoogleMap mMap;

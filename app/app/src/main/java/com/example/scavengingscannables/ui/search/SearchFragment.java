@@ -21,6 +21,9 @@ import com.example.scavengingscannables.databinding.FragmentSearchBinding;
 
 import java.util.ArrayList;
 
+/**
+ * Fragment which implements player search
+ */
 public class SearchFragment extends Fragment implements SearchView.OnQueryTextListener, FirestoreDatabaseCallback{
     private FragmentSearchBinding binding;
     private ArrayList<String> usernames = new ArrayList<>();

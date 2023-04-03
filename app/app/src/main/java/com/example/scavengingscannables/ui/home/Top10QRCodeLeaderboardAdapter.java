@@ -17,6 +17,9 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+/**
+ * Adapter for top 10 qrcode leaderboard
+ */
 public class Top10QRCodeLeaderboardAdapter extends RecyclerView.Adapter<Top10QRCodeLeaderboardAdapter.ViewHolder>{
     private final ArrayList<QrCode> qrCodes;
 

@@ -10,27 +10,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5a6dc418-099c-421b-923e-a73ecd0df46b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/androidTest/java/com/example/scavengingscannables/QRCodeImageLocationInfoTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/androidTest/java/com/example/scavengingscannables/CommentsActivityTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/androidTest/java/com/example/scavengingscannables/FindUserTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/androidTest/java/com/example/scavengingscannables/OthersWhoScannedQrCodeActivityTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/androidTest/java/com/example/scavengingscannables/QrCodesActivityTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/FirestoreDatabaseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/FirestoreDatabaseController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/NamingSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/NamingSystem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/PlayerHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/PlayerHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/QRCodeHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/QRCodeHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/QRCodeImageLocationInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/QRCodeImageLocationInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/QrCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/QrCode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ScannerFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ScannerFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/SignupActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/SignupActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/home/DisplaySearch.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/home/FindUserActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/home/HomeFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/home/HomeFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/home/OthersQrCodesActivity.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/home/Top10LeaderboardAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/home/Top10LeaderboardAdapter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/home/Top10QRCodeLeaderboardAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/home/Top10QRCodeLeaderboardAdapter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/map/DetailQRCodeCommentAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/map/DetailQRCodeCommentAdapter.java" afterDir="false" />
@@ -40,34 +19,11 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/map/DetailQRCodeOthersFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/map/DetailQRCodeOthersFragment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/map/DetailQrCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/map/DetailQrCode.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/map/MapFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/map/MapFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/profile/Comment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/profile/Comment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/profile/CommentCustomerArrayAdapter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/profile/CommentsActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/profile/LocationArrayAdapter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/profile/LocationInfoActivity.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/profile/OtherPlayerProfileActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/profile/OtherPlayerProfileActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/profile/OthersWhoScannedQrCodeActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/profile/ProfileFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/profile/ProfileFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/profile/ProfileDeleteQRCodeCallback.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/profile/ProfileDeleteQRCodeCallback.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/profile/ProfileQRCodeAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/profile/ProfileQRCodeAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/profile/QrCodesActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/profile/QrCustomerArrayAdapter.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/search/SearchFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/search/SearchFragment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/search/SearchResultAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/search/SearchResultAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_display_comments.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_display_location.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_display_others.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_display_search.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_find_user.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_view_others_qrcodes.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_view_qrcodes.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/comment_item.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/locaton_item.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/playername_item.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/qrcode.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/scavengingscannables/NamingSystemUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/scavengingscannables/NamingSystemUnitTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/scavengingscannables/PlayerUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/scavengingscannables/PlayerUnitTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/scavengingscannables/QrCodeUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/scavengingscannables/QrCodeUnitTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/scavengingscannables/SignupValidationUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/scavengingscannables/SignupValidationUnitTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

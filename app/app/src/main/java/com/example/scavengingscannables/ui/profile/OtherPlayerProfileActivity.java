@@ -27,6 +27,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Views other players' profiles
+ */
 public class OtherPlayerProfileActivity extends AppCompatActivity {
     private TextView usernameView;
     private TextView phone;

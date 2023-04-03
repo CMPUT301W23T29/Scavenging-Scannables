@@ -13,6 +13,9 @@ import com.example.scavengingscannables.ui.profile.Comment;
 
 import java.util.ArrayList;
 
+/**
+ * Adapter for detailed qrcode comments
+ */
 public class DetailQRCodeCommentAdapter extends RecyclerView.Adapter<DetailQRCodeCommentAdapter.ViewHolder>{
     private final ArrayList<Comment> comments;
 

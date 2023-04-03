@@ -15,6 +15,9 @@ import com.example.scavengingscannables.ui.profile.OtherPlayerProfileActivity;
 
 import java.util.ArrayList;
 
+/**
+ * Adapter for top 10 leaderboards
+ */
 public class Top10LeaderboardAdapter extends RecyclerView.Adapter<Top10LeaderboardAdapter.ViewHolder> {
     private final ArrayList<Player> players;
 
