@@ -170,6 +170,8 @@
             android:layout_width="400dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="50dp"
+            android:nestedScrollingEnabled="false"
+            app:fastScrollEnabled="false"
             android:background="@drawable/search_bar_rounded"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
