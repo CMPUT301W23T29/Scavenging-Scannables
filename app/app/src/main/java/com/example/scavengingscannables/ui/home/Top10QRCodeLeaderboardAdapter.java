@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.scavengingscannables.QrCode;
+import com.example.scavengingscannables.QRCode;
 import com.example.scavengingscannables.R;
 import com.example.scavengingscannables.ui.map.DetailQrCode;
 import com.squareup.picasso.Picasso;
@@ -21,10 +21,10 @@ import java.util.ArrayList;
  * Adapter for top 10 qrcode leaderboard
  */
 public class Top10QRCodeLeaderboardAdapter extends RecyclerView.Adapter<Top10QRCodeLeaderboardAdapter.ViewHolder>{
-    private final ArrayList<QrCode> qrCodes;
+    private final ArrayList<QRCode> QRCodes;
 
-    public Top10QRCodeLeaderboardAdapter(ArrayList<QrCode> qrCodes){
-        this.qrCodes = qrCodes;
+    public Top10QRCodeLeaderboardAdapter(ArrayList<QRCode> QRCodes){
+        this.QRCodes = QRCodes;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
@@ -79,7 +79,7 @@ public class Top10QRCodeLeaderboardAdapter extends RecyclerView.Adapter<Top10QRC
 
     @Override
     public void onBindViewHolder(Top10QRCodeLeaderboardAdapter.ViewHolder viewHolder, int position) {
-        QrCode qrCode = this.qrCodes.get(position);
+        QRCode qrCode = this.QRCodes.get(position);
         viewHolder.getPositionText().setText("#" + (position + 1));
         viewHolder.getNameText().setText(qrCode.getNameText());
         viewHolder.getScoreText().setText(qrCode.getScore());
@@ -89,6 +89,6 @@ public class Top10QRCodeLeaderboardAdapter extends RecyclerView.Adapter<Top10QRC
 
     @Override
     public int getItemCount() {
-        return qrCodes.size();
+        return QRCodes.size();
     }
 }

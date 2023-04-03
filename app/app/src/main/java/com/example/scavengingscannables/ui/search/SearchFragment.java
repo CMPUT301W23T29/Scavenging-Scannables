@@ -38,7 +38,7 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
         Log.d("LOG", "ENTERED SEARCH FRAGMENT");
 
         FirestoreDatabaseController dbc = new FirestoreDatabaseController();
-        dbc.GetAllUsernames(this);
+        dbc.getAllUsernames(this);
 
         // sets listeners
         SearchView searchView = root.findViewById(R.id.search_bar);

@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -20,7 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.scavengingscannables.FirestoreDatabaseCallback;
 import com.example.scavengingscannables.FirestoreDatabaseController;
 import com.example.scavengingscannables.Player;
-import com.example.scavengingscannables.QrCode;
+import com.example.scavengingscannables.QRCode;
 import com.example.scavengingscannables.R;
 import com.example.scavengingscannables.databinding.FragmentProfileBinding;
 import com.squareup.picasso.Picasso;
@@ -54,7 +53,7 @@ public class ProfileFragment extends Fragment implements ProfileDeleteQRCodeCall
     private final ArrayList<String> scores = new ArrayList<>();
     private String userPhone;
     FirestoreDatabaseController dbc = new FirestoreDatabaseController();
-    private final ArrayList<QrCode> playerQRCodes = new ArrayList<>();
+    private final ArrayList<QRCode> playerQRCodes = new ArrayList<>();
     private ProfileQRCodeAdapter profileQRCodeAdapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -77,7 +76,7 @@ public class ProfileFragment extends Fragment implements ProfileDeleteQRCodeCall
         name = username;
 
         //Change the hideProfile switch to the state in database
-        dbc.GetPlayerByUsername(username, new FirestoreDatabaseCallback() {
+        dbc.getPlayerByUsername(username, new FirestoreDatabaseCallback() {
             @Override
             public <T> void OnDataCallback(T data) {
                 Player p = (Player)data;
@@ -88,12 +87,12 @@ public class ProfileFragment extends Fragment implements ProfileDeleteQRCodeCall
 
         hideProfile.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                dbc.GetPlayerByUsername(username, new FirestoreDatabaseCallback() {
+                dbc.getPlayerByUsername(username, new FirestoreDatabaseCallback() {
                     @Override
                     public <T> void OnDataCallback(T data) {
                         Player p = (Player)data;
                         p.setHide(hideProfile.isChecked());
-                        dbc.SavePlayerByUsername(p);
+                        dbc.savePlayerByUsername(p);
                     }
                 });
 
@@ -130,7 +129,7 @@ public class ProfileFragment extends Fragment implements ProfileDeleteQRCodeCall
     public void updateView(){
         Log.d("LOG", "UPODATING VIEW");
         resetView();
-        dbc.GetPlayerByUsername(username, new FirestoreDatabaseCallback() {
+        dbc.getPlayerByUsername(username, new FirestoreDatabaseCallback() {
             @Override
             public <T> void OnDataCallback(T data) {
                 Player p = (Player)data;
@@ -140,12 +139,12 @@ public class ProfileFragment extends Fragment implements ProfileDeleteQRCodeCall
                 p.setTotal(tScore.toString());
                 p.setHighest(highestId);
                 p.setLowest(lowestId);
-                dbc.SavePlayerByUsername(p);
+                dbc.savePlayerByUsername(p);
 
-                dbc.GetAllQrCodeOfUserOneByOne(username, new FirestoreDatabaseCallback() {
+                dbc.getAllQrCodeOfUserOneByOne(username, new FirestoreDatabaseCallback() {
                     @Override
                     public <T> void OnDataCallback(T data) {
-                        QrCode qrCode = (QrCode) data;
+                        QRCode qrCode = (QRCode) data;
 
                         playerQRCodes.add(qrCode);
                         profileQRCodeAdapter.notifyDataSetChanged();
@@ -159,18 +158,18 @@ public class ProfileFragment extends Fragment implements ProfileDeleteQRCodeCall
                             }
                         });
                         lowestId = list.get(0).getKey();
-                        dbc.GetQRCodeByID(lowestId, new FirestoreDatabaseCallback() {
+                        dbc.getQRCodeByID(lowestId, new FirestoreDatabaseCallback() {
                             @Override
                             public <T> void OnDataCallback(T data) {
-                                QrCode ql = (QrCode)data;
+                                QRCode ql = (QRCode)data;
                                 Picasso.get().load(ql.getVisualLink()).placeholder(R.drawable.ic_question_mark_black_24dp).into(lowest);
                             }
                         });
                         highestId = list.get((list.size())-1).getKey();
-                        dbc.GetQRCodeByID(highestId, new FirestoreDatabaseCallback() {
+                        dbc.getQRCodeByID(highestId, new FirestoreDatabaseCallback() {
                             @Override
                             public <T> void OnDataCallback(T data) {
-                                QrCode ql = (QrCode)data;
+                                QRCode ql = (QRCode)data;
                                 Picasso.get().load(ql.getVisualLink()).placeholder(R.drawable.ic_question_mark_black_24dp).into(highest);
                             }
                         });
@@ -187,7 +186,7 @@ public class ProfileFragment extends Fragment implements ProfileDeleteQRCodeCall
                         p.setTotal(tScore.toString());
                         p.setHighest(highestId);
                         p.setLowest(lowestId);
-                        dbc.SavePlayerByUsername(p);
+                        dbc.savePlayerByUsername(p);
                     }
                 });
             }

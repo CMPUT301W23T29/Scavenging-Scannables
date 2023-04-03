@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.scavengingscannables.FirestoreDatabaseCallback;
 import com.example.scavengingscannables.FirestoreDatabaseController;
-import com.example.scavengingscannables.QrCode;
+import com.example.scavengingscannables.QRCode;
 import com.example.scavengingscannables.R;
 import com.example.scavengingscannables.databinding.DetailQrcodeCommentsBinding;
 import com.example.scavengingscannables.ui.profile.Comment;
@@ -69,10 +69,10 @@ public class DetailQRCodeCommentFragment extends Fragment {
             public void onClick(View view) {
                 FirestoreDatabaseController dbc = new FirestoreDatabaseController();
                 String input = commentTextView.getText().toString();
-                dbc.GetQRCodeByID(qrID, new FirestoreDatabaseCallback() {
+                dbc.getQRCodeByID(qrID, new FirestoreDatabaseCallback() {
                     @Override
                     public <T> void OnDataCallback(T data) {
-                        QrCode q = (QrCode) data;
+                        QRCode q = (QRCode) data;
                         HashMap<String,String> currentComments = q.getComments();
 
                         SharedPreferences sharedPref = getActivity().getSharedPreferences("account", Context.MODE_PRIVATE);
@@ -81,12 +81,12 @@ public class DetailQRCodeCommentFragment extends Fragment {
                         currentComments.put(username, input);
                         commentTextView.setText("");
                         q.setComments(currentComments);
-                        dbc.SaveQRCodeByID(q);
-                        dbc.GetQRCodeByID(qrID, new FirestoreDatabaseCallback() {
+                        dbc.saveQRCodeByID(q);
+                        dbc.getQRCodeByID(qrID, new FirestoreDatabaseCallback() {
                             @Override
                             public <T> void OnDataCallback(T data) {
                                 comments.clear();
-                                QrCode q = (QrCode) data;
+                                QRCode q = (QRCode) data;
 
                                 ArrayList<Comment> commentArrayList = new ArrayList<>();
                                 q.getComments().forEach((key, value) -> {

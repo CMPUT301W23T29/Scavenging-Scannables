@@ -3,21 +3,20 @@ package com.example.scavengingscannables;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class QrCodeUnitTest {
-    private final QrCode qrCode;
+public class QRCodeUnitTest {
+    private final QRCode qrCode;
 
-    QrCodeUnitTest(){
+    QRCodeUnitTest(){
         String id = "70e0f1ade11debb6732029c267095e092b5b43ff271d4f8d9158cb004322f38b";
         String score = "54";
         String name = "Trustworthy Blue Omani Penguins Learning Soccer";
         HashMap<String, String> comments = new HashMap<>();
         ArrayList<String> ownedBy = new ArrayList<>();
         ArrayList<QRCodeImageLocationInfo> qrCodeImageLocationInfoList = new ArrayList<>();
-        this.qrCode = new QrCode(id, score, name, comments, ownedBy, qrCodeImageLocationInfoList);
+        this.qrCode = new QRCode(id, score, name, comments, ownedBy, qrCodeImageLocationInfoList);
     }
     @Test
     public void TestGetSCore(){

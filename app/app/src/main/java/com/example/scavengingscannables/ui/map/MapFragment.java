@@ -20,7 +20,7 @@ import androidx.fragment.app.Fragment;
 import com.example.scavengingscannables.FirestoreDatabaseCallback;
 import com.example.scavengingscannables.FirestoreDatabaseController;
 import com.example.scavengingscannables.QRCodeImageLocationInfo;
-import com.example.scavengingscannables.QrCode;
+import com.example.scavengingscannables.QRCode;
 import com.example.scavengingscannables.R;
 import com.example.scavengingscannables.databinding.FragmentMapBinding;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -84,7 +84,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         @Override
         public View getInfoContents(@NonNull Marker marker) {
             View infoView = getLayoutInflater().inflate(R.layout.map_custom_info_window_content, null);
-            QrCode qrCode = (QrCode) marker.getTag();
+            QRCode qrCode = (QRCode) marker.getTag();
             if (!hasImage) {
                 Picasso.get().load(qrCode.getVisualLink()).placeholder(R.drawable.ic_question_mark_black_24dp).into(((ImageView) infoView.findViewById(R.id.info_window_image)), new Callback() {
                     @Override
@@ -141,10 +141,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
 
         // populate map with markers of qrcodes
         FirestoreDatabaseController dbc = new FirestoreDatabaseController();
-        dbc.GetAllQRCodesOneByOne(new FirestoreDatabaseCallback() {
+        dbc.getAllQRCodesOneByOne(new FirestoreDatabaseCallback() {
             @Override
             public <T> void OnDataCallback(T data) {
-                QrCode qrCode = (QrCode) data;
+                QRCode qrCode = (QRCode) data;
                 String qrName = qrCode.getNameText();
                 qrCode.getQrCodeImageLocationInfoList();
                 if (qrCode.getQrCodeImageLocationInfoList() != null) {
@@ -180,7 +180,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
     @Override
     public void onInfoWindowClick(@NonNull Marker marker) {
         // change to load individual qr code in future
-        QrCode qrCode = (QrCode) marker.getTag();
+        QRCode qrCode = (QRCode) marker.getTag();
         Log.d("LOG", qrCode.getNameText());
         Intent intent = new Intent(getActivity(), DetailQrCode.class);
         intent.putExtra("qrID", qrCode.getqrId());

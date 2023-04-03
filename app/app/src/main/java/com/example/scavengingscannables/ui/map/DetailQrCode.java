@@ -4,7 +4,6 @@ package com.example.scavengingscannables.ui.map;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,7 +15,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.scavengingscannables.FirestoreDatabaseCallback;
 import com.example.scavengingscannables.FirestoreDatabaseController;
-import com.example.scavengingscannables.QrCode;
+import com.example.scavengingscannables.QRCode;
 import com.example.scavengingscannables.R;
 import com.example.scavengingscannables.ui.profile.Comment;
 import com.google.android.material.tabs.TabLayout;
@@ -35,7 +34,7 @@ public class DetailQrCode extends AppCompatActivity {
     ImageView image;
     private TabLayout tabLayout;
     private ViewPager2 viewPager;
-    private QrCode qrCode;
+    private QRCode qrCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,10 +52,10 @@ public class DetailQrCode extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         FirestoreDatabaseController dbc = new FirestoreDatabaseController();
-        dbc.GetQRCodeByID(id, new FirestoreDatabaseCallback() {
+        dbc.getQRCodeByID(id, new FirestoreDatabaseCallback() {
             @Override
             public <T> void OnDataCallback(T data) {
-                QrCode q = (QrCode) data;
+                QRCode q = (QRCode) data;
                 qrCode = q;
                 name.setText(q.getNameText());
                 score.setText(q.getScore());
