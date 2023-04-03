@@ -34,7 +34,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.map.DetailQRCode"
+            android:name=".ui.map.DetailQRCodeActivity"
 
             android:label="@string/app_name">
 

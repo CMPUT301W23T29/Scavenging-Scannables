@@ -182,7 +182,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         // change to load individual qr code in future
         QRCode qrCode = (QRCode) marker.getTag();
         Log.d("LOG", qrCode.getNameText());
-        Intent intent = new Intent(getActivity(), DetailQRCode.class);
+        Intent intent = new Intent(getActivity(), DetailQRCodeActivity.class);
         intent.putExtra("qrID", qrCode.getqrId());
         startActivity(intent);
     }
