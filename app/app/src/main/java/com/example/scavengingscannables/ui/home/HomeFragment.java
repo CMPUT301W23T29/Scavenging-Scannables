@@ -90,7 +90,7 @@ public class HomeFragment extends Fragment {
         name = sharedPref.getString("username", "ERROR NO USERNAME FOUND");
 
         top10LeaderboardRecyclerView = root.findViewById(R.id.top10_leaderboard);
-        top10LeaderboardAdapter = new Top10LeaderboardAdapter(this.allPlayers);
+        top10LeaderboardAdapter = new Top10LeaderboardAdapter(this.top10Players);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
@@ -116,6 +116,7 @@ public class HomeFragment extends Fragment {
         myRankingName.setText(name);
 
         allPlayers.clear();
+        top10Players.clear();
         allQRCodes.clear();
 
         // populate top 10 qrcodes recycler view
