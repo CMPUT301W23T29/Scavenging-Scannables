@@ -54,8 +54,6 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
 
     private String username;
 
-    private PlayerHandler ph;
-
     private HashMap<String, Double> locationMap;
 
     public QRCodeHandler(Activity activity, String hash, int score, FirestoreDatabaseController fdc, HashMap<String, Double> locationMap, Bitmap image, String username) {
@@ -72,10 +70,6 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
     @Override
     public <T> void OnDataCallback(T data) {
         editExistingQRCode((QrCode) data);
-
-        // Add QR code id to user's list of codes
-//        ph = new PlayerHandler(username, fdc, hash, activity);
-//        fdc.GetPlayerByUsername(username, ph);
     }
 
     // If the QR code exists
@@ -88,10 +82,6 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
     @Override
     public void OnDocumentDoesNotExist() {
         createNewQRCode();
-
-        // Add QR code id to user's list of codes
-//        ph = new PlayerHandler(username, fdc, hash, activity);
-//        fdc.GetPlayerByUsername(username, ph);
     }
 
     /**
