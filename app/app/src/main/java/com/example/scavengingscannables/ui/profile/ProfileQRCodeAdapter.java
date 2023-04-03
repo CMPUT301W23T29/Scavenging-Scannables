@@ -23,6 +23,7 @@ import com.example.scavengingscannables.R;
 import com.example.scavengingscannables.ui.home.DisplaySearch;
 import com.example.scavengingscannables.ui.map.DetailQrCode;
 import com.example.scavengingscannables.ui.search.SearchResultAdapter;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -31,13 +32,18 @@ public class ProfileQRCodeAdapter extends RecyclerView.Adapter<ProfileQRCodeAdap
 
     private ArrayList<QrCode> qrCodes;
     private String username;
-
     private ProfileQRCodeAdapter profileQRCodeAdapter;
+
+    private ProfileDeleteQRCodeCallback callback = null;
 
     public ProfileQRCodeAdapter(ArrayList<QrCode> qrCodes, String username) {
         this.qrCodes = qrCodes;
         this.username = username;
         this.profileQRCodeAdapter = this;
+    }
+
+    public void setCallback(ProfileDeleteQRCodeCallback callback){
+        this.callback = callback;
     }
 
     @NonNull
@@ -50,7 +56,7 @@ public class ProfileQRCodeAdapter extends RecyclerView.Adapter<ProfileQRCodeAdap
     @Override
     public void onBindViewHolder(ProfileQRCodeAdapter.ViewHolder viewHolder, int position) {
         QrCode qrCode = this.qrCodes.get(position);
-        Picasso.get().load(qrCode.getVisualLink()).into(viewHolder.getImageView());
+        Picasso.get().load(qrCode.getVisualLink()).placeholder(R.drawable.ic_question_mark_black_24dp).into(viewHolder.getImageView());
         //viewHolder.getImageView().setContentDescription(qrCode.getqrId());
         viewHolder.getImageView().setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,8 +85,14 @@ public class ProfileQRCodeAdapter extends RecyclerView.Adapter<ProfileQRCodeAdap
                     p.RemoveQRCodeByID(qrCode.getqrId());
                     qrCode.RemoveOwnedBy(username);
                     dbc.SaveQRCodeByID(qrCode);
-                    dbc.SavePlayerByUsername(p);
-
+                    dbc.SavePlayerByUsername(p, new OnSuccessListener() {
+                        @Override
+                        public void onSuccess(Object o) {
+                            if (callback != null){
+                                callback.onDeleteQRCode();
+                            }
+                        }
+                    });
                     profileQRCodeAdapter.notifyDataSetChanged();
                 }
             });

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="2dp"
+    android:layout_marginBottom="2dp"
+    android:gravity="center_horizontal"
+    android:background="@drawable/rounded_10p">
+    <TextView
+        android:id="@+id/leaderboard_position"
+        android:layout_width="25dp"
+        android:layout_height="20dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:textColor="@color/black"
+        android:text="#1">
+    </TextView>
+    <TextView
+        android:id="@+id/player_name"
+        android:layout_width="240dp"
+        android:layout_height="20dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:maxLines="1"
+        android:textColor="@color/black"
+        android:ellipsize="end"
+        android:text="player_nameplayer_nameplayer_nameplayer_nameplayer_nameplayer_name"
+        android:layout_toEndOf="@id/leaderboard_position">
+    </TextView>
+    <TextView
+        android:id="@+id/player_score"
+        android:layout_width="100dp"
+        android:layout_height="20dp"
+        android:textAlignment="textEnd"
+        android:text="player_scoreeeeeee"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textColor="@color/black"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_alignParentEnd="true">
+    </TextView>
+
+
+</RelativeLayout>

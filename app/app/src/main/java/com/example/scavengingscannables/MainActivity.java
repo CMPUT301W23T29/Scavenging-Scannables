@@ -41,29 +41,6 @@ public class MainActivity extends AppCompatActivity{
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-
-        // tests getting data from database
-        FirestoreDatabaseController dbc = new FirestoreDatabaseController();
-        dbc.GetPlayerByUsername("321d213", new FirestoreDatabaseCallback() {
-            @Override
-            public <T> void OnDataCallback(T data) {
-                Player p = (Player)data;
-            }
-        });
-
-        // tests adding qrcode to database
-        QrCode qrCode = new QrCode("123", "999", "TESTNAME", new HashMap<String, String>(), new ArrayList<String>(), new ArrayList<QRCodeImageLocationInfo>());
-        dbc.SaveQRCodeByID(qrCode);
-
-        // tests getting all usernames
-        dbc.GetAllUsernames(new FirestoreDatabaseCallback() {
-            @Override
-            public <T> void OnDataCallback(T data) {
-                ArrayList<String> usernames = (ArrayList<String>) data;
-                Log.d("LOG", String.valueOf(usernames));
-            }
-        });
-
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.

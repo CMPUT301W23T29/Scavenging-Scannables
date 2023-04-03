@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,7 +46,7 @@ import java.util.Map;
 /**
  * Fragment for the current player, shows information about the player and allows you to view their qr codes
  */
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends Fragment implements ProfileDeleteQRCodeCallback{
 
     private FragmentProfileBinding binding;
     Button viewQrCodes;
@@ -59,17 +60,15 @@ public class ProfileFragment extends Fragment {
     private String highestId;
     private ImageView lowest;
     private String lowestId;
-    private final HashMap<String,Integer> lowestHighest = new HashMap<>();
+    private HashMap<String,Integer> lowestHighest = new HashMap<>();
     private ArrayList<String> qrCodes = new ArrayList<>();
     String username;
     static String name;
     private Integer tScore = 0;
     private Integer tScanned = 0;
-    private final ArrayList<String> scores = new ArrayList<>();
+    private ArrayList<String> scores = new ArrayList<>();
     private String userPhone;
     FirestoreDatabaseController dbc = new FirestoreDatabaseController();
-    private final int CAMERA_PERMISSION_CODE = 1;
-
     private ArrayList<QrCode> playerQRCodes = new ArrayList<>();
     private RecyclerView recyclerView;
     private ProfileQRCodeAdapter profileQRCodeAdapter;
@@ -124,12 +123,34 @@ public class ProfileFragment extends Fragment {
 
         this.recyclerView = root.findViewById(R.id.profile_recycler_view);
         this.profileQRCodeAdapter = new ProfileQRCodeAdapter(this.playerQRCodes, username);
-
+        this.profileQRCodeAdapter.setCallback(this);
         this.recyclerView.setAdapter(profileQRCodeAdapter);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 5);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(gridLayoutManager);
 
+        updateView();
+
+        return root;
+    }
+
+    public void resetView(){
+        playerQRCodes.clear();
+        tScore = 0;
+        tScanned = 0;
+        lowestId = "";
+        highestId = "";
+        lowestHighest.clear();
+        scores.clear();
+        profileQRCodeAdapter.notifyDataSetChanged();
+        totalScore.setText("0");
+        totalScanned.setText("0");
+        highest.setImageResource(R.drawable.vector_image_not_found);
+        lowest.setImageResource(R.drawable.vector_image_not_found);
+    }
+
+    public void updateView(){
+        Log.d("LOG", "UPODATING VIEW");
+        resetView();
         dbc.GetPlayerByUsername(username, new FirestoreDatabaseCallback() {
             @Override
             public <T> void OnDataCallback(T data) {
@@ -137,6 +158,11 @@ public class ProfileFragment extends Fragment {
                 userPhone = p.getPhoneNumber().toString();
                 phone.setText(userPhone);
                 qrCodes = p.getScannedQRCodesID();
+
+                p.setTotal(tScore.toString());
+                p.setHighest(highestId);
+                p.setLowest(lowestId);
+                dbc.SavePlayerByUsername(p);
 
                 dbc.GetAllQrCodeOfUserOneByOne(username, new FirestoreDatabaseCallback() {
                     @Override
@@ -159,7 +185,7 @@ public class ProfileFragment extends Fragment {
                             @Override
                             public <T> void OnDataCallback(T data) {
                                 QrCode ql = (QrCode)data;
-                                Picasso.get().load(ql.getVisualLink()).into(lowest);
+                                Picasso.get().load(ql.getVisualLink()).placeholder(R.drawable.ic_question_mark_black_24dp).into(lowest);
                             }
                         });
                         highestId = list.get((list.size())-1).getKey();
@@ -167,7 +193,7 @@ public class ProfileFragment extends Fragment {
                             @Override
                             public <T> void OnDataCallback(T data) {
                                 QrCode ql = (QrCode)data;
-                                Picasso.get().load(ql.getVisualLink()).into(highest);
+                                Picasso.get().load(ql.getVisualLink()).placeholder(R.drawable.ic_question_mark_black_24dp).into(highest);
                             }
                         });
 
@@ -179,16 +205,24 @@ public class ProfileFragment extends Fragment {
                         totalScore.setText(tScore.toString());
                         tScanned = scores.size();
                         totalScanned.setText(tScanned.toString());
+                        Log.d("LOG", tScore.toString());
+                        p.setTotal(tScore.toString());
+                        p.setHighest(highestId);
+                        p.setLowest(lowestId);
+                        dbc.SavePlayerByUsername(p);
                     }
                 });
             }
         });
-        return root;
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    public void onDeleteQRCode() {
+        updateView();
     }
 }

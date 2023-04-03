@@ -1,8 +1,10 @@
 package com.example.scavengingscannables;
 
 import android.util.Log;
+import android.util.Pair;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -14,6 +16,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Class that handles all Firestore database interactions
@@ -152,12 +155,38 @@ public class FirestoreDatabaseController{
         String playerUsername = player.getUsername();
 
         db.collection(PLAYER_COLLECTION_NAME)
+            .document(playerUsername)
+            .set(player)
+            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void unused) {
+                    Log.d("LOG", "successfully saved" + playerUsername);
+                }
+
+            })
+            .addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.d("LOG", "could not save" + playerUsername);
+                }
+            });
+    }
+
+    /**
+     * Saves a player object into the database
+     * @param player player to be saved
+     */
+    public void SavePlayerByUsername(@NonNull Player player, OnSuccessListener onSuccessListener) {
+        String playerUsername = player.getUsername();
+
+        db.collection(PLAYER_COLLECTION_NAME)
                 .document(playerUsername)
                 .set(player)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
                         Log.d("LOG", "successfully saved" + playerUsername);
+                        onSuccessListener.onSuccess(null);
                     }
 
                 })
@@ -215,6 +244,25 @@ public class FirestoreDatabaseController{
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 for (DocumentSnapshot documentSnapshot:queryDocumentSnapshots.getDocuments()) {
                     callback.OnDataCallback(documentSnapshot.toObject(QrCode.class));
+                }
+            }
+        });
+    }
+
+    public void GetAllQRCodesOneByOneWithConfirmation(FirestoreDatabaseCallback callback){
+        db.collection(QRCODE_COLLECTION_NAME).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                List<DocumentSnapshot> documents = queryDocumentSnapshots.getDocuments();
+                for (int i = 0; i < documents.size(); i++){
+                    DocumentSnapshot documentSnapshot = documents.get(i);
+                    QrCode qrCode = documentSnapshot.toObject(QrCode.class);
+                    Boolean isLast = false;
+                    if (i == documents.size() - 1){
+                        isLast = true;
+                    }
+                    Pair<QrCode, Boolean> dataPair = new Pair<>(qrCode, isLast);
+                    callback.OnDataCallback(dataPair);
                 }
             }
         });

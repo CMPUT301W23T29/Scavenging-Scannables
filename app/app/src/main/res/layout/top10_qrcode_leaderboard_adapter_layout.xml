@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="2dp"
+    android:layout_marginBottom="2dp"
+    android:gravity="center_horizontal"
+    android:background="@drawable/rounded_10p">
+    <TextView
+        android:id="@+id/qrcode_leaderboard_position"
+        android:layout_width="25dp"
+        android:layout_height="20dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:textColor="@color/black"
+        android:layout_centerVertical="true"
+        android:text="#10">
+    </TextView>
+
+    <ImageView
+        android:id="@+id/top10_leaderboard_qrcode_image"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/ic_question_mark_black_24dp"
+        android:layout_toRightOf="@id/qrcode_leaderboard_position"/>
+    <TextView
+        android:id="@+id/top10_leaderboard_qrcode_name"
+        android:layout_width="225dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:textAlignment="center"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:text="Clever Petite Gray Japanese Plastic Crocodile"
+        android:layout_toEndOf="@id/top10_leaderboard_qrcode_image">
+    </TextView>
+    <TextView
+        android:id="@+id/top10_leaderboard_qrcode_score"
+        android:layout_width="225dp"
+        android:layout_height="20dp"
+        android:textAlignment="center"
+        android:text="qrcode_score"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textColor="@color/black"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_below="@id/top10_leaderboard_qrcode_name"
+        android:layout_toRightOf="@id/top10_leaderboard_qrcode_image">
+    </TextView>
+
+
+</RelativeLayout>
