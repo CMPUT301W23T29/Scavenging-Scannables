@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.scavengingscannables.FirestoreDatabaseCallback;
 import com.example.scavengingscannables.FirestoreDatabaseController;
 import com.example.scavengingscannables.Player;
-import com.example.scavengingscannables.QrCode;
+import com.example.scavengingscannables.QRCode;
 import com.example.scavengingscannables.R;
 import com.squareup.picasso.Picasso;
 
@@ -46,7 +46,7 @@ public class OtherPlayerProfileActivity extends AppCompatActivity {
     private final ArrayList<String> scores = new ArrayList<>();
     private String userPhone;
     FirestoreDatabaseController dbc = new FirestoreDatabaseController();
-    private final ArrayList<QrCode> playerQRCodes = new ArrayList<>();
+    private final ArrayList<QRCode> playerQRCodes = new ArrayList<>();
     private RecyclerView recyclerView;
     private ProfileQRCodeAdapter profileQRCodeAdapter;
 
@@ -74,7 +74,7 @@ public class OtherPlayerProfileActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(gridLayoutManager);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        dbc.GetPlayerByUsername(username, new FirestoreDatabaseCallback() {
+        dbc.getPlayerByUsername(username, new FirestoreDatabaseCallback() {
             @Override
             public <T> void OnDataCallback(T data) {
                 Player p = (Player)data;
@@ -89,10 +89,10 @@ public class OtherPlayerProfileActivity extends AppCompatActivity {
                     highest.setImageDrawable(imageNotFound);
                     lowest.setImageDrawable(imageNotFound);
                     phone.setText(userPhone);
-                    dbc.GetAllQrCodeOfUserOneByOne(username, new FirestoreDatabaseCallback() {
+                    dbc.getAllQrCodeOfUserOneByOne(username, new FirestoreDatabaseCallback() {
                         @Override
                         public <T> void OnDataCallback(T data) {
-                            QrCode qrCode = (QrCode) data;
+                            QRCode qrCode = (QRCode) data;
 
                             playerQRCodes.add(qrCode);
                             profileQRCodeAdapter.notifyDataSetChanged();
@@ -106,18 +106,18 @@ public class OtherPlayerProfileActivity extends AppCompatActivity {
                                 }
                             });
                             lowestId = list.get(0).getKey();
-                            dbc.GetQRCodeByID(lowestId, new FirestoreDatabaseCallback() {
+                            dbc.getQRCodeByID(lowestId, new FirestoreDatabaseCallback() {
                                 @Override
                                 public <T> void OnDataCallback(T data) {
-                                    QrCode ql = (QrCode)data;
+                                    QRCode ql = (QRCode)data;
                                     Picasso.get().load(ql.getVisualLink()).into(lowest);
                                 }
                             });
                             highestId = list.get((list.size())-1).getKey();
-                            dbc.GetQRCodeByID(highestId, new FirestoreDatabaseCallback() {
+                            dbc.getQRCodeByID(highestId, new FirestoreDatabaseCallback() {
                                 @Override
                                 public <T> void OnDataCallback(T data) {
-                                    QrCode ql = (QrCode)data;
+                                    QRCode ql = (QRCode)data;
                                     Picasso.get().load(ql.getVisualLink()).into(highest);
                                 }
                             });

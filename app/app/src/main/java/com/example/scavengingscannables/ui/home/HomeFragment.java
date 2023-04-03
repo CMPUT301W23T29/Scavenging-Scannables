@@ -3,15 +3,11 @@ package com.example.scavengingscannables.ui.home;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -22,17 +18,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.scavengingscannables.FirestoreDatabaseCallback;
 import com.example.scavengingscannables.FirestoreDatabaseController;
 import com.example.scavengingscannables.Player;
-import com.example.scavengingscannables.QrCode;
+import com.example.scavengingscannables.QRCode;
 import com.example.scavengingscannables.R;
 import com.example.scavengingscannables.databinding.FragmentHomeBinding;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Home fragment, which will host the leaderboards in the future
@@ -49,7 +41,7 @@ public class HomeFragment extends Fragment {
     private final ArrayList<Player> top10Players = new ArrayList<>();
     private RecyclerView top10QRCodeLeaderboardRecyclerView;
     private Top10QRCodeLeaderboardAdapter top10QRCodeLeaderboardAdapter;
-    private final ArrayList<QrCode> allQRCodes = new ArrayList<>();
+    private final ArrayList<QRCode> allQRCodes = new ArrayList<>();
     private ImageView top1;
     private ImageView top2;
     private ImageView top3;
@@ -95,17 +87,17 @@ public class HomeFragment extends Fragment {
         allQRCodes.clear();
 
         // populate top 10 qrcodes recycler view
-        dbc.GetAllQRCodesOneByOneWithConfirmation(new FirestoreDatabaseCallback() {
+        dbc.getAllQRCodesOneByOneWithConfirmation(new FirestoreDatabaseCallback() {
             @Override
             public <T> void OnDataCallback(T data) {
-                Pair<QrCode, Boolean> dataPair = (Pair<QrCode, Boolean>) data;
+                Pair<QRCode, Boolean> dataPair = (Pair<QRCode, Boolean>) data;
 
-                QrCode qrCode = dataPair.first;
+                QRCode qrCode = dataPair.first;
                 Boolean isFinal = dataPair.second;
                 allQRCodes.add(qrCode);
-                allQRCodes.sort(new Comparator<QrCode>() {
+                allQRCodes.sort(new Comparator<QRCode>() {
                     @Override
-                    public int compare(QrCode q1, QrCode q2) {
+                    public int compare(QRCode q1, QRCode q2) {
                         return Integer.parseInt(q2.getScore()) - Integer.parseInt(q1.getScore());
                     }
                 });
@@ -126,12 +118,12 @@ public class HomeFragment extends Fragment {
         });
 
         // populate top 10 players
-        dbc.GetAllUsernames(new FirestoreDatabaseCallback() {
+        dbc.getAllUsernames(new FirestoreDatabaseCallback() {
             @Override
             public <T> void OnDataCallback(T data) {
                 allUsernames = (ArrayList<String>) data;
                 for (String username:allUsernames) {
-                    dbc.GetPlayerByUsername(username, new FirestoreDatabaseCallback() {
+                    dbc.getPlayerByUsername(username, new FirestoreDatabaseCallback() {
                         @Override
                         public <T> void OnDataCallback(T data) {
                             Player p = (Player) data;

@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.scavengingscannables.FirestoreDatabaseCallback;
 import com.example.scavengingscannables.FirestoreDatabaseController;
 import com.example.scavengingscannables.Player;
-import com.example.scavengingscannables.QrCode;
+import com.example.scavengingscannables.QRCode;
 import com.example.scavengingscannables.R;
 import com.example.scavengingscannables.ui.map.DetailQrCode;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -29,14 +29,14 @@ import java.util.ArrayList;
  */
 public class ProfileQRCodeAdapter extends RecyclerView.Adapter<ProfileQRCodeAdapter.ViewHolder> {
 
-    private final ArrayList<QrCode> qrCodes;
+    private final ArrayList<QRCode> QRCodes;
     private final String username;
     private final ProfileQRCodeAdapter profileQRCodeAdapter;
 
     private ProfileDeleteQRCodeCallback callback = null;
 
-    public ProfileQRCodeAdapter(ArrayList<QrCode> qrCodes, String username) {
-        this.qrCodes = qrCodes;
+    public ProfileQRCodeAdapter(ArrayList<QRCode> QRCodes, String username) {
+        this.QRCodes = QRCodes;
         this.username = username;
         this.profileQRCodeAdapter = this;
     }
@@ -54,7 +54,7 @@ public class ProfileQRCodeAdapter extends RecyclerView.Adapter<ProfileQRCodeAdap
 
     @Override
     public void onBindViewHolder(ProfileQRCodeAdapter.ViewHolder viewHolder, int position) {
-        QrCode qrCode = this.qrCodes.get(position);
+        QRCode qrCode = this.QRCodes.get(position);
         Picasso.get().load(qrCode.getVisualLink()).placeholder(R.drawable.ic_question_mark_black_24dp).into(viewHolder.getImageView());
         //viewHolder.getImageView().setContentDescription(qrCode.getqrId());
         viewHolder.getImageView().setOnClickListener(new View.OnClickListener() {
@@ -76,15 +76,15 @@ public class ProfileQRCodeAdapter extends RecyclerView.Adapter<ProfileQRCodeAdap
         });
         FirestoreDatabaseController dbc = new FirestoreDatabaseController();
         builder.setNegativeButton("yes", (dialog, which) -> {
-            qrCodes.remove(qrCode);
-            dbc.GetPlayerByUsername(username, new FirestoreDatabaseCallback() {
+            QRCodes.remove(qrCode);
+            dbc.getPlayerByUsername(username, new FirestoreDatabaseCallback() {
                 @Override
                 public <T> void OnDataCallback(T data) {
                     Player p = (Player) data;
                     p.RemoveQRCodeByID(qrCode.getqrId());
                     qrCode.RemoveOwnedBy(username);
-                    dbc.SaveQRCodeByID(qrCode);
-                    dbc.SavePlayerByUsername(p, new OnSuccessListener() {
+                    dbc.saveQRCodeByID(qrCode);
+                    dbc.savePlayerByUsername(p, new OnSuccessListener() {
                         @Override
                         public void onSuccess(Object o) {
                             if (callback != null){
@@ -118,7 +118,7 @@ public class ProfileQRCodeAdapter extends RecyclerView.Adapter<ProfileQRCodeAdap
 
     @Override
     public int getItemCount() {
-        return this.qrCodes.size();
+        return this.QRCodes.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{

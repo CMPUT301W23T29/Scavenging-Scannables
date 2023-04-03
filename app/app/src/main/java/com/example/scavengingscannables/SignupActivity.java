@@ -31,7 +31,7 @@ public class SignupActivity extends AppCompatActivity {
         // checks if current device has a registered account
         SharedPreferences sharedPref = getSharedPreferences("account", Context.MODE_PRIVATE);
         String username = sharedPref.getString("username", " ");
-        dbc.CheckUsernameExists(username, new FirestoreDatabaseCallback() {
+        dbc.checkUsernameExists(username, new FirestoreDatabaseCallback() {
             // account exists in database
             @Override
             public void OnDocumentExists() {
@@ -88,7 +88,7 @@ public class SignupActivity extends AppCompatActivity {
                         }
                         // only allows creating if username does not exist in database
                         Long finalPhoneNumber = phoneNumber;
-                        dbc.CheckUsernameExists(username, new FirestoreDatabaseCallback() {
+                        dbc.checkUsernameExists(username, new FirestoreDatabaseCallback() {
                             // username does exist, prevent signup
                             @Override
                             public void OnDocumentExists() {
@@ -103,7 +103,7 @@ public class SignupActivity extends AppCompatActivity {
                                 String lowest = "";
                                 String total = "0";
                                 Player newPlayer = new Player(username, firstName, lastName, finalPhoneNumber, email, hide,highest,lowest,total);
-                                dbc.SavePlayerByUsername(newPlayer);
+                                dbc.savePlayerByUsername(newPlayer);
 
                                 // saves username to local file for future logins
                                 SharedPreferences.Editor editor = sharedPref.edit();

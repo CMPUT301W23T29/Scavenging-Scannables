@@ -32,7 +32,7 @@ public class PlayerHandler implements FirestoreDatabaseCallback {
             Toast.makeText(activity, "You have already scanned this QR code", Toast.LENGTH_LONG).show();
         } else {
             player.AddQRCodeByID(codeID);
-            fdc.SavePlayerByUsername(player);
+            fdc.savePlayerByUsername(player);
         }
     }
 

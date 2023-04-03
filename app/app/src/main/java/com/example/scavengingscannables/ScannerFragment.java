@@ -70,7 +70,7 @@ public class ScannerFragment extends Fragment implements FirestoreDatabaseCallba
                         // Pass in everything we'll need to create a new QR code and save it to the database
                         qrch = new QRCodeHandler(getActivity(), sha256hex, score, fdc, locationMap, image, username);
 
-                        fdc.CheckQRIDExists(sha256hex, qrch);
+                        fdc.checkQRIDExists(sha256hex, qrch);
                     }
                 }
             }
@@ -104,7 +104,7 @@ public class ScannerFragment extends Fragment implements FirestoreDatabaseCallba
                         // Generate a score for the hash
                         score = scrsys.generateScore(sha256hex);
 
-                        fdc.GetPlayerByUsername(username, ScannerFragment.this);
+                        fdc.getPlayerByUsername(username, ScannerFragment.this);
                     }
                 });
             }
@@ -178,7 +178,7 @@ public class ScannerFragment extends Fragment implements FirestoreDatabaseCallba
             Toast.makeText(getActivity(), "Your score is: " + score,Toast.LENGTH_SHORT).show();
 
             player.AddQRCodeByID(sha256hex);
-            fdc.SavePlayerByUsername(player);
+            fdc.savePlayerByUsername(player);
 
             askForPhoto();
             askLocationPermissions();
@@ -214,7 +214,7 @@ public class ScannerFragment extends Fragment implements FirestoreDatabaseCallba
                         qrch = new QRCodeHandler(getActivity(), sha256hex, score, fdc, locationMap, image, username);
 
                         // Check if the QR code we scanned already exists in the database
-                        fdc.CheckQRIDExists(sha256hex, qrch);
+                        fdc.checkQRIDExists(sha256hex, qrch);
                     }
                 })
                 .setOnCancelListener(new DialogInterface.OnCancelListener() {
@@ -225,7 +225,7 @@ public class ScannerFragment extends Fragment implements FirestoreDatabaseCallba
                         qrch = new QRCodeHandler(getActivity(), sha256hex, score, fdc, locationMap, image, username);
 
                         // Check if the QR code we scanned already exists in the database
-                        fdc.CheckQRIDExists(sha256hex, qrch);
+                        fdc.checkQRIDExists(sha256hex, qrch);
                     }
                 })
                 .create().show();

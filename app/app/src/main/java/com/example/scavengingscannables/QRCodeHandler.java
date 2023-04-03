@@ -47,7 +47,7 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
     // When the existing QR code is retrieved or the player is retrieved
     @Override
     public <T> void OnDataCallback(T data) {
-        editExistingQRCode((QrCode) data);
+        editExistingQRCode((QRCode) data);
 
         // Add QR code id to user's list of codes
     }
@@ -55,7 +55,7 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
     // If the QR code exists
     @Override
     public void OnDocumentExists() {
-        fdc.GetQRCodeByID(hash, this);
+        fdc.getQRCodeByID(hash, this);
     }
 
     // If the QR code doesn't exist
@@ -100,17 +100,17 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
         qrCodeImageLocationInfoList.add(qrCodeImageLocationInfo);
 
         // Create a QR code using the data we've generated
-        QrCode newCode = new QrCode(hash, Integer.toString(score), hashedName,  comments, ownedBy, qrCodeImageLocationInfoList);
+        QRCode newCode = new QRCode(hash, Integer.toString(score), hashedName,  comments, ownedBy, qrCodeImageLocationInfoList);
 
         // Save the new QR code to the database
-        fdc.SaveQRCodeByID(newCode);
+        fdc.saveQRCodeByID(newCode);
     }
 
     /**
      * Edits an existing QR code object by adding the current user to the QR code's list of players who have scanned it
      * @param qrcode the QR code to edit
      */
-    private void editExistingQRCode(QrCode qrcode) {
+    private void editExistingQRCode(QRCode qrcode) {
         // If there is no image, we'll set storePhoto to false
         if (image == null) {
             storePhoto = true;
@@ -131,7 +131,7 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
         ArrayList<String> ownedBy = qrcode.getOwnedBy();
         if (!ownedBy.contains(username)) {
             qrcode.getOwnedBy().add(username);
-            fdc.SaveQRCodeByID(qrcode);
+            fdc.saveQRCodeByID(qrcode);
         }
     }
 

@@ -6,7 +6,7 @@ import java.util.HashMap;
 /**
  * Stores all the information about a scanned qr code
  */
-public class QrCode {
+public class QRCode {
     public void setQrId(String qrId) {
         this.qrId = qrId;
     }
@@ -20,9 +20,9 @@ public class QrCode {
     private ArrayList<QRCodeImageLocationInfo> qrCodeImageLocationInfoList;
 
     // to allow firestore to save custom classes
-    public QrCode(){}
+    public QRCode(){}
 
-    public QrCode(String qrId, String score, String nameText, HashMap<String, String> comments, ArrayList<String> ownedBy, ArrayList<QRCodeImageLocationInfo> qrCodeImageLocationInfoList) {
+    public QRCode(String qrId, String score, String nameText, HashMap<String, String> comments, ArrayList<String> ownedBy, ArrayList<QRCodeImageLocationInfo> qrCodeImageLocationInfoList) {
         this.qrId = qrId;
         this.score = score;
         this.nameText = nameText;
