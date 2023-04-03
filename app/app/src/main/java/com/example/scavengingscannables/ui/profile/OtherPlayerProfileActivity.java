@@ -1,23 +1,16 @@
 package com.example.scavengingscannables.ui.profile;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.scavengingscannables.FirestoreDatabaseCallback;
@@ -25,7 +18,6 @@ import com.example.scavengingscannables.FirestoreDatabaseController;
 import com.example.scavengingscannables.Player;
 import com.example.scavengingscannables.QrCode;
 import com.example.scavengingscannables.R;
-import com.example.scavengingscannables.databinding.FragmentProfileBinding;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -35,6 +27,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Views other players' profiles
+ */
 public class OtherPlayerProfileActivity extends AppCompatActivity {
     private TextView usernameView;
     private TextView phone;
@@ -51,7 +46,7 @@ public class OtherPlayerProfileActivity extends AppCompatActivity {
     private final ArrayList<String> scores = new ArrayList<>();
     private String userPhone;
     FirestoreDatabaseController dbc = new FirestoreDatabaseController();
-    private ArrayList<QrCode> playerQRCodes = new ArrayList<>();
+    private final ArrayList<QrCode> playerQRCodes = new ArrayList<>();
     private RecyclerView recyclerView;
     private ProfileQRCodeAdapter profileQRCodeAdapter;
 

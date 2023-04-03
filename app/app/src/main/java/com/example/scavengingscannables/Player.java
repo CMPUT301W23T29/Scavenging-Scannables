@@ -68,12 +68,17 @@ public class Player {
     public Boolean getHide(){return hide;}
 
     public void setHide(Boolean b){this.hide = b;}
-    public void setHighest(String hid){this.highest = hid;};
-    public String getHighest(){return highest;};
-    public void setLowest(String lid){this.lowest = lid;};
-    public String getLowest(){return lowest;};
-    public void setTotal(String total){this.total = total;};
-    public String getTotal(){return total;};
+    public void setHighest(String hid){this.highest = hid;}
+
+    public String getHighest(){return highest;}
+
+    public void setLowest(String lid){this.lowest = lid;}
+
+    public String getLowest(){return lowest;}
+
+    public void setTotal(String total){this.total = total;}
+
+    public String getTotal(){return total;}
 
     public Long getPhoneNumber() {
         return phoneNumber;

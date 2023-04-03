@@ -12,11 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.scavengingscannables.QRCodeImageLocationInfo;
 import com.example.scavengingscannables.R;
 import com.example.scavengingscannables.databinding.DetailQrcodeLocationsBinding;
-import com.example.scavengingscannables.databinding.DetailQrcodeOthersBinding;
-import com.example.scavengingscannables.ui.search.SearchResultAdapter;
 
 import java.util.ArrayList;
 
+/**
+ * Fragment to display the image locations
+ */
 public class DetailQRCodeImagesFragment extends Fragment {
     private ArrayList<QRCodeImageLocationInfo> qrCodeImageLocationInfos = null;
     private RecyclerView othersView;

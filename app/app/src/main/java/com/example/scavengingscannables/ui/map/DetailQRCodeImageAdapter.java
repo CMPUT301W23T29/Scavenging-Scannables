@@ -1,6 +1,5 @@
 package com.example.scavengingscannables.ui.map;
 
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,14 +11,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.scavengingscannables.QRCodeImageLocationInfo;
 import com.example.scavengingscannables.R;
-import com.example.scavengingscannables.ui.home.DisplaySearch;
-import com.example.scavengingscannables.ui.search.SearchResultAdapter;
 import com.google.firebase.firestore.GeoPoint;
 
 import java.util.ArrayList;
 
+/**
+ * Adapter for qrcode image locations
+ */
 public class DetailQRCodeImageAdapter extends RecyclerView.Adapter<DetailQRCodeImageAdapter.ViewHolder>{
-    private ArrayList<QRCodeImageLocationInfo> qrCodeImageLocationInfos;
+    private final ArrayList<QRCodeImageLocationInfo> qrCodeImageLocationInfos;
 
     public DetailQRCodeImageAdapter(ArrayList<QRCodeImageLocationInfo> qrCodeImageLocationInfos) {
         this.qrCodeImageLocationInfos = qrCodeImageLocationInfos;
@@ -58,7 +58,7 @@ public class DetailQRCodeImageAdapter extends RecyclerView.Adapter<DetailQRCodeI
             viewHolder.getTextView().setText("This location is private.");
         }else{
             GeoPoint gp = qrCodeImageLocationInfo.getImageLocation();
-            String latLongString = String.format("(%s, %s)", String.valueOf(gp.getLatitude()), String.valueOf(gp.getLongitude()));
+            String latLongString = String.format("(%s, %s)", gp.getLatitude(), gp.getLongitude());
             viewHolder.getTextView().setText(latLongString);
         }
 

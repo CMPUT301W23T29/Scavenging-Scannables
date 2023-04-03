@@ -3,22 +3,21 @@ package com.example.scavengingscannables.ui.map;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.scavengingscannables.QRCodeImageLocationInfo;
 import com.example.scavengingscannables.R;
 import com.example.scavengingscannables.ui.profile.Comment;
-import com.example.scavengingscannables.ui.profile.CommentsActivity;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
+/**
+ * Adapter for detailed qrcode comments
+ */
 public class DetailQRCodeCommentAdapter extends RecyclerView.Adapter<DetailQRCodeCommentAdapter.ViewHolder>{
-    private ArrayList<Comment> comments;
+    private final ArrayList<Comment> comments;
 
     public DetailQRCodeCommentAdapter(ArrayList<Comment> comments) {
         this.comments = comments;

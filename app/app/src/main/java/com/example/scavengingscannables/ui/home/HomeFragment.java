@@ -1,7 +1,6 @@
 package com.example.scavengingscannables.ui.home;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,10 +8,7 @@ import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Switch;
@@ -20,7 +16,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,19 +25,14 @@ import com.example.scavengingscannables.Player;
 import com.example.scavengingscannables.QrCode;
 import com.example.scavengingscannables.R;
 import com.example.scavengingscannables.databinding.FragmentHomeBinding;
-import com.example.scavengingscannables.ui.profile.OtherPlayerProfileActivity;
-import com.example.scavengingscannables.ui.search.SearchResultAdapter;
-import com.google.zxing.qrcode.encoder.QRCode;
 import com.squareup.picasso.Picasso;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * Home fragment, which will host the leaderboards in the future
@@ -51,29 +41,15 @@ public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
     private String name;
-    private String highest;
     FirestoreDatabaseController dbc = new FirestoreDatabaseController();
-    private String highestId;
-    private String lowestId;
-    private Integer tScore = 0;
-    private ListView top10;
-    private boolean s = false;
-    private Switch changeTop10;
     ArrayList<String> allUsernames = new ArrayList<>();
-    private final ArrayList<String> scores = new ArrayList<>();
-    private final HashMap<String,Integer> lowestHighest = new HashMap<>();
-    private final HashMap<String,Integer> lowestHighest1 = new HashMap<>();
-    private ArrayList<String> qrCodes = new ArrayList<>();
-    ArrayAdapter<String> searchResultAdapter;
-    ArrayList<String> output = new ArrayList<>();
-    ArrayList<String> output1 = new ArrayList<>();
     private RecyclerView top10LeaderboardRecyclerView;
     private Top10LeaderboardAdapter top10LeaderboardAdapter;
-    private ArrayList<Player> allPlayers = new ArrayList<>();
-    private ArrayList<Player> top10Players = new ArrayList<>();
+    private final ArrayList<Player> allPlayers = new ArrayList<>();
+    private final ArrayList<Player> top10Players = new ArrayList<>();
     private RecyclerView top10QRCodeLeaderboardRecyclerView;
     private Top10QRCodeLeaderboardAdapter top10QRCodeLeaderboardAdapter;
-    private ArrayList<QrCode> allQRCodes = new ArrayList<>();
+    private final ArrayList<QrCode> allQRCodes = new ArrayList<>();
     private ImageView top1;
     private ImageView top2;
     private ImageView top3;
@@ -85,7 +61,6 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        searchResultAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, output);
         SharedPreferences sharedPref = getActivity().getSharedPreferences("account", Context.MODE_PRIVATE);
         name = sharedPref.getString("username", "ERROR NO USERNAME FOUND");
 
@@ -192,99 +167,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        /**
-        dbc.GetPlayerByUsername(name, new FirestoreDatabaseCallback() {
-                    @Override
-                    public <T> void OnDataCallback(T data) {
-            Player p = (Player) data;
-            qrCodes = p.getScannedQRCodesID();
-            if (qrCodes.size() > 0) {
-                scores.clear();
-                for (int i = 0; i < qrCodes.size(); i++) {
-                    String qrcode = qrCodes.get(i);
-                    dbc.GetQRCodeByID(qrcode, new FirestoreDatabaseCallback() {
-                        @Override
-                        public <T> void OnDataCallback(T data) {
-                        QrCode q = (QrCode) data;
-                        lowestHighest.put(qrcode, Integer.valueOf(q.getScore()));
-                        List<Map.Entry<String, Integer>> list = new ArrayList<Map.Entry<String, Integer>>(lowestHighest.entrySet());
-                        Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
-                            @Override
-                            public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
-                                return o1.getValue().compareTo(o2.getValue());
-                            }
-                        });
-                        lowestId = list.get(0).getKey();
-                        p.setLowest(lowestId);
-                        highestId = list.get((list.size()) - 1).getKey();
-                        p.setHighest(highestId);
-                        scores.add(q.getScore());
-                        tScore = 0;
-                        for (int i=0;i<scores.size();i++) {
-                            tScore += Integer.parseInt(scores.get(i));
-                        }
-                        p.setTotal(String.valueOf(tScore));
-                        dbc.SavePlayerByUsername(p);
-                        }
-                    });
-                }
-            }else{
-                p.setTotal("0");
-                dbc.SavePlayerByUsername(p);
-            }
-            }
-        });
-        updateView();
-         **/
         return root;
-    }
-
-    private void updateView(){
-        dbc.GetAllUsernames(new FirestoreDatabaseCallback() {
-            @Override
-            public <T> void OnDataCallback(T data) {
-            allUsernames = (ArrayList<String>) data;
-            Log.d("SEARCH1", String.valueOf(allUsernames));
-            for (int i = 0; i < allUsernames.size(); i++) {
-
-                int finalI = i;
-                dbc.GetPlayerByUsername(allUsernames.get(i), new FirestoreDatabaseCallback() {
-                    @Override
-                    public <T> void OnDataCallback(T data) {
-                    Player p = (Player) data;
-                    String username = p.getUsername();
-                    lowestHighest1.put(username, Integer.valueOf(p.getTotal()));
-                    List<Map.Entry<String, Integer>> list = new ArrayList<Map.Entry<String, Integer>>(lowestHighest1.entrySet());
-                    Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
-                        @Override
-                        public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
-                            return o1.getValue().compareTo(o2.getValue());
-                        }
-                    });
-                    if(list.size() <= 10){
-                        output.clear();
-                        output1.clear();
-                        searchResultAdapter.clear();
-                        top10.setAdapter(searchResultAdapter);
-                        for(int j=1;j<list.size()+1;j++){
-                            output.add(list.get(list.size()-j).getKey()+": "+list.get(list.size()-j).getValue());
-                            output1.add(list.get(list.size()-j).getKey());
-                        }
-                    }else {
-                        output.clear();
-                        output1.clear();
-                        searchResultAdapter.clear();
-                        top10.setAdapter(searchResultAdapter);
-                        for (int j = 1; j < 11; j++) {
-                            output.add(list.get(list.size()-j).getKey()+": "+list.get(list.size()-j).getValue());
-                            output1.add(list.get(list.size()-j).getKey());
-                        }
-                    }
-                    }
-                });
-            }
-            }
-        });
     }
 
     @Override

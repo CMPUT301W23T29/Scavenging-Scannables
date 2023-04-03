@@ -1,12 +1,7 @@
 package com.example.scavengingscannables.ui.profile;
 
-import android.Manifest;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,20 +11,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.scavengingscannables.FirestoreDatabaseCallback;
 import com.example.scavengingscannables.FirestoreDatabaseController;
-import com.example.scavengingscannables.MainActivity;
 import com.example.scavengingscannables.Player;
 import com.example.scavengingscannables.QrCode;
 import com.example.scavengingscannables.R;
@@ -49,10 +38,7 @@ import java.util.Map;
 public class ProfileFragment extends Fragment implements ProfileDeleteQRCodeCallback{
 
     private FragmentProfileBinding binding;
-    Button viewQrCodes;
-
     Switch hideProfile;
-    private TextView usernameView;
     private TextView phone;
     private TextView totalScanned;
     private TextView totalScore;
@@ -60,17 +46,15 @@ public class ProfileFragment extends Fragment implements ProfileDeleteQRCodeCall
     private String highestId;
     private ImageView lowest;
     private String lowestId;
-    private HashMap<String,Integer> lowestHighest = new HashMap<>();
-    private ArrayList<String> qrCodes = new ArrayList<>();
+    private final HashMap<String,Integer> lowestHighest = new HashMap<>();
     String username;
     static String name;
     private Integer tScore = 0;
     private Integer tScanned = 0;
-    private ArrayList<String> scores = new ArrayList<>();
+    private final ArrayList<String> scores = new ArrayList<>();
     private String userPhone;
     FirestoreDatabaseController dbc = new FirestoreDatabaseController();
-    private ArrayList<QrCode> playerQRCodes = new ArrayList<>();
-    private RecyclerView recyclerView;
+    private final ArrayList<QrCode> playerQRCodes = new ArrayList<>();
     private ProfileQRCodeAdapter profileQRCodeAdapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -87,7 +71,7 @@ public class ProfileFragment extends Fragment implements ProfileDeleteQRCodeCall
         lowest = root.findViewById(R.id.n_image_lowest_qr);
 
         SharedPreferences sharedPref = getActivity().getSharedPreferences("account", Context.MODE_PRIVATE);
-        usernameView = root.findViewById(R.id.user_name);
+        TextView usernameView = root.findViewById(R.id.user_name);
         username = sharedPref.getString("username", "ERROR NO USERNAME FOUND");
         usernameView.setText(username);
         name = username;
@@ -108,12 +92,7 @@ public class ProfileFragment extends Fragment implements ProfileDeleteQRCodeCall
                     @Override
                     public <T> void OnDataCallback(T data) {
                         Player p = (Player)data;
-                        if (hideProfile.isChecked()) {
-                            p.setHide(true);
-                        }
-                        else{
-                            p.setHide(false);
-                        }
+                        p.setHide(hideProfile.isChecked());
                         dbc.SavePlayerByUsername(p);
                     }
                 });
@@ -121,10 +100,10 @@ public class ProfileFragment extends Fragment implements ProfileDeleteQRCodeCall
             }
         });
 
-        this.recyclerView = root.findViewById(R.id.profile_recycler_view);
+        RecyclerView recyclerView = root.findViewById(R.id.profile_recycler_view);
         this.profileQRCodeAdapter = new ProfileQRCodeAdapter(this.playerQRCodes, username);
         this.profileQRCodeAdapter.setCallback(this);
-        this.recyclerView.setAdapter(profileQRCodeAdapter);
+        recyclerView.setAdapter(profileQRCodeAdapter);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 5);
         recyclerView.setLayoutManager(gridLayoutManager);
 
@@ -157,7 +136,6 @@ public class ProfileFragment extends Fragment implements ProfileDeleteQRCodeCall
                 Player p = (Player)data;
                 userPhone = p.getPhoneNumber().toString();
                 phone.setText(userPhone);
-                qrCodes = p.getScannedQRCodesID();
 
                 p.setTotal(tScore.toString());
                 p.setHighest(highestId);

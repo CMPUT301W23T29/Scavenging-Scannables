@@ -13,7 +13,10 @@ public class PlayerUnitTest {
         Long phoneNumber = 7801234567L;
         String email = "abc@abc.com";
         Boolean hide = false;
-        player = new Player(username, firstName, lastName, phoneNumber, email, hide);
+        String highest = "";
+        String lowest = "";
+        String total = "0";
+        player = new Player(username, firstName, lastName, phoneNumber, email, hide, highest, lowest, total);
     }
 
     @Test

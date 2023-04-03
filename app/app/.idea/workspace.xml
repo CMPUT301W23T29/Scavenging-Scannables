@@ -10,25 +10,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5a6dc418-099c-421b-923e-a73ecd0df46b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/home/Top10LeaderboardAdapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/home/Top10QRCodeLeaderboardAdapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/profile/ProfileDeleteQRCodeCallback.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/rounded_10p.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/res/layout/top10_leaderboard_adapter_layout.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/res/layout/top10_qrcode_leaderboard_adapter_layout.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/FirestoreDatabaseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/FirestoreDatabaseController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/home/HomeFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/home/HomeFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/home/Top10LeaderboardAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/home/Top10LeaderboardAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/home/Top10QRCodeLeaderboardAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/home/Top10QRCodeLeaderboardAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/map/DetailQRCodeCommentAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/map/DetailQRCodeCommentAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/map/DetailQRCodeCommentFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/map/DetailQRCodeCommentFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/map/DetailQRCodeImageAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/map/DetailQRCodeImageAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/map/DetailQRCodeImagesFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/map/DetailQRCodeImagesFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/map/DetailQRCodeOthersFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/map/DetailQRCodeOthersFragment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/map/DetailQrCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/map/DetailQrCode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/profile/ProfileFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/profile/ProfileFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/map/MapFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/map/MapFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/profile/OtherPlayerProfileActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/profile/OtherPlayerProfileActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/profile/ProfileDeleteQRCodeCallback.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/profile/ProfileDeleteQRCodeCallback.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/profile/ProfileQRCodeAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/profile/ProfileQRCodeAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_main.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_home.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_home.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values/colors.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/values/themes.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values/themes.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/search/SearchFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/search/SearchFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/search/SearchResultAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scavengingscannables/ui/search/SearchResultAdapter.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,10 +79,15 @@
       <list>
         <option value="resourceFile" />
         <option value="layoutResourceFile" />
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
+  </component>
+  <component name="GenerateSignedApkSettings">
+    <option name="KEY_STORE_PATH" value="D:\scavenging scannables key.jks" />
+    <option name="KEY_ALIAS" value="key0" />
+    <option name="BUILD_TARGET_KEY" value="apk" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
@@ -104,18 +104,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;android-custom-viewD:/Scavenging-Scannables/app/app/src/main/java/com/example/scavengingscannables/ui/map/WrapContentViewPager.java_SELECTED&quot;: &quot;WrapContentViewPager&quot;,
-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Scavenging-Scannables/app/app&quot;,
-    &quot;memory.settings.postsync.last.time.stamp&quot;: &quot;1678359591955&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ApkExportedModule": "Scavenging_Scannables.app",
+    "ExportApk.ApkPathForScavenging_Scannables.app": "D:\\Scavenging-Scannables\\app\\app",
+    "PROJECT_TRUSTED_KEY": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "android-custom-viewD:/Scavenging-Scannables/app/app/src/main/java/com/example/scavengingscannables/ui/map/WrapContentViewPager.java_SELECTED": "WrapContentViewPager",
+    "cidr.known.project.marker": "true",
+    "com.google.services.firebase.aqiPopupShown": "true",
+    "last_opened_file_path": "D:/Scavenging-Scannables/app/app",
+    "memory.settings.postsync.last.time.stamp": "1678359591955",
+    "run.code.analysis.last.selected.profile": "pProject Default"
+  },
+  "keyToStringList": {
+    "ExportApk.BuildVariants": [
+      "release"
+    ]
   }
-}</component>
-  <component name="RunManager">
+}]]></component>
+  <component name="RunManager" selected="Android App.app">
     <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App">
       <module name="Scavenging_Scannables.app.main" />
       <option name="DEPLOY" value="true" />
@@ -174,6 +184,88 @@
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Tests in 'com.example.scavengingscannables'" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests" temporary="true" nameIsGenerated="true">
+      <module name="Scavenging_Scannables.app.androidTest" />
+      <option name="TESTING_TYPE" value="1" />
+      <option name="METHOD_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="PACKAGE_NAME" value="com.example.scavengingscannables" />
+      <option name="TEST_NAME_REGEX" value="" />
+      <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
+      <option name="EXTRA_OPTIONS" value="" />
+      <option name="RETENTION_ENABLED" value="No" />
+      <option name="RETENTION_MAX_SNAPSHOTS" value="2" />
+      <option name="RETENTION_COMPRESS_SNAPSHOTS" value="false" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="INSPECTION_WITHOUT_ACTIVITY_RESTART" value="false" />
+      <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <option name="DEBUGGER_TYPE" value="Auto" />
+      <Auto>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Auto>
+      <Hybrid>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Hybrid>
+      <Java />
+      <Native>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Native>
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Java/Kotlin Method Sample (legacy)" />
+        <option name="STARTUP_NATIVE_MEMORY_PROFILING_ENABLED" value="false" />
+        <option name="NATIVE_MEMORY_SAMPLE_RATE_BYTES" value="2048" />
+      </Profilers>
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Tests in 'com.example.scavengingscannables'" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":app:testDebugUnitTest" />
+            <option value="--tests" />
+            <option value="&quot;com.example.scavengingscannables.*&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Android Instrumented Tests.Tests in 'com.example.scavengingscannables'" />
+        <item itemvalue="Gradle.Tests in 'com.example.scavengingscannables'" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">

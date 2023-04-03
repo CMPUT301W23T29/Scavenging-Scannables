@@ -1,26 +1,24 @@
 package com.example.scavengingscannables.ui.search;
 
-import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.scavengingscannables.Player;
 import com.example.scavengingscannables.R;
-import com.example.scavengingscannables.ui.home.DisplaySearch;
-import com.example.scavengingscannables.ui.home.FindUserActivity;
 import com.example.scavengingscannables.ui.profile.OtherPlayerProfileActivity;
 
 import java.util.ArrayList;
 
+/**
+ * Adapter for search results
+ */
 public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapter.ViewHolder> {
-    private ArrayList<String> usernames;
+    private final ArrayList<String> usernames;
 
     public SearchResultAdapter(ArrayList<String> usernames){
         this.usernames = usernames;

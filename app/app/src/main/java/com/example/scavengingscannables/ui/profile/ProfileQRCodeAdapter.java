@@ -4,13 +4,11 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.Image;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,19 +18,20 @@ import com.example.scavengingscannables.FirestoreDatabaseController;
 import com.example.scavengingscannables.Player;
 import com.example.scavengingscannables.QrCode;
 import com.example.scavengingscannables.R;
-import com.example.scavengingscannables.ui.home.DisplaySearch;
 import com.example.scavengingscannables.ui.map.DetailQrCode;
-import com.example.scavengingscannables.ui.search.SearchResultAdapter;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+/**
+ * Adapter to display qrcodes in the grid
+ */
 public class ProfileQRCodeAdapter extends RecyclerView.Adapter<ProfileQRCodeAdapter.ViewHolder> {
 
-    private ArrayList<QrCode> qrCodes;
-    private String username;
-    private ProfileQRCodeAdapter profileQRCodeAdapter;
+    private final ArrayList<QrCode> qrCodes;
+    private final String username;
+    private final ProfileQRCodeAdapter profileQRCodeAdapter;
 
     private ProfileDeleteQRCodeCallback callback = null;
 

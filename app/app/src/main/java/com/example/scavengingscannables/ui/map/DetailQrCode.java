@@ -4,7 +4,6 @@ package com.example.scavengingscannables.ui.map;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -25,17 +24,15 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-
+/**
+ * Allows to open and view individual qr codes
+ */
 public class DetailQrCode extends AppCompatActivity {
 
     String id;
-    Button back;
     TextView name;
     TextView score;
-    TextView comment;
-    TextView other;
     ImageView image;
-
     private TabLayout tabLayout;
     private ViewPager2 viewPager;
     private QrCode qrCode;
@@ -46,12 +43,9 @@ public class DetailQrCode extends AppCompatActivity {
         setContentView(R.layout.activity_show_qrcode);
         Intent intent = getIntent();
         id = intent.getStringExtra("qrID");
-        // back = findViewById(R.id.qrcode_back);
         name = findViewById(R.id.qrcode_name);
         score = findViewById(R.id.qrcode_score);
-        //comment = findViewById(R.id.qrcode_comment);
         image = findViewById(R.id.image_qrcode);
-        //other = findViewById(R.id.qrcode_other);
 
         viewPager = findViewById(R.id.viewPager);
         tabLayout = findViewById(R.id.tablayout);
@@ -144,26 +138,6 @@ public class DetailQrCode extends AppCompatActivity {
         });
 
 
-        /**
-        comment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(DetailQrCode.this, CommentsActivity.class);
-                intent.putExtra("QrCodeID", id);
-                startActivity(intent);
-            }
-        });
-
-        other.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(DetailQrCode.this, OthersWhoScannedQrCodeActivity.class);
-                intent.putExtra("QrCodeID", id);
-                startActivity(intent);
-            }
-        });
-
-         **/
     }
 
     @Override
