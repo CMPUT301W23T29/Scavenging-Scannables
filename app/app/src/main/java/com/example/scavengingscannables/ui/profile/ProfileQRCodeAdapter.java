@@ -24,6 +24,9 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+/**
+ * Adapter to display qrcodes in the grid
+ */
 public class ProfileQRCodeAdapter extends RecyclerView.Adapter<ProfileQRCodeAdapter.ViewHolder> {
 
     private final ArrayList<QrCode> qrCodes;

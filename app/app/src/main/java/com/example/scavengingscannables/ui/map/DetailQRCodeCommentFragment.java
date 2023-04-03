@@ -24,6 +24,9 @@ import com.example.scavengingscannables.ui.profile.Comment;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Fragment to display qrcode comments
+ */
 public class DetailQRCodeCommentFragment extends Fragment {
     private ArrayList<Comment> comments;
     private RecyclerView commentsView;

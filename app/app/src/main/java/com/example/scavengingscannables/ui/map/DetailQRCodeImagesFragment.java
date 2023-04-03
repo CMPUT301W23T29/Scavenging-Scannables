@@ -15,6 +15,9 @@ import com.example.scavengingscannables.databinding.DetailQrcodeLocationsBinding
 
 import java.util.ArrayList;
 
+/**
+ * Fragment to display the image locations
+ */
 public class DetailQRCodeImagesFragment extends Fragment {
     private ArrayList<QRCodeImageLocationInfo> qrCodeImageLocationInfos = null;
     private RecyclerView othersView;

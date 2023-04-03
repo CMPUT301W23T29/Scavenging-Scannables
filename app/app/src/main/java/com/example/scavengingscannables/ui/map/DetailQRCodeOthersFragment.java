@@ -15,6 +15,9 @@ import com.example.scavengingscannables.ui.search.SearchResultAdapter;
 
 import java.util.ArrayList;
 
+/**
+ * Fragment to display others who have also scanned
+ */
 public class DetailQRCodeOthersFragment extends Fragment {
     private ArrayList<String> usernames = null;
     private RecyclerView othersView;

@@ -14,6 +14,9 @@ import com.example.scavengingscannables.ui.profile.OtherPlayerProfileActivity;
 
 import java.util.ArrayList;
 
+/**
+ * Adapter for search results
+ */
 public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapter.ViewHolder> {
     private final ArrayList<String> usernames;
 
