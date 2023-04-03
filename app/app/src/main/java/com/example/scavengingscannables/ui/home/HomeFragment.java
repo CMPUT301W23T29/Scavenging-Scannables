@@ -27,6 +27,7 @@ import com.example.scavengingscannables.Player;
 import com.example.scavengingscannables.QrCode;
 import com.example.scavengingscannables.R;
 import com.example.scavengingscannables.databinding.FragmentHomeBinding;
+import com.example.scavengingscannables.ui.profile.OtherPlayerProfileActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -123,7 +124,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 target = output1.get(i);
-                Intent intent = new Intent(getActivity(), DisplaySearch.class);
+                Intent intent = new Intent(getActivity(), OtherPlayerProfileActivity.class);
                 intent.putExtra("user",target);
                 startActivity(intent);
             }

@@ -46,7 +46,7 @@ public class DetailQRCodeImagesFragment extends Fragment {
 
         othersView.setAdapter(adapter);
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
 
         othersView.setLayoutManager(linearLayoutManager);
 

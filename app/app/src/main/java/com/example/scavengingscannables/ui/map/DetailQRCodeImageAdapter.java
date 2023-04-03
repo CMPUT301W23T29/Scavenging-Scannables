@@ -63,7 +63,7 @@ public class DetailQRCodeImageAdapter extends RecyclerView.Adapter<DetailQRCodeI
         }
 
         if (qrCodeImageLocationInfo.getIsImagePrivate()){
-            viewHolder.getImageView().setImageResource(R.drawable.vector_photo);
+            viewHolder.getImageView().setImageResource(R.drawable.ic_question_mark_black_24dp);
         }else{
             viewHolder.getImageView().setImageBitmap(qrCodeImageLocationInfo.convertBase64ToImage());
         }
