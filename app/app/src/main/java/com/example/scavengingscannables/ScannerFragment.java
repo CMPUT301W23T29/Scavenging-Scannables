@@ -69,7 +69,7 @@ public class ScannerFragment extends Fragment implements FirestoreDatabaseCallba
 
                         // Create new QRCodeHandler to handle our QR code
                         // Pass in everything we'll need to create a new QR code and save it to the database
-                        qrch = new QRCodeHandler(getActivity(), sha256hex, score, fdc, locationMap, image, username);
+                        qrch = new QRCodeHandler(sha256hex, score, fdc, locationMap, image, username);
 
                         fdc.CheckQRIDExists(sha256hex, qrch);
                     }
@@ -212,7 +212,7 @@ public class ScannerFragment extends Fragment implements FirestoreDatabaseCallba
                         dialog.dismiss();
                         // Create new QRCodeHandler to handle our QR code
                         // Pass in everything we would need to potentially create a new QR code and save it to the database
-                        qrch = new QRCodeHandler(getActivity(), sha256hex, score, fdc, locationMap, image, username);
+                        qrch = new QRCodeHandler(sha256hex, score, fdc, locationMap, image, username);
 
                         // Check if the QR code we scanned already exists in the database
                         fdc.CheckQRIDExists(sha256hex, qrch);

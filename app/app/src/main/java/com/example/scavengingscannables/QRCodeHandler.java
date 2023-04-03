@@ -40,8 +40,6 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
 
     private NamingSystem namsys = new NamingSystem();
 
-    private Activity activity;
-
     private Bitmap image;
 
     private String hash;
@@ -56,8 +54,7 @@ public class QRCodeHandler implements FirestoreDatabaseCallback {
 
     private HashMap<String, Double> locationMap;
 
-    public QRCodeHandler(Activity activity, String hash, int score, FirestoreDatabaseController fdc, HashMap<String, Double> locationMap, Bitmap image, String username) {
-       this.activity = activity;
+    public QRCodeHandler(String hash, int score, FirestoreDatabaseController fdc, HashMap<String, Double> locationMap, Bitmap image, String username) {
        this.hash = hash;
        this.score = score;
        this.fdc = fdc;
