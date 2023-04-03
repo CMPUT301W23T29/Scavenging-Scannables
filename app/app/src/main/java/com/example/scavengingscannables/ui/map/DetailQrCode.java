@@ -66,7 +66,7 @@ public class DetailQrCode extends AppCompatActivity {
                 qrCode = q;
                 name.setText(q.getNameText());
                 score.setText(q.getScore());
-                Picasso.get().load(q.getVisualLink()).into(image);
+                Picasso.get().load(q.getVisualLink()).placeholder(R.drawable.ic_question_mark_black_24dp).into(image);
 
                 ArrayList<Comment> commentArrayList = new ArrayList<>();
                 qrCode.getComments().forEach((key, value) -> {

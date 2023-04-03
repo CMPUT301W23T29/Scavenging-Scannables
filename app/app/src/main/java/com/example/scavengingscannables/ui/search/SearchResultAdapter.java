@@ -15,6 +15,7 @@ import com.example.scavengingscannables.Player;
 import com.example.scavengingscannables.R;
 import com.example.scavengingscannables.ui.home.DisplaySearch;
 import com.example.scavengingscannables.ui.home.FindUserActivity;
+import com.example.scavengingscannables.ui.profile.OtherPlayerProfileActivity;
 
 import java.util.ArrayList;
 
@@ -34,7 +35,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(view.getContext(), DisplaySearch.class);
+                    Intent intent = new Intent(view.getContext(), OtherPlayerProfileActivity.class);
                     intent.putExtra("user", textView.getText());
                     view.getContext().startActivity(intent);
                 }

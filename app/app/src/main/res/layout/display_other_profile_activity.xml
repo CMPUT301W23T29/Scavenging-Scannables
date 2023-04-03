@@ -151,20 +151,6 @@
 
         </LinearLayout>
 
-        <Switch
-            android:id="@+id/hide"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:checked="false"
-            android:text="Hide profile"
-            android:textSize="25dp"
-            app:layout_constraintBottom_toTopOf="@+id/profile_recycler_view"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/linearLayout2" />
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/profile_recycler_view"
             android:layout_width="400dp"
@@ -174,7 +160,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/hide">
+            app:layout_constraintTop_toBottomOf="@id/linearLayout2">
 
         </androidx.recyclerview.widget.RecyclerView>
 

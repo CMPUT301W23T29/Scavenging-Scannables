@@ -72,7 +72,7 @@ public class Player {
     public String getHighest(){return highest;};
     public void setLowest(String lid){this.lowest = lid;};
     public String getLowest(){return lowest;};
-    public void setTotal(String tota){this.total = tota;};
+    public void setTotal(String total){this.total = total;};
     public String getTotal(){return total;};
 
     public Long getPhoneNumber() {

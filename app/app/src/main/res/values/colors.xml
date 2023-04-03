@@ -15,4 +15,8 @@
     <color name="blue2">#49e7ec</color>
     <color name="red1">#ff4f69</color>
     <color name="red2">#ab1f65</color>
+
+    <color name="bronze">#A77044</color>
+    <color name="silver">#D7D7D7 </color>
+    <color name="gold">#FEE101</color>
 </resources>
