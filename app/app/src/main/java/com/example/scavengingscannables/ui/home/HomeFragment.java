@@ -42,6 +42,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Home fragment, which will host the leaderboards in the future
@@ -69,13 +70,16 @@ public class HomeFragment extends Fragment {
     private RecyclerView top10LeaderboardRecyclerView;
     private Top10LeaderboardAdapter top10LeaderboardAdapter;
     private ArrayList<Player> allPlayers = new ArrayList<>();
-
+    private ArrayList<Player> top10Players = new ArrayList<>();
     private RecyclerView top10QRCodeLeaderboardRecyclerView;
     private Top10QRCodeLeaderboardAdapter top10QRCodeLeaderboardAdapter;
     private ArrayList<QrCode> allQRCodes = new ArrayList<>();
     private ImageView top1;
     private ImageView top2;
     private ImageView top3;
+    private TextView myRankingPosition;
+    private TextView myRankingName;
+    private TextView myRankingScore;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
@@ -103,6 +107,13 @@ public class HomeFragment extends Fragment {
         top1 = root.findViewById(R.id.top1_qrcode_image);
         top2 = root.findViewById(R.id.top2_qrcode_image);
         top3 = root.findViewById(R.id.top3_qrcode_image);
+
+        View myRankingView = root.findViewById(R.id.my_ranking);
+        myRankingPosition = myRankingView.findViewById(R.id.leaderboard_position);
+        myRankingName = myRankingView.findViewById(R.id.player_name);
+        myRankingScore = myRankingView.findViewById(R.id.player_score);
+
+        myRankingName.setText(name);
 
         allPlayers.clear();
         allQRCodes.clear();
@@ -148,17 +159,31 @@ public class HomeFragment extends Fragment {
                         @Override
                         public <T> void OnDataCallback(T data) {
                             Player p = (Player) data;
-
+                            top10Players.add(p);
                             allPlayers.add(p);
+                            top10Players.sort(new Comparator<Player>() {
+                                @Override
+                                public int compare(Player player, Player t1) {
+                                    return Integer.parseInt(t1.getTotal()) - Integer.parseInt(player.getTotal());
+                                }
+                            });
                             allPlayers.sort(new Comparator<Player>() {
                                 @Override
                                 public int compare(Player player, Player t1) {
                                     return Integer.parseInt(t1.getTotal()) - Integer.parseInt(player.getTotal());
                                 }
                             });
-                            while(allPlayers.size() > 10){
-                                allPlayers.remove(allPlayers.size() - 1);
+                            while(top10Players.size() > 10){
+                                top10Players.remove(top10Players.size() - 1);
                             }
+
+                            for (Player pl:allPlayers) {
+                                if(pl.getUsername().equals(name)){
+                                    myRankingPosition.setText(String.valueOf(allPlayers.indexOf(pl) + 1));
+                                    myRankingScore.setText(String.valueOf(pl.getTotal()));
+                                }
+                            }
+
                             top10LeaderboardAdapter.notifyDataSetChanged();
                         }
                     });

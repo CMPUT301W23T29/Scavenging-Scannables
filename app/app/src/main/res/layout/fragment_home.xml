@@ -50,6 +50,23 @@
             android:layout_marginRight="8dp"
             tools:itemCount="10"
             tools:listitem="@layout/top10_leaderboard_adapter_layout" />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/my_ranking_divider"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_below="@id/top10_leaderboard">
+        </com.google.android.material.divider.MaterialDivider>
+
+        <include layout="@layout/top10_leaderboard_adapter_layout"
+            android:id="@+id/my_ranking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_below="@id/my_ranking_divider"/>
     </RelativeLayout>
 
     <com.google.android.material.divider.MaterialDivider
@@ -66,58 +83,50 @@
         android:id="@+id/top10_qrcode_relativelayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/leaderboard_divider"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp">
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/leaderboard_divider">
+
         <ImageView
             android:id="@+id/top_qrcode_image"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:layout_marginTop="8dp"
             android:layout_marginLeft="8dp"
-            android:src="@drawable/vector_medal"
-            android:contentDescription="Leaderboard Icon">
-        </ImageView>
+            android:layout_marginTop="8dp"
+            android:contentDescription="Leaderboard Icon"
+            android:src="@drawable/vector_medal"></ImageView>
+
         <TextView
             android:id="@+id/top_qrcode_title"
             android:layout_width="wrap_content"
             android:layout_height="20dp"
-            android:layout_marginTop="8dp"
             android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_toEndOf="@id/top_qrcode_image"
             android:text="Top 10 Scannables"
             android:textColor="@color/black"
-            android:textStyle="bold"
-            android:layout_toEndOf="@id/top_qrcode_image">
+            android:textStyle="bold">
 
         </TextView>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/top3_qrcodes_constraintlayout"
-            android:layout_below="@id/top_qrcode_title"
-            android:layout_marginTop="8dp"
-            android:layout_marginLeft="8dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_below="@id/top_qrcode_title"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp">
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/top2_qrcode_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginTop="50dp"
-                app:layout_constraintRight_toLeftOf="@id/top1_qrcode_layout">
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-                    <ImageView
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:src="@drawable/vector_medal"
-                        app:tint="@color/silver" />
-                </LinearLayout>
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/top1_qrcode_layout"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -131,26 +140,28 @@
                         android:layout_height="100dp"
                         android:src="@drawable/ic_question_mark_black_24dp" />
                 </LinearLayout>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/top1_qrcode_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/top2_qrcode_layout"
-                app:layout_constraintRight_toLeftOf="@id/top3_qrcode_layout">
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
+
                     <ImageView
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:src="@drawable/vector_medal"
-                        app:tint="@color/gold" />
+                        app:tint="@color/silver" />
                 </LinearLayout>
 
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/top1_qrcode_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toRightOf="@id/top2_qrcode_layout"
+                app:layout_constraintRight_toLeftOf="@id/top3_qrcode_layout"
+                app:layout_constraintTop_toTopOf="parent">
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -163,26 +174,30 @@
                         android:layout_height="100dp"
                         android:src="@drawable/ic_question_mark_black_24dp" />
                 </LinearLayout>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/top3_qrcode_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="100dp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/top1_qrcode_layout"
-                app:layout_constraintRight_toRightOf="parent">
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
+
                     <ImageView
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:src="@drawable/vector_medal"
-                        app:tint="@color/bronze" />
+                        app:tint="@color/gold" />
                 </LinearLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/top3_qrcode_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="100dp"
+                app:layout_constraintLeft_toRightOf="@id/top1_qrcode_layout"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -196,6 +211,19 @@
                         android:layout_height="100dp"
                         android:src="@drawable/ic_question_mark_black_24dp" />
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/vector_medal"
+                        app:tint="@color/bronze" />
+                </LinearLayout>
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
