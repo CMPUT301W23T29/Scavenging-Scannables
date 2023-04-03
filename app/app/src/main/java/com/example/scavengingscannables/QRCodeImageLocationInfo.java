@@ -34,7 +34,7 @@ public class QRCodeImageLocationInfo {
     private String convertImageToBase64(Bitmap image){
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         if (image != null) {
-            image.compress(Bitmap.CompressFormat.JPEG, 50, baos);
+            image.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         }
         byte [] b = baos.toByteArray();
         return Base64.encodeToString(b, Base64.DEFAULT);

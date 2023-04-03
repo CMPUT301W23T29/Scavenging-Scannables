@@ -146,7 +146,7 @@ public class ScannerFragment extends Fragment implements FirestoreDatabaseCallba
                     })
                     .create().show();
         } else {
-            requestPermissions(new String[] {Manifest.permission.CAMERA}, CAMERA_PERMISSION_CODE);
+            ActivityCompat.requestPermissions(getActivity(), new String[] {Manifest.permission.CAMERA}, CAMERA_PERMISSION_CODE);
         }
     }
 
