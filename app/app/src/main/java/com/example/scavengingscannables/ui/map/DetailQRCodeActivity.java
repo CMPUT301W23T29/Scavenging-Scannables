@@ -26,7 +26,7 @@ import java.util.ArrayList;
 /**
  * Allows to open and view individual qr codes
  */
-public class DetailQrCode extends AppCompatActivity {
+public class DetailQRCodeActivity extends AppCompatActivity {
 
     String id;
     TextView name;
